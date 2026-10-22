@@ -1,0 +1,70 @@
+# =============================================================================
+# Secrets & Variables d'environnement (Clés API Gemini, etc.)
+# =============================================================================
+.env
+.env.*
+!.env.example
+
+# =============================================================================
+# Artefacts de Build Osarai (Site statique, Decks Anki compilés & Cache IA)
+# =============================================================================
+dist/
+site/
+*.apkg
+*.colpkg
+.osarai_cache/
+tmp/
+
+# =============================================================================
+# Python — Bytecode, Environnements virtuels, Packaging & Tests
+# =============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Environnements virtuels
+.venv/
+venv/
+ENV/
+env/
+
+# Packaging & Distribution
+build/
+develop-eggs/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Tests, Linters & Type-checking
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.mypy_cache/
+.ruff_cache/
+
+# =============================================================================
+# Système (macOS / Linux / Windows) & Éditeurs (IDE)
+# =============================================================================
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
