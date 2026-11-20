@@ -1,19 +1,10 @@
 # =============================================================================
-# Secrets & Variables d'environnement (Clés API Gemini, etc.)
-# =============================================================================
-.env
-.env.*
-!.env.example
-
-# =============================================================================
-# Artefacts de Build Osarai (Site statique, Decks Anki compilés & Cache IA)
+# Artefacts de Build Osarai (Site statique, Decks Anki compilés & Fichiers temporaires)
 # =============================================================================
 dist/
-site/
 *.apkg
 *.colpkg
-.osarai_cache/
-tmp/
+.osarai_tmp/
 
 # =============================================================================
 # Python — Bytecode, Environnements virtuels, Packaging & Tests

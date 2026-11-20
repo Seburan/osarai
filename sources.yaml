@@ -1,0 +1,81 @@
+schema_version: 1
+
+allowed_licenses:
+  - "Etalab-2.0"
+  - "CC0-1.0"
+  - "CC-PDM-1.0"
+  - "CC-BY-2.0"
+  - "CC-BY-2.5"
+  - "CC-BY-3.0"
+  - "CC-BY-4.0"
+  - "CC-BY-SA-2.0"
+  - "CC-BY-SA-2.5"
+  - "CC-BY-SA-3.0"
+  - "CC-BY-SA-4.0"
+
+grounding_and_media_sources:
+  - domain: "eduscol.education.gouv.fr"
+    allow_grounding: true
+    allow_embed_media: false
+    adapter: "eduscol_bo"
+  - domain: "eduscol.education.fr"
+    allow_grounding: true
+    allow_embed_media: false
+    adapter: "eduscol_bo"
+  - domain: "education.gouv.fr"
+    allow_grounding: true
+    allow_embed_media: false
+    adapter: "eduscol_bo"
+  - domain: "data.education.gouv.fr"
+    allow_grounding: true
+    allow_embed_media: false
+    adapter: "eduscol_bo"
+  - domain: "fr.vikidia.org"
+    allow_grounding: true
+    allow_embed_media: false
+    adapter: "mediawiki_text"
+  - domain: "fr.wikipedia.org"
+    allow_grounding: true
+    allow_embed_media: false
+    adapter: "mediawiki_text"
+  - domain: "commons.wikimedia.org"
+    allow_grounding: false
+    allow_embed_media: true
+    adapter: "wikimedia_commons"
+  - domain: "upload.wikimedia.org"
+    allow_grounding: false
+    allow_embed_media: true
+    adapter: "wikimedia_commons"
+
+outbound_only_sources:
+  - domain: "lumni.fr"
+    allow_grounding: false
+    allow_embed_media: false
+    adapter: "outbound_probe"
+  - domain: "lelivrescolaire.fr"
+    allow_grounding: false
+    allow_embed_media: false
+    adapter: "outbound_probe"
+  - domain: "coopmaths.fr"
+    allow_grounding: false
+    allow_embed_media: false
+    adapter: "outbound_probe"
+  - domain: "sesamath.net"
+    allow_grounding: false
+    allow_embed_media: false
+    adapter: "outbound_probe"
+  - domain: "youtube.com"
+    allow_grounding: false
+    allow_embed_media: false
+    adapter: "outbound_probe"
+  - domain: "youtu.be"
+    allow_grounding: false
+    allow_embed_media: false
+    adapter: "outbound_probe"
+
+allowed_youtube_channel_urls:
+  - "https://www.youtube.com/@Lumni"
+  - "https://www.youtube.com/@YvanMonka"
+  - "https://www.youtube.com/@LesBonsProfs"
+  - "https://www.youtube.com/@Cestpassorcierofficiel"
+  - "https://www.youtube.com/@ARTE"
