@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
-from collections.abc import Callable, Mapping
 import hashlib
 import json
+from collections.abc import Callable, Mapping
 from pathlib import Path
 from typing import Any
 
@@ -74,12 +74,11 @@ def get_yaml_line(node: Any, key_or_index: str | int | None = None) -> int | Non
 
 
 def dump_yaml_roundtrip(path: Path, updater_fn: Callable[[Any], None]) -> None:
-    """Met à jour un fichier YAML 1.2 sur place en préservant commentaires, guillemets et indentation."""
+    """Met à jour un fichier YAML 1.2 sur place (commentaires, guillemets et indentation)."""
     yaml = YAML(typ="rt")
-    yaml.version = (1, 2)
     yaml.preserve_quotes = True
     yaml.indent(mapping=2, sequence=4, offset=2)
-    yaml.width = 100
+    yaml.width = 4096
     try:
         with path.open("r", encoding="utf-8") as handle:
             data = yaml.load(handle)
@@ -119,7 +118,7 @@ def card_canonical_fields(
     card_json: Mapping[str, Any],
     active_cloze_index: int | None = None,
 ) -> dict[str, Any]:
-    """Construit le dictionnaire canonique d'une carte mémoire à partir de `model_dump(mode='json')`."""
+    """Construit les champs canoniques d'une carte depuis `model_dump(mode='json')`."""
     return {
         "type": card_json["type"],
         "front": card_json["front"],

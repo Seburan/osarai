@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
 import hashlib
 import json
-from pathlib import Path
 import re
+from dataclasses import dataclass, field
+from pathlib import Path
 from typing import Any
 
 from PIL import Image, UnidentifiedImageError
@@ -673,9 +673,7 @@ def _validate_single_theme(
                             code="UNKNOWN_ASSET_ID",
                             file=rel_cards,
                             line=card_line,
-                            message=(
-                                f"`asset_id` ({card.asset_id!r}) absent de `assets.yaml`."
-                            ),
+                            message=(f"`asset_id` ({card.asset_id!r}) absent de `assets.yaml`."),
                         )
                     )
 
@@ -688,7 +686,7 @@ def _validate_single_theme(
                             file=rel_cards,
                             line=card_line,
                             message=(
-                                f"Champ `id` manquant : renseignez `id: \"{exp_id}\"` et mettez "
+                                f'Champ `id` manquant : renseignez `id: "{exp_id}"` et mettez '
                                 f"à jour `last_card_seq: {final_expected_card_seq}` dans "
                                 f"`meta.yaml` (ou exécutez `uv run osarai assign-ids --theme "
                                 f"{_rel_str(theme_dir, repo_root)}`)."
@@ -706,9 +704,7 @@ def _validate_single_theme(
                                 code="CARD_ID_PREFIX_MISMATCH",
                                 file=rel_cards,
                                 line=card_line,
-                                message=(
-                                    f"`id` ({card.id!r}) ne commence pas par `{prefix}-c`."
-                                ),
+                                message=(f"`id` ({card.id!r}) ne commence pas par `{prefix}-c`."),
                             )
                         )
                     else:
@@ -912,7 +908,7 @@ def _validate_single_theme(
                             file=rel_quiz,
                             line=q_line,
                             message=(
-                                f"Champ `id` manquant : renseignez `id: \"{exp_qid}\"` et mettez "
+                                f'Champ `id` manquant : renseignez `id: "{exp_qid}"` et mettez '
                                 f"à jour `last_quiz_seq: {final_expected_quiz_seq}` dans "
                                 f"`meta.yaml` (ou exécutez `uv run osarai assign-ids --theme "
                                 f"{_rel_str(theme_dir, repo_root)}`)."

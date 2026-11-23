@@ -95,6 +95,18 @@ def test_cli_validate_feedback_mode(tmp_path: Path) -> None:
     assert res.exit_code == 0
     assert json.loads(res.stdout)["item_count"] == 1
 
-    missing = runner.invoke(app, ["validate", "--feedback", str(tmp_path / "absent.json"), "--json"])
+    res_txt = runner.invoke(app, ["validate", "--feedback", str(fb)])
+    assert res_txt.exit_code == 0
+    assert "osarai-feedback-v1" in res_txt.stdout
+
+    missing = runner.invoke(
+        app, ["validate", "--feedback", str(tmp_path / "absent.json"), "--json"]
+    )
     assert missing.exit_code == 2
     assert json.loads(missing.stdout)["ok"] is False
+
+    missing_txt = runner.invoke(app, ["validate", "--feedback", str(tmp_path / "absent.json")])
+    assert missing_txt.exit_code == 2
+
+    bad_assign = runner.invoke(app, ["assign-ids", "--theme", str(tmp_path / "no-theme")])
+    assert bad_assign.exit_code == 2

@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 import hashlib
-from pathlib import Path
 import shutil
 import subprocess
+from pathlib import Path
 
-from PIL import Image
 import pytest
+from PIL import Image
 
 WORKSPACE_ROOT = Path(__file__).resolve().parents[1]
 
@@ -146,7 +146,7 @@ du dioxyde de carbone \\(\\text{{CO}}_2\\).
 
 ## Définitions clés
 
-- **Alvéole pulmonaire** : petit sac microscopique à paroi très fine situé à l'extrémité des bronchioles.
+- **Alvéole pulmonaire** : petit sac à paroi très fine situé à l'extrémité des bronchioles.
 
 ## Schémas et repères
 
@@ -193,13 +193,17 @@ Ne pas confondre la ventilation pulmonaire (mouvements d'air) et les échanges g
         badge: "A" """
     )
     # Carte 2 : cloze à 2 indices avec formule mathématique
+    cloze_front = (
+        "Un muscle en activité consomme {{c1::du dioxygène::gaz}} "
+        "et rejette {{c2::\\\\(\\\\text{CO}_2\\\\) ::formule}}."
+    )
     cards_lines.append(
-        """  - id: "c4-svt-la-respiration-c0002"
+        f"""  - id: "c4-svt-la-respiration-c0002"
     concept_id: "besoins-organes"
     reperes_level: "5eme"
     priority: "essentiel"
     type: "cloze"
-    front: "Un muscle en activité consomme {{c1::du dioxygène::gaz}} et rejette {{c2::\\\\(\\\\text{CO}_2\\\\) ::formule}}."
+    front: "{cloze_front}"
     back: "" """
     )
     for idx in range(3, 21):
@@ -258,6 +262,65 @@ resources:
     )
 
     return repo
+
+
+def build_tabular_pdf_bytes() -> bytes:
+    """Construit en mémoire un PDF 1.4 minimal contenant un titre et un tableau 2x2."""
+    stream = (
+        "BT /F1 14 Tf 60 780 Td (Programme officiel SVT Cycle 4) Tj ET\n"
+        "1 w\n"
+        "60 720 m 460 720 l S\n"
+        "60 680 m 460 680 l S\n"
+        "60 640 m 460 640 l S\n"
+        "60 640 m 60 720 l S\n"
+        "260 640 m 260 720 l S\n"
+        "460 640 m 460 720 l S\n"
+        "BT /F1 11 Tf 70 695 Td (5e) Tj ET\n"
+        "BT /F1 11 Tf 270 695 Td (4e) Tj ET\n"
+        "BT /F1 11 Tf 70 655 Td (Respiration) Tj ET\n"
+        "BT /F1 11 Tf 270 655 Td (Reproduction) Tj ET\n"
+    ).encode("latin-1")
+
+    page_obj = (
+        b"3 0 obj << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] "
+        b"/Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >> endobj\n"
+    )
+    font_obj = (
+        b"4 0 obj << /Type /Font /Subtype /Type1 /BaseFont /Helvetica "
+        b"/Encoding /WinAnsiEncoding >> endobj\n"
+    )
+    content_obj = (
+        f"5 0 obj << /Length {len(stream)} >>\nstream\n".encode("ascii")
+        + stream
+        + b"endstream\nendobj\n"
+    )
+    objs = [
+        b"1 0 obj << /Type /Catalog /Pages 2 0 R >> endobj\n",
+        b"2 0 obj << /Type /Pages /Kids [3 0 R] /Count 1 >> endobj\n",
+        page_obj,
+        font_obj,
+        content_obj,
+    ]
+    out = bytearray(b"%PDF-1.4\n")
+    offsets: list[int] = []
+    for obj in objs:
+        offsets.append(len(out))
+        out.extend(obj)
+    xref_pos = len(out)
+    out.extend(f"xref\n0 {len(objs) + 1}\n0000000000 65535 f \n".encode("ascii"))
+    for off in offsets:
+        out.extend(f"{off:010d} 00000 n \n".encode("ascii"))
+    trailer = f"trailer << /Size {len(objs) + 1} /Root 1 0 R >>\nstartxref\n{xref_pos}\n%%EOF\n"
+    out.extend(trailer.encode("ascii"))
+    return bytes(out)
+
+
+@pytest.fixture()
+def sample_tabular_pdf(tmp_path: Path) -> Path:
+    """Écrit le PDF tabulaire minimal dans `tmp_path` et retourne son chemin."""
+    pdf_path = tmp_path / "bo_svt_cycle4.pdf"
+    pdf_path.write_bytes(build_tabular_pdf_bytes())
+    return pdf_path
 
 
 @pytest.fixture()

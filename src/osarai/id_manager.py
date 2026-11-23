@@ -2,9 +2,9 @@
 
 from __future__ import annotations
 
+import subprocess
 from dataclasses import dataclass
 from pathlib import Path
-import subprocess
 from typing import Any, Literal
 
 from ruamel.yaml import YAML
@@ -349,9 +349,7 @@ def check_immutable_ids_against_git(repo_root: Path, git_ref: str) -> list[Valid
                     code="RETIRED_ID_REUSED",
                     file=f"{theme_rel}/flashcards.yaml",
                     line=None,
-                    message=(
-                        f"L'identifiant retiré `{resurrected}` ne peut pas être réactivé."
-                    ),
+                    message=(f"L'identifiant retiré `{resurrected}` ne peut pas être réactivé."),
                 )
             )
 
@@ -388,9 +386,7 @@ def check_immutable_ids_against_git(repo_root: Path, git_ref: str) -> list[Valid
                     code="RETIRED_ID_REUSED",
                     file=f"{theme_rel}/quiz.yaml",
                     line=None,
-                    message=(
-                        f"L'identifiant retiré `{resurrected_q}` ne peut pas être réactivé."
-                    ),
+                    message=(f"L'identifiant retiré `{resurrected_q}` ne peut pas être réactivé."),
                 )
             )
 

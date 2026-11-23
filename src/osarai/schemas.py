@@ -2,11 +2,11 @@
 
 from __future__ import annotations
 
+import re
+import unicodedata
 from dataclasses import dataclass
 from datetime import date, datetime
-import re
 from typing import Annotated, Literal
-import unicodedata
 from urllib.parse import parse_qs, urlparse
 
 from pydantic import BaseModel, ConfigDict, Field, ValidationInfo, field_validator, model_validator
@@ -170,8 +170,10 @@ def _check_latex_braces_balanced(expr: str) -> None:
         raise ValueError(f"Accolades `{{...}}` déséquilibrées dans la formule `{expr}`.")
 
 
-def validate_latex_fragment(text: str, *, allow_block: bool = True, allow_fenced: bool = False) -> None:
-    """Vérifie l'absence de `\\ce{...}` et l'équilibre strict de `\\(...\\)`, `\\[...\\]` et `{...}`."""
+def validate_latex_fragment(
+    text: str, *, allow_block: bool = True, allow_fenced: bool = False
+) -> None:
+    """Vérifie l'absence de `\\ce{...}` et l'équilibre de `\\(...\\)`, `\\[...\\]` et `{...}`."""
     target = _strip_code_spans(text, allow_fenced=allow_fenced)
     if CE_MACRO_RE.search(target):
         raise ValueError(
@@ -280,7 +282,9 @@ def parse_cloze_tokens(text: str) -> list[ClozeToken]:
         answer = parts[0]
         hint = parts[1] if len(parts) == 2 else None
         if not answer.strip():
-            raise ValueError(f"La réponse de la balise `{{{{c{idx}::...}}}}` ne peut pas être vide.")
+            raise ValueError(
+                f"La réponse de la balise `{{{{c{idx}::...}}}}` ne peut pas être vide."
+            )
         if hint is not None and "::" in hint:
             raise ValueError(
                 f"Trop de séparateurs `::` dans `{{{{c{idx}::...}}}}` (un seul indice autorisé)."
@@ -300,7 +304,7 @@ def parse_cloze_tokens(text: str) -> list[ClozeToken]:
 
 
 def validate_https_clean_url(url: str, *, forbid_trackers: bool = True) -> str:
-    """Vérifie le schéma `https://`, la présence d'un hôte et l'absence de traceurs `utm_*`/`fbclid`."""
+    """Vérifie `https://`, la présence d'un hôte et l'absence de traceurs `utm_*`/`fbclid`."""
     cleaned = url.strip()
     parsed = urlparse(cleaned)
     if parsed.scheme != "https" or not parsed.netloc:
@@ -396,7 +400,7 @@ class SourcesPolicy(StrictModel):
         return False
 
     def is_allowed_youtube_channel(self, channel_url: str) -> bool:
-        """Vérifie sans sensibilité à la casse l'appartenance d'une chaîne YouTube à la liste blanche."""
+        """Vérifie (insensible à la casse) qu'une chaîne YouTube figure dans la liste blanche."""
         target = normalize_channel_url(channel_url)
         allowed = {normalize_channel_url(u) for u in self.allowed_youtube_channel_urls}
         return target in allowed
@@ -560,7 +564,9 @@ class ThemeMeta(StrictModel):
         seen_concepts: set[str] = set()
         for concept in self.key_concepts:
             if concept.concept_id in seen_concepts:
-                raise ValueError(f"`concept_id` dupliqué dans `meta.yaml` : {concept.concept_id!r}.")
+                raise ValueError(
+                    f"`concept_id` dupliqué dans `meta.yaml` : {concept.concept_id!r}."
+                )
             seen_concepts.add(concept.concept_id)
             if concept.reperes_level not in self.reperes_levels:
                 raise ValueError(
@@ -812,7 +818,8 @@ class Flashcard(StrictModel):
             visible_parts.append(self.front[cursor:])
 
             try:
-                validate_latex_fragment(" ".join(outside_parts), allow_block=True)
+                for outside_seg in outside_parts:
+                    validate_latex_fragment(outside_seg, allow_block=True)
             except ValueError as exc:
                 raise ValueError(
                     f"Délimiteur mathématique coupé par une balise Cloze ou invalide : {exc}"
@@ -1010,7 +1017,9 @@ class FeedbackItem(StrictModel):
 
     @model_validator(mode="after")
     def _check_item_type_matches_id(self) -> FeedbackItem:
-        expected_prefix = f"{CYCLE_CODE_MAP[self.cycle]}-{SUBJECT_CODE_MAP[self.subject]}-{self.theme_slug}-"
+        expected_prefix = (
+            f"{CYCLE_CODE_MAP[self.cycle]}-{SUBJECT_CODE_MAP[self.subject]}-{self.theme_slug}-"
+        )
         if not self.item_id.startswith(expected_prefix):
             raise ValueError(
                 f"`item_id` ({self.item_id!r}) ne correspond pas au thème `{expected_prefix}*`."
@@ -1070,9 +1079,7 @@ class BackupPayload(StrictModel):
     @field_validator("progress")
     @classmethod
     def _check_progress_keys(cls, value: dict[str, ThemeProgress]) -> dict[str, ThemeProgress]:
-        key_re = re.compile(
-            r"^(cycle-3|cycle-4):([a-z-]+):([a-z0-9]+(?:-[a-z0-9]+)*)$"
-        )
+        key_re = re.compile(r"^(cycle-3|cycle-4):([a-z-]+):([a-z0-9]+(?:-[a-z0-9]+)*)$")
         for key in value:
             if not key_re.match(key):
                 raise ValueError(

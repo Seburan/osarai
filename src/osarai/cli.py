@@ -55,23 +55,34 @@ def _handle_error(exc: OsaraiError, *, as_json: bool) -> None:
     raise typer.Exit(code=int(exc.exit_code))
 
 
+def _version_callback(value: bool) -> None:
+    if value:
+        typer.echo(f"osarai {__version__}")
+        raise typer.Exit(code=int(ExitCode.OK))
+
+
 @app.callback()
 def _main_callback(
     version: Annotated[
         bool,
-        typer.Option("--version", help="Afficher la version d'Osarai et quitter."),
+        typer.Option(
+            "--version",
+            callback=_version_callback,
+            is_eager=True,
+            help="Afficher la version d'Osarai et quitter.",
+        ),
     ] = False,
 ) -> None:
-    if version:
-        typer.echo(f"osarai {__version__}")
-        raise typer.Exit(code=int(ExitCode.OK))
+    """Point d'entrée principal de la CLI `osarai`."""
 
 
 @app.command("assign-ids")
 def cmd_assign_ids(
     theme: Annotated[
         Path,
-        typer.Option("--theme", help="Chemin du dossier de thème (`content/<cycle>/<matiere>/<theme>`)."),
+        typer.Option(
+            "--theme", help="Chemin du dossier de thème (`content/<cycle>/<matiere>/<theme>`)."
+        ),
     ],
     as_json: JsonOpt = False,
 ) -> None:
@@ -85,7 +96,10 @@ def cmd_assign_ids(
     payload = {"ok": True, **result.to_dict()}
     human = [
         f"Thème : {result.theme_dir}",
-        f"Cartes numérotées : {len(result.assigned_card_ids)} (last_card_seq={result.last_card_seq})",
+        (
+            f"Cartes numérotées : {len(result.assigned_card_ids)} "
+            f"(last_card_seq={result.last_card_seq})"
+        ),
         f"QCM numérotés : {len(result.assigned_quiz_ids)} (last_quiz_seq={result.last_quiz_seq})",
     ]
     _emit(payload, as_json=as_json, human_lines=human)
@@ -100,7 +114,9 @@ def cmd_validate(
     ] = None,
     against_ref: Annotated[
         str | None,
-        typer.Option("--against-ref", help="Vérifier l'immuabilité des ID contre cette référence Git."),
+        typer.Option(
+            "--against-ref", help="Vérifier l'immuabilité des ID contre cette référence Git."
+        ),
     ] = None,
     allow_empty_resources: Annotated[
         bool,
@@ -111,7 +127,9 @@ def cmd_validate(
     ] = False,
     feedback: Annotated[
         Path | None,
-        typer.Option("--feedback", help="Valider uniquement un fichier ou bloc `osarai-feedback-v1`."),
+        typer.Option(
+            "--feedback", help="Valider uniquement un fichier ou bloc `osarai-feedback-v1`."
+        ),
     ] = None,
     repo_root: RepoRootOpt = Path("."),
     as_json: JsonOpt = False,
@@ -130,7 +148,8 @@ def cmd_validate(
                 out,
                 as_json=as_json,
                 human_lines=[
-                    f"Signalement `{fb_payload.schema_name}` valide ({len(fb_payload.items)} élément(s))."
+                    f"Signalement `{fb_payload.schema_name}` valide "
+                    f"({len(fb_payload.items)} élément(s))."
                 ],
             )
             raise typer.Exit(code=int(ExitCode.OK))
