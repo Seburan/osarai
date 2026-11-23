@@ -1,10 +1,14 @@
-"""Tests CLI (`typer.testing.CliRunner`) pour le Jalon 1 (`assign-ids` et `validate`)."""
+"""Tests CLI (`typer.testing.CliRunner`) pour les Jalons 1 et 2."""
 
 from __future__ import annotations
 
+import io
 import json
 from pathlib import Path
 
+import httpx
+import respx
+from PIL import Image
 from typer.testing import CliRunner
 
 from osarai import __version__
@@ -110,3 +114,243 @@ def test_cli_validate_feedback_mode(tmp_path: Path) -> None:
 
     bad_assign = runner.invoke(app, ["assign-ids", "--theme", str(tmp_path / "no-theme")])
     assert bad_assign.exit_code == 2
+
+
+@respx.mock
+def test_cli_jalon2_subcommands(sample_repo: Path, sample_tabular_pdf: Path) -> None:
+    theme_dir = sample_repo / "content" / "cycle-4" / "svt" / "la-respiration"
+
+    # 1) preview-occlusions
+    prev_res = runner.invoke(
+        app,
+        [
+            "preview-occlusions",
+            "--repo-root",
+            str(sample_repo),
+            "--theme",
+            str(theme_dir),
+            "--json",
+        ],
+    )
+    assert prev_res.exit_code == 0
+    assert json.loads(prev_res.stdout)["count"] == 2
+
+    # 2) sync-bo --discover-url et erreurs d'options
+    bad_bo = runner.invoke(app, ["sync-bo", "--repo-root", str(sample_repo)])
+    assert bad_bo.exit_code == 2
+
+    respx.get("https://eduscol.education.gouv.fr/4362/enseigner-au-cycle-4").mock(
+        return_value=httpx.Response(
+            200,
+            text='<a href="/doc/prog.pdf">Programme</a>',
+        )
+    )
+    bo_disc = runner.invoke(
+        app,
+        [
+            "sync-bo",
+            "--repo-root",
+            str(sample_repo),
+            "--discover-url",
+            "https://eduscol.education.gouv.fr/4362/enseigner-au-cycle-4",
+            "--json",
+        ],
+    )
+    assert bo_disc.exit_code == 0
+    assert json.loads(bo_disc.stdout)["count"] == 1
+
+    pdf_bytes = sample_tabular_pdf.read_bytes()
+    dump_yaml_roundtrip(
+        sample_repo / "curriculum" / "sources" / "bo_manifest.yaml",
+        lambda d: d["subjects"][0]["documents"][0].__setitem__("sha256", None),
+    )
+    respx.get("https://eduscol.education.gouv.fr/document/12345/download").mock(
+        return_value=httpx.Response(200, content=pdf_bytes)
+    )
+    bo_sync = runner.invoke(
+        app,
+        [
+            "sync-bo",
+            "--repo-root",
+            str(sample_repo),
+            "--cycle",
+            "cycle-4",
+            "--subject",
+            "svt",
+            "--json",
+        ],
+    )
+    assert bo_sync.exit_code == 0
+    assert len(json.loads(bo_sync.stdout)["documents"]) == 1
+
+    # 3) fetch-grounding --search et --url
+    respx.get("https://fr.vikidia.org/w/api.php").mock(
+        return_value=httpx.Response(
+            200,
+            json={
+                "query": {
+                    "search": [{"title": "Respiration", "snippet": "Texte", "wordcount": 120}],
+                    "rightsinfo": {
+                        "url": "https://creativecommons.org/licenses/by-sa/3.0/deed.fr",
+                        "text": "CC BY-SA 3.0",
+                    },
+                    "pages": {
+                        "1": {
+                            "pageid": 1,
+                            "title": "Respiration",
+                            "extract": "Contenu libre Vikidia.",
+                            "revisions": [{"revid": 123, "timestamp": "2026-11-01T00:00:00Z"}],
+                        }
+                    },
+                }
+            },
+        )
+    )
+    fg_search = runner.invoke(
+        app,
+        [
+            "fetch-grounding",
+            "--repo-root",
+            str(sample_repo),
+            "--search",
+            "respiration",
+            "--domain",
+            "fr.vikidia.org",
+            "--json",
+        ],
+    )
+    assert fg_search.exit_code == 0
+    assert json.loads(fg_search.stdout)["count"] == 1
+
+    fg_url = runner.invoke(
+        app,
+        [
+            "fetch-grounding",
+            "--repo-root",
+            str(sample_repo),
+            "--url",
+            "https://fr.vikidia.org/wiki/Respiration",
+            "--json",
+        ],
+    )
+    assert fg_url.exit_code == 0
+    assert json.loads(fg_url.stdout)["credit"]["license_spdx"] == "CC-BY-SA-3.0"
+
+    # 4) fetch-commons --search et --file
+    img_buf = io.BytesIO()
+    Image.new("RGB", (600, 400), color=(250, 250, 250)).save(img_buf, format="PNG")
+    respx.get("https://commons.wikimedia.org/w/api.php").mock(
+        return_value=httpx.Response(
+            200,
+            json={
+                "query": {
+                    "pages": {
+                        "7": {
+                            "title": "File:Test_img.png",
+                            "imageinfo": [
+                                {
+                                    "mime": "image/png",
+                                    "width": 600,
+                                    "height": 400,
+                                    "url": "https://upload.wikimedia.org/test_img.png",
+                                    "extmetadata": {
+                                        "LicenseShortName": {"value": "CC0"},
+                                        "Artist": {"value": "Auteur Libre"},
+                                    },
+                                }
+                            ],
+                        }
+                    }
+                }
+            },
+        )
+    )
+    respx.get("https://upload.wikimedia.org/test_img.png").mock(
+        return_value=httpx.Response(200, content=img_buf.getvalue())
+    )
+    fc_search = runner.invoke(
+        app,
+        ["fetch-commons", "--repo-root", str(sample_repo), "--search", "poumon", "--json"],
+    )
+    assert fc_search.exit_code == 0
+    assert json.loads(fc_search.stdout)["count"] == 1
+
+    fc_import = runner.invoke(
+        app,
+        [
+            "fetch-commons",
+            "--repo-root",
+            str(sample_repo),
+            "--file",
+            "File:Test_img.png",
+            "--theme",
+            str(theme_dir),
+            "--asset-id",
+            "schema-test",
+            "--json",
+        ],
+    )
+    assert fc_import.exit_code == 0
+    assert json.loads(fc_import.stdout)["asset"]["hitl_verified"] is False
+
+    # 5) probe-links (code 0 pour tri HITL même sur lien candidat mort) et check-urls
+    respx.get("https://www.lumni.fr/video/la-respiration-humaine").mock(
+        return_value=httpx.Response(
+            200,
+            text="<html><head><title>La respiration — Lumni</title></head></html>",
+        )
+    )
+    respx.get("https://fr.vikidia.org/wiki/Appareil_respiratoire").mock(
+        return_value=httpx.Response(
+            200,
+            text="<html><head><title>Appareil respiratoire — Vikidia</title></head></html>",
+        )
+    )
+    respx.get("https://www.youtube.com/oembed").mock(
+        return_value=httpx.Response(
+            200,
+            json={"title": "Vidéo Lumni", "author_url": "https://www.youtube.com/@Lumni"},
+        )
+    )
+    respx.get("https://www.lumni.fr/video/introuvable").mock(return_value=httpx.Response(404))
+
+    probe_res = runner.invoke(
+        app,
+        [
+            "probe-links",
+            "--repo-root",
+            str(sample_repo),
+            "--url",
+            "https://www.lumni.fr/video/la-respiration-humaine",
+            "--url",
+            "https://www.lumni.fr/video/introuvable",
+            "--json",
+        ],
+    )
+    assert probe_res.exit_code == 0
+    probe_data = json.loads(probe_res.stdout)
+    assert probe_data["results"][0]["ok"] is True
+    assert probe_data["results"][1]["ok"] is False
+
+    chk_res = runner.invoke(
+        app,
+        ["check-urls", "--repo-root", str(sample_repo), "--json"],
+    )
+    assert chk_res.exit_code == 0
+    assert json.loads(chk_res.stdout)["ok"] is True
+
+    # Sorties humaines sans --json et erreurs d'options CLI
+    chk_txt = runner.invoke(app, ["check-urls", "--repo-root", str(sample_repo)])
+    assert chk_txt.exit_code == 0
+    assert "Liens vérifiés" in chk_txt.stdout
+
+    probe_err = runner.invoke(app, ["probe-links", "--repo-root", str(sample_repo), "--json"])
+    assert probe_err.exit_code == 2
+
+    fg_err = runner.invoke(app, ["fetch-grounding", "--repo-root", str(sample_repo), "--json"])
+    assert fg_err.exit_code == 2
+
+    fc_err = runner.invoke(
+        app, ["fetch-commons", "--repo-root", str(sample_repo), "--file", "File:X.png", "--json"]
+    )
+    assert fc_err.exit_code == 2

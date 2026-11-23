@@ -1,16 +1,25 @@
-"""Point d'entrée CLI `Typer` (`osarai`) — Jalon 1 (`assign-ids`, `validate`)."""
+"""Point d'entrée CLI `Typer` (`osarai`) — Jalons 1 & 2 (hors-ligne et utilitaires réseau)."""
 
 from __future__ import annotations
 
+import asyncio
 import json
 from pathlib import Path
 from typing import Annotated, Any
 
 import typer
+from pydantic import ValidationError
 
 from osarai import ExitCode, OsaraiError, __version__
+from osarai.bo_sync import discover_eduscol_pdfs, sync_and_extract_bo
+from osarai.commons_fetcher import fetch_commons_image, search_commons
+from osarai.grounding_fetcher import fetch_grounding, search_grounding
 from osarai.id_manager import assign_missing_ids
+from osarai.occlusion_preview import generate_occlusion_previews
+from osarai.schemas import SourcesPolicy
+from osarai.url_checker import check_repository_urls, probe_urls
 from osarai.validator import validate_feedback_file, validate_target
+from osarai.yaml_io import load_yaml
 
 app = typer.Typer(
     name="osarai",
@@ -33,7 +42,7 @@ RepoRootOpt = Annotated[
 ]
 
 
-def _emit(payload: dict[str, Any], *, as_json: bool, human_lines: list[str]) -> None:
+def _emit(payload: Any, *, as_json: bool, human_lines: list[str]) -> None:
     if as_json:
         typer.echo(json.dumps(payload, ensure_ascii=False, indent=2))
     else:
@@ -53,6 +62,34 @@ def _handle_error(exc: OsaraiError, *, as_json: bool) -> None:
     else:
         typer.echo(f"Erreur : {exc.message}", err=True)
     raise typer.Exit(code=int(exc.exit_code))
+
+
+def _resolve_theme_dir(repo_root: Path, theme: Path) -> Path:
+    if theme.is_absolute() or theme.exists():
+        return theme
+    return repo_root / theme
+
+
+def _load_sources_policy(repo_root: Path, theme: Path | None = None) -> SourcesPolicy:
+    candidates: list[Path] = []
+    if repo_root != Path("."):
+        candidates.append(repo_root / "sources.yaml")
+    if theme is not None:
+        resolved = theme.resolve()
+        if len(resolved.parts) >= 4 and resolved.parts[-4] == "content":
+            candidates.append(resolved.parents[3] / "sources.yaml")
+    candidates.append(repo_root / "sources.yaml")
+
+    sources_path = next((p for p in candidates if p.is_file()), candidates[0])
+    raw = load_yaml(sources_path)
+    try:
+        return SourcesPolicy.model_validate(raw)
+    except ValidationError as exc:
+        raise OsaraiError(
+            f"`sources.yaml` invalide ({sources_path}) : {exc}",
+            ExitCode.VALIDATION_ERROR,
+            details={"file": str(sources_path)},
+        ) from exc
 
 
 def _version_callback(value: bool) -> None:
@@ -76,19 +113,340 @@ def _main_callback(
     """Point d'entrée principal de la CLI `osarai`."""
 
 
+@app.command("sync-bo")
+def cmd_sync_bo(
+    discover_url: Annotated[
+        str | None,
+        typer.Option("--discover-url", help="URL d'une page sommaire Éduscol à inspecter."),
+    ] = None,
+    cycle: Annotated[
+        str | None,
+        typer.Option("--cycle", help="Cycle officiel à extraire (`cycle-3` ou `cycle-4`)."),
+    ] = None,
+    subject: Annotated[
+        str | None,
+        typer.Option("--subject", help="Matière officielle déclarée dans `bo_manifest.yaml`."),
+    ] = None,
+    repo_root: RepoRootOpt = Path("."),
+    as_json: JsonOpt = False,
+) -> None:
+    """Découvre les PDF officiels Éduscol ou extrait en Markdown tabulaire `bo_manifest.yaml`."""
+    try:
+        sources = _load_sources_policy(repo_root)
+        if discover_url is not None and (cycle is not None or subject is not None):
+            raise OsaraiError(
+                "Utilisez soit `--discover-url`, soit `--cycle` et `--subject`.",
+                ExitCode.VALIDATION_ERROR,
+            )
+        if discover_url is not None:
+            links = discover_eduscol_pdfs(discover_url, sources)
+            payload = {
+                "ok": True,
+                "discover_url": discover_url,
+                "count": len(links),
+                "pdfs": [lnk.to_dict() for lnk in links],
+            }
+            human = [f"{len(links)} lien(s) PDF détecté(s) sur {discover_url} :"] + [
+                f"- [{lnk.source_kind}] {lnk.title} -> {lnk.url}" for lnk in links
+            ]
+            _emit(payload, as_json=as_json, human_lines=human)
+            raise typer.Exit(code=int(ExitCode.OK))
+
+        if not cycle or not subject:
+            raise OsaraiError(
+                "Spécifiez `--discover-url <url>` ou le couple `--cycle <c> --subject <s>`.",
+                ExitCode.VALIDATION_ERROR,
+            )
+
+        manifest_path = repo_root / "curriculum" / "sources" / "bo_manifest.yaml"
+        extracted = sync_and_extract_bo(manifest_path, cycle, subject, sources)
+    except OsaraiError as exc:
+        _handle_error(exc, as_json=as_json)
+        return
+
+    payload = {
+        "ok": True,
+        "cycle": cycle,
+        "subject": subject,
+        "documents": [item.to_dict() for item in extracted],
+    }
+    human = [
+        f"Extraction BO terminée ({len(extracted)} document(s)) :",
+        *[
+            f"- {it.title} ({it.pages} p., {it.tables_extracted} tableau(x)) -> {it.markdown_path}"
+            for it in extracted
+        ],
+    ]
+    _emit(payload, as_json=as_json, human_lines=human)
+    raise typer.Exit(code=int(ExitCode.OK))
+
+
+@app.command("fetch-grounding")
+def cmd_fetch_grounding(
+    search: Annotated[
+        str | None,
+        typer.Option("--search", help="Requête de recherche sur Vikidia / Wikipédia FR."),
+    ] = None,
+    domain: Annotated[
+        str | None,
+        typer.Option("--domain", help="Restreindre la recherche à ce domaine MediaWiki."),
+    ] = None,
+    url: Annotated[
+        str | None,
+        typer.Option("--url", help="URL d'un article MediaWiki autorisé à récupérer."),
+    ] = None,
+    section: Annotated[
+        str | None,
+        typer.Option("--section", help="Titre exact de la sous-section `== ... ==` à extraire."),
+    ] = None,
+    theme: Annotated[
+        Path | None,
+        typer.Option("--theme", help="Dossier de thème dont `meta.yaml` recevra le crédit TASL."),
+    ] = None,
+    repo_root: RepoRootOpt = Path("."),
+    as_json: JsonOpt = False,
+) -> None:
+    """Recherche ou récupère un texte d'appui libre (`<= 40 Ko`) avec crédit TASL automatique."""
+    try:
+        resolved_theme = _resolve_theme_dir(repo_root, theme) if theme is not None else None
+        sources = _load_sources_policy(repo_root, resolved_theme)
+
+        if (search is None) == (url is None):
+            raise OsaraiError(
+                "Fournissez exactement l'une des options `--search` ou `--url`.",
+                ExitCode.VALIDATION_ERROR,
+            )
+
+        if search is not None:
+            hits = search_grounding(search, sources, domain=domain)
+            payload = {
+                "ok": True,
+                "query": search,
+                "count": len(hits),
+                "hits": [h.to_dict() for h in hits],
+            }
+            human = [f"{len(hits)} résultat(s) MediaWiki pour `{search}` :"] + [
+                f"- [{h.domain}] {h.title} ({h.wordcount} mots) -> {h.url}" for h in hits
+            ]
+            _emit(payload, as_json=as_json, human_lines=human)
+            raise typer.Exit(code=int(ExitCode.OK))
+
+        assert url is not None
+        doc = fetch_grounding(url, sources, section=section, theme_dir=resolved_theme)
+    except OsaraiError as exc:
+        _handle_error(exc, as_json=as_json)
+        return
+
+    payload = {"ok": True, **doc.to_dict()}
+    human = [
+        f"Source : {doc.credit.title} ({doc.credit.license_spdx})",
+        f"URL : {doc.url}",
+        f"Taille : {doc.byte_length} octets (tronqué={doc.truncated})",
+        "",
+        doc.text,
+    ]
+    _emit(payload, as_json=as_json, human_lines=human)
+    raise typer.Exit(code=int(ExitCode.OK))
+
+
+@app.command("fetch-commons")
+def cmd_fetch_commons(
+    search: Annotated[
+        str | None,
+        typer.Option("--search", help="Requête de recherche sur Wikimedia Commons."),
+    ] = None,
+    file_title: Annotated[
+        str | None,
+        typer.Option("--file", help="Titre `File:...` de l'illustration Wikimedia Commons."),
+    ] = None,
+    theme: Annotated[
+        Path | None,
+        typer.Option("--theme", help="Dossier de thème cible pour l'import de l'illustration."),
+    ] = None,
+    asset_id: Annotated[
+        str | None,
+        typer.Option("--asset-id", help="Identifiant court (`slug`) de l'illustration importée."),
+    ] = None,
+    repo_root: RepoRootOpt = Path("."),
+    as_json: JsonOpt = False,
+) -> None:
+    """Recherche ou importe une illustration libre Wikimedia Commons au palier `1280 px`."""
+    try:
+        resolved_theme = _resolve_theme_dir(repo_root, theme) if theme is not None else None
+        sources = _load_sources_policy(repo_root, resolved_theme)
+
+        if (search is None) == (file_title is None):
+            raise OsaraiError(
+                "Fournissez soit `--search <requête>`, soit `--file <File:...>`.",
+                ExitCode.VALIDATION_ERROR,
+            )
+
+        if search is not None:
+            candidates = search_commons(search, sources)
+            payload = {
+                "ok": True,
+                "query": search,
+                "count": len(candidates),
+                "candidates": [c.to_dict() for c in candidates],
+            }
+            human = [f"{len(candidates)} illustration(s) libre(s) trouvée(s) :"] + [
+                f"- {c.commons_title} [{c.license_spdx}, {c.mime}, {c.width}x{c.height}]"
+                for c in candidates
+            ]
+            _emit(payload, as_json=as_json, human_lines=human)
+            raise typer.Exit(code=int(ExitCode.OK))
+
+        if resolved_theme is None or not asset_id:
+            raise OsaraiError(
+                "L'import `--file` requiert `--theme <chemin>` et `--asset-id <id>`.",
+                ExitCode.VALIDATION_ERROR,
+            )
+        assert file_title is not None
+        entry = fetch_commons_image(file_title, resolved_theme, asset_id, sources)
+    except OsaraiError as exc:
+        _handle_error(exc, as_json=as_json)
+        return
+
+    payload = {"ok": True, "asset": entry.model_dump(mode="json")}
+    human = [
+        (
+            f"Illustration importée : {entry.filename} "
+            f"({entry.width}x{entry.height}, {entry.license_spdx})"
+        ),
+        "Grille graduée `0..100 %` générée dans `.osarai_tmp/previews/`.",
+    ]
+    _emit(payload, as_json=as_json, human_lines=human)
+    raise typer.Exit(code=int(ExitCode.OK))
+
+
+@app.command("preview-occlusions")
+def cmd_preview_occlusions(
+    theme: Annotated[
+        Path,
+        typer.Option("--theme", help="Dossier de thème contenant les éléments occultés."),
+    ],
+    item_id: Annotated[
+        str | None,
+        typer.Option("--item-id", help="Filtrer sur un identifiant précis (`cNNNN` ou `qNNNN`)."),
+    ] = None,
+    repo_root: RepoRootOpt = Path("."),
+    as_json: JsonOpt = False,
+) -> None:
+    """Génère hors Git les aperçus pleine taille et mobile (`320 px`) des masques CSS."""
+    try:
+        resolved_theme = _resolve_theme_dir(repo_root, theme)
+        if repo_root != Path("."):
+            out_dir = repo_root / ".osarai_tmp" / "previews"
+        elif (
+            len(resolved_theme.resolve().parts) >= 4
+            and resolved_theme.resolve().parts[-4] == "content"
+        ):
+            out_dir = resolved_theme.resolve().parents[3] / ".osarai_tmp" / "previews"
+        else:
+            out_dir = repo_root / ".osarai_tmp" / "previews"
+
+        files = generate_occlusion_previews(resolved_theme, out_dir, item_id=item_id)
+    except OsaraiError as exc:
+        _handle_error(exc, as_json=as_json)
+        return
+
+    str_files = [str(p) for p in files]
+    payload = {"ok": True, "count": len(str_files), "previews": str_files}
+    human = [f"{len(str_files)} aperçu(s) généré(s) :"] + [f"- {p}" for p in str_files]
+    _emit(payload, as_json=as_json, human_lines=human)
+    raise typer.Exit(code=int(ExitCode.OK))
+
+
+@app.command("probe-links")
+def cmd_probe_links(
+    url: Annotated[
+        list[str] | None,
+        typer.Option("--url", help="URL candidate à sonder (option répétable)."),
+    ] = None,
+    repo_root: RepoRootOpt = Path("."),
+    as_json: JsonOpt = False,
+) -> None:
+    """Sonde les en-têtes HTTP ou `oEmbed` de liens externes candidats pour tri HITL."""
+    try:
+        if not url:
+            raise OsaraiError(
+                "Fournissez au moins une option `--url <https://...>`.",
+                ExitCode.VALIDATION_ERROR,
+            )
+        sources = _load_sources_policy(repo_root)
+        results = asyncio.run(probe_urls(url, sources))
+    except OsaraiError as exc:
+        _handle_error(exc, as_json=as_json)
+        return
+
+    payload = {
+        "ok": True,
+        "count": len(results),
+        "results": [r.to_dict() for r in results],
+    }
+    human = [
+        f"- [{'OK' if r.ok else r.verdict.upper()}] {r.canonical_url} "
+        f"(status={r.status}, titre={r.title!r})"
+        for r in results
+    ]
+    _emit(payload, as_json=as_json, human_lines=human)
+    raise typer.Exit(code=int(ExitCode.OK))
+
+
+@app.command("check-urls")
+def cmd_check_urls(
+    diff: Annotated[
+        str | None,
+        typer.Option("--diff", help="Ne vérifier que les liens modifiés contre cette réf. Git."),
+    ] = None,
+    json_report: Annotated[
+        Path | None,
+        typer.Option("--json-report", help="Écrire le rapport `link-report.json` à ce chemin."),
+    ] = None,
+    repo_root: RepoRootOpt = Path("."),
+    as_json: JsonOpt = False,
+) -> None:
+    """Contrôle les liens externes publiés dans `resources.yaml` (PR `--diff` ou cron global)."""
+    try:
+        sources = _load_sources_policy(repo_root)
+        summary = asyncio.run(
+            check_repository_urls(
+                repo_root=repo_root,
+                sources=sources,
+                diff_ref=diff,
+                json_report=json_report,
+            )
+        )
+    except OsaraiError as exc:
+        _handle_error(exc, as_json=as_json)
+        return
+
+    human = [
+        f"Liens vérifiés : {summary.checked_count} "
+        f"(morts={len(summary.dead_links)}, avertissements={len(summary.warnings)})",
+        *[f"[MORT] {d['theme']} — {d['url']} ({d['reason']})" for d in summary.dead_links],
+        *[f"[AVERTISSEMENT] {w['theme']} — {w['url']} ({w['reason']})" for w in summary.warnings],
+    ]
+    _emit(summary.to_dict(), as_json=as_json, human_lines=human)
+    raise typer.Exit(code=int(summary.exit_code))
+
+
 @app.command("assign-ids")
 def cmd_assign_ids(
     theme: Annotated[
         Path,
         typer.Option(
-            "--theme", help="Chemin du dossier de thème (`content/<cycle>/<matiere>/<theme>`)."
+            "--theme",
+            help="Chemin du dossier de thème (`content/<cycle>/<matiere>/<theme>`).",
         ),
     ],
+    repo_root: RepoRootOpt = Path("."),
     as_json: JsonOpt = False,
 ) -> None:
     """Attribue de façon monotone les identifiants `cNNNN` / `qNNNN` manquants d'un thème."""
     try:
-        result = assign_missing_ids(theme)
+        resolved_theme = _resolve_theme_dir(repo_root, theme)
+        result = assign_missing_ids(resolved_theme)
     except OsaraiError as exc:
         _handle_error(exc, as_json=as_json)
         return
