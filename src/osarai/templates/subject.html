@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}{{ subject.subject_label }} — {{ CYCLE_LABELS.get(subject.cycle, subject.cycle) }} | Osarai{% endblock %}
+{% block og_title %}{{ subject.subject_label }} — Révisions Collège | Osarai{% endblock %}
+{% block meta_description %}Tous les thèmes de révision en {{ subject.subject_label }} ({{ CYCLE_LABELS.get(subject.cycle, subject.cycle) }}) : fiches de synthèse, cartes mémoire et QCM corrigés.{% endblock %}
+{% block og_description %}Tous les thèmes de révision en {{ subject.subject_label }} ({{ CYCLE_LABELS.get(subject.cycle, subject.cycle) }}).{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Fil d'Ariane">
+  <ol>
+    <li><a href="{{ base_url }}/">Accueil</a></li>
+    <li aria-current="page">{{ subject.subject_label }}</li>
+  </ol>
+</nav>
+
+<header class="page-header">
+  <p class="eyebrow">{{ CYCLE_LABELS.get(subject.cycle, subject.cycle) }}</p>
+  <h1>{{ subject.subject_label }}</h1>
+  <p class="page-lead">
+    Sélectionnez un thème du programme officiel pour consulter la fiche de synthèse, réviser les cartes mémoire ou lancer un QCM d'entraînement.
+  </p>
+</header>
+
+<section aria-labelledby="themes-list-heading">
+  <div class="section-header">
+    <h2 id="themes-list-heading">Thèmes du programme</h2>
+    <button type="button" id="btn-show-all-grades" class="btn btn-subtle" hidden>
+      Afficher tous les thèmes du cycle
+    </button>
+  </div>
+
+  {% if subject.themes %}
+  <div class="theme-list" id="subject-themes-list">
+    {% for th in subject.themes %}
+    <article
+      class="theme-card"
+      data-reperes-levels="{{ th.reperes_levels | join(',') }}"
+    >
+      <div class="card-meta-row">
+        <span class="macro-theme-tag">{{ th.macro_theme_bo }}</span>
+        <div class="grade-badges">
+          {% for lvl in th.reperes_levels %}
+          <span class="grade-badge">{{ GRADE_LABELS.get(lvl, lvl) }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      <h3>
+        <a class="stretched-link" href="{{ base_url }}{{ th.url }}">{{ th.title }}</a>
+      </h3>
+      <p class="theme-desc">{{ th.description }}</p>
+      <div class="theme-metrics">
+        <span>{{ th.concepts_count }} notion{% if th.concepts_count > 1 %}s{% endif %} clé{% if th.concepts_count > 1 %}s{% endif %}</span>
+        <span>·</span>
+        <span>{{ th.cards_count }} cartes mémoire</span>
+        <span>·</span>
+        <span>{{ th.quiz_count }} questions QCM</span>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+  <p id="empty-grade-notice" class="empty-state" hidden>
+    Aucun thème de cette matière ne cible directement ce niveau. Activez « Afficher tous les thèmes du cycle » ou choisissez <strong>5ème</strong>.
+  </p>
+  {% else %}
+  <p class="empty-state">Aucun thème n'est encore publié pour cette discipline.</p>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block theme_credits %}
+{% if subject.bo_sources %}
+<section class="credits-box" aria-label="Références officielles du programme">
+  <h2 class="footer-heading">Programme officiel de référence (Licence Ouverte Etalab 2.0)</h2>
+  <ul class="credits-list">
+    {% for bo in subject.bo_sources %}
+    <li>
+      <a href="{{ bo.url }}" target="_blank" rel="noopener noreferrer">{{ bo.title }}</a> —
+      {{ bo.producer }} ({{ bo.publication_date }}), sous
+      <a href="{{ bo.license_url }}" target="_blank" rel="noopener noreferrer">{{ bo.license_spdx }}</a>.
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endif %}
+{% endblock %}

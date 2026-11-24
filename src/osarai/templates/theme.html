@@ -1,0 +1,240 @@
+{% extends "base.html" %}
+
+{% block title %}{{ meta.title }} — {{ curriculum.subject_label }} | Osarai{% endblock %}
+{% block og_title %}{{ meta.title }} ({{ curriculum.subject_label }}){% endblock %}
+{% block meta_description %}{{ description }}{% endblock %}
+{% block og_description %}{{ description }}{% endblock %}
+
+{% block content %}
+<nav class="breadcrumb" aria-label="Fil d'Ariane">
+  <ol>
+    <li><a href="{{ base_url }}/">Accueil</a></li>
+    <li><a href="{{ base_url }}/{{ curriculum.cycle }}/{{ curriculum.subject }}/">{{ curriculum.subject_label }}</a></li>
+    <li aria-current="page">{{ meta.title }}</li>
+  </ol>
+</nav>
+
+<header class="theme-header">
+  <div class="card-meta-row">
+    <span class="macro-theme-tag">{{ curriculum_theme.macro_theme_bo }}</span>
+    <div class="grade-badges">
+      {% for lvl in meta.reperes_levels %}
+      <span class="grade-badge">{{ GRADE_LABELS.get(lvl, lvl) }}</span>
+      {% endfor %}
+    </div>
+  </div>
+  <h1>{{ meta.title }}</h1>
+</header>
+
+<div class="tabs-bar" role="tablist" aria-label="Modes de révision du thème">
+  <button
+    type="button"
+    role="tab"
+    id="tab-summary"
+    class="tab-btn is-active"
+    aria-selected="true"
+    aria-controls="panel-summary"
+    tabindex="0"
+  >
+    Fiche de Synthèse
+  </button>
+  <button
+    type="button"
+    role="tab"
+    id="tab-flashcards"
+    class="tab-btn"
+    aria-selected="false"
+    aria-controls="panel-flashcards"
+    tabindex="-1"
+  >
+    Cartes mémoire <span class="tab-count">{{ cards_count }}</span>
+  </button>
+  <button
+    type="button"
+    role="tab"
+    id="tab-quiz"
+    class="tab-btn"
+    aria-selected="false"
+    aria-controls="panel-quiz"
+    tabindex="-1"
+  >
+    Quiz QCM <span class="tab-count">{{ quiz_count }}</span>
+  </button>
+  <button
+    type="button"
+    role="tab"
+    id="tab-resources"
+    class="tab-btn"
+    aria-selected="false"
+    aria-controls="panel-resources"
+    tabindex="-1"
+  >
+    Ressources externes <span class="tab-count">{{ resources | length }}</span>
+  </button>
+</div>
+
+<!-- Onglet 1 : Fiche de Synthèse pré-rendue en HTML statique -->
+<section
+  id="panel-summary"
+  class="tab-panel"
+  role="tabpanel"
+  aria-labelledby="tab-summary"
+>
+  <article class="prose-summary">
+    {{ summary_html | safe }}
+  </article>
+</section>
+
+<!-- Onglet 2 : Cartes mémoire interactives -->
+<section
+  id="panel-flashcards"
+  class="tab-panel"
+  role="tabpanel"
+  aria-labelledby="tab-flashcards"
+  hidden
+>
+  <div class="island-toolbar">
+    <div class="filter-pills" role="group" aria-label="Filtrer la pile de cartes">
+      <button type="button" class="pill-btn is-active" data-card-filter="all">Toutes</button>
+      <button type="button" class="pill-btn" data-card-filter="essentiel">Essentielles</button>
+      <button type="button" class="pill-btn" data-card-filter="a_revoir">
+        À revoir uniquement <span id="review-only-count" class="count-inline">(0)</span>
+      </button>
+    </div>
+    <label id="cards-all-levels-wrap" class="toggle-inline" hidden>
+      <input type="checkbox" id="cards-all-levels-toggle">
+      <span>Tout le thème (inclure niveaux supérieurs)</span>
+    </label>
+  </div>
+  <p id="cards-grade-banner" class="info-banner" hidden></p>
+  <div id="flashcards-stage" class="study-stage" aria-live="polite">
+    <noscript>Activez JavaScript pour utiliser les cartes mémoire interactives (la Fiche de Synthèse reste intégralement lisible ci-dessus).</noscript>
+  </div>
+</section>
+
+<!-- Onglet 3 : Quiz QCM interactif -->
+<section
+  id="panel-quiz"
+  class="tab-panel"
+  role="tabpanel"
+  aria-labelledby="tab-quiz"
+  hidden
+>
+  <div class="island-toolbar">
+    <p id="quiz-progress-label" class="progress-text"></p>
+    <label id="quiz-all-levels-wrap" class="toggle-inline" hidden>
+      <input type="checkbox" id="quiz-all-levels-toggle">
+      <span>Tout le thème (inclure niveaux supérieurs)</span>
+    </label>
+  </div>
+  <p id="quiz-grade-banner" class="info-banner" hidden></p>
+  <div id="quiz-stage" class="study-stage" aria-live="polite">
+    <noscript>Activez JavaScript pour répondre au QCM interactif.</noscript>
+  </div>
+</section>
+
+<!-- Onglet 4 : Ressources externes pré-rendues depuis resources.yaml -->
+<section
+  id="panel-resources"
+  class="tab-panel"
+  role="tabpanel"
+  aria-labelledby="tab-resources"
+  hidden
+>
+  <div class="resources-panel">
+    <h2>Pour aller plus loin (liens externes vérifiés)</h2>
+    <p class="section-note">
+      Ces liens pointent vers des plateformes éducatives externes sélectionnées et contrôlées ; en cliquant dessus, vous quittez Osarai dans un nouvel onglet.
+    </p>
+    {% if resources %}
+    <ul class="resource-list">
+      {% for res in resources %}
+      <li class="resource-item">
+        <div class="resource-main">
+          <span class="resource-type-badge">{{ res.type }}</span>
+          <a href="{{ res.url }}" target="_blank" rel="noopener noreferrer" class="resource-link">
+            {{ res.title }}
+          </a>
+        </div>
+        <div class="resource-meta">
+          <span>Source : <code>{{ res.source_domain }}</code></span>
+          <span>·</span>
+          <span>Vérifié le {{ res.last_verified_at }}</span>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p class="empty-state">Aucune ressource externe n'est référencée pour ce thème.</p>
+    {% endif %}
+  </div>
+</section>
+
+<script type="application/json" id="theme-data">{{ theme_data | tojson }}</script>
+{% endblock %}
+
+{% block theme_credits %}
+<section class="credits-box" aria-label="Crédits et attributions TASL du thème">
+  <h2 class="footer-heading">Crédits des sources et illustrations (TASL)</h2>
+  <p class="adaptation-statement">
+    Ce thème est une œuvre dérivée et adaptée sous licence
+    <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>
+    conforme aux attendus officiels du ministère de l'Éducation nationale.
+  </p>
+
+  {% if meta.sources_used %}
+  <h3 class="credits-subheading">Sources textuelles d'appui adaptées</h3>
+  <ul class="credits-list">
+    {% for src in meta.sources_used %}
+    <li>
+      <strong><a href="{{ src.url }}" target="_blank" rel="noopener noreferrer">{{ src.title }}</a></strong>
+      ({{ src.source_domain }}, révision/date : <code>{{ src.revision_or_date }}</code>) —
+      <a href="{{ src.authors_or_history_url }}" target="_blank" rel="noopener noreferrer">Auteurs et historique</a> ·
+      Licence <a href="{{ src.license_url }}" target="_blank" rel="noopener noreferrer">{{ src.license_spdx }}</a>
+      (texte adapté pour le niveau {{ meta.reperes_levels | join(", ") }}).
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if assets_list %}
+  <h3 class="credits-subheading">Illustrations Wikimedia Commons</h3>
+  <ul class="credits-list">
+    {% for asset in assets_list %}
+    <li>
+      <strong>{{ asset.title }}</strong> (<code>{{ asset.commons_title }}</code>) —
+      Auteur : {{ asset.author }} ·
+      <a href="{{ asset.source_url }}" target="_blank" rel="noopener noreferrer">Source</a> ·
+      Licence <a href="{{ asset.license_url }}" target="_blank" rel="noopener noreferrer">{{ asset.license_spdx }}</a> ·
+      Adaptation technique : {{ asset.modifications_note }}
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+
+  {% if curriculum.bo_sources %}
+  <h3 class="credits-subheading">Référentiel ministériel</h3>
+  <ul class="credits-list">
+    {% for bo in curriculum.bo_sources %}
+    <li>
+      <a href="{{ bo.url }}" target="_blank" rel="noopener noreferrer">{{ bo.title }}</a> —
+      {{ bo.producer }} ({{ bo.publication_date }}),
+      <a href="{{ bo.license_url }}" target="_blank" rel="noopener noreferrer">{{ bo.license_spdx }}</a>.
+    </li>
+    {% endfor %}
+  </ul>
+  {% endif %}
+</section>
+{% endblock %}
+
+{% block extra_dialogs %}
+<dialog id="image-zoom-dialog" class="modal-dialog zoom-dialog" aria-labelledby="image-zoom-title">
+  <div class="modal-surface zoom-surface">
+    <div class="modal-header">
+      <h2 id="image-zoom-title">Schéma agrandi</h2>
+      <button type="button" class="btn-icon" data-close-dialog="image-zoom-dialog" aria-label="Fermer l'aperçu agrandi">✕</button>
+    </div>
+    <div id="image-zoom-body" class="zoom-body"></div>
+  </div>
+</dialog>
+{% endblock %}

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="fr" data-base-url="{{ base_url }}" data-repo-url="{{ repo_url }}" data-build-sha="{{ build_sha }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
+  <title>{% block title %}Osarai — Révisions libres du Collège{% endblock %}</title>
+  <meta name="description" content="{% block meta_description %}Plateforme libre et statique de révisions scolaires pour le collège français (cours, cartes mémoire, schémas masqués et QCM corrigés).{% endblock %}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Osarai">
+  <meta property="og:locale" content="fr_FR">
+  <meta property="og:title" content="{% block og_title %}Osarai — Révisions libres du Collège{% endblock %}">
+  <meta property="og:description" content="{% block og_description %}Plateforme libre et statique de révisions scolaires pour le collège français conforme au Bulletin Officiel.{% endblock %}">
+  <link rel="manifest" href="{{ base_url }}/manifest.webmanifest">
+  <link rel="stylesheet" href="{{ base_url }}/assets/vendor/katex/katex.min.css">
+  <link rel="stylesheet" href="{{ base_url }}/assets/css/main.css">
+  <script defer src="{{ base_url }}/assets/vendor/katex/katex.min.js"></script>
+  <script defer src="{{ base_url }}/assets/vendor/katex/contrib/auto-render.min.js"></script>
+  <script type="module" src="{{ base_url }}/assets/js/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">Aller au contenu principal</a>
+
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ base_url }}/" aria-label="Osarai — Retour à l'accueil">
+        <span class="brand-mark" aria-hidden="true">お</span>
+        <span class="brand-text">
+          <strong>Osarai</strong>
+          <small>Révisions Collège</small>
+        </span>
+      </a>
+
+      <div class="search-wrapper" role="search">
+        <label class="sr-only" for="global-search-input">Rechercher un thème ou une notion</label>
+        <input
+          id="global-search-input"
+          class="search-input"
+          type="search"
+          placeholder="Rechercher un cours, ex. alvéole, cœur, démographie…"
+          autocomplete="off"
+          aria-expanded="false"
+          aria-controls="global-search-results"
+        >
+        <div id="global-search-results" class="search-results" role="listbox" hidden></div>
+      </div>
+
+      <div class="header-controls">
+        <div class="grade-picker">
+          <label for="grade-select" class="grade-label">Classe</label>
+          <select id="grade-select" class="grade-select" aria-label="Sélectionner la classe">
+            {% for code in ["6eme", "5eme", "4eme", "3eme"] %}
+            <option
+              value="{{ code }}"
+              {% if code == "5eme" %}selected{% endif %}
+              {% if available_grades and code not in available_grades %}data-has-content="false"{% else %}data-has-content="true"{% endif %}
+            >{{ GRADE_LABELS[code] }}{% if available_grades and code not in available_grades %} (bientôt){% endif %}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <div class="backup-actions">
+          <button type="button" id="btn-export-backup" class="btn btn-subtle" title="Exporter ma progression locale (osarai-backup-v1.json)">
+            Sauvegarder
+          </button>
+          <button type="button" id="btn-import-backup" class="btn btn-subtle" title="Importer une sauvegarde locale (osarai-backup-v1.json)">
+            Importer
+          </button>
+          <input type="file" id="input-import-backup" accept="application/json,.json" hidden>
+        </div>
+
+        <button
+          type="button"
+          id="btn-open-feedback-drawer"
+          class="btn btn-outline feedback-trigger"
+          aria-haspopup="dialog"
+          aria-controls="feedback-drawer"
+        >
+          Signalements
+          <span id="feedback-count-badge" class="count-pill" hidden>0</span>
+        </button>
+      </div>
+    </div>
+    <div id="global-toast" class="toast-banner" role="status" aria-live="polite" hidden></div>
+  </header>
+
+  <main id="main-content" class="site-main container">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      {% block theme_credits %}{% endblock %}
+
+      <div class="legal-grid">
+        <div>
+          <h2 class="footer-heading">Licences ouvertes &amp; transparence</h2>
+          <p>
+            Contenus pédagogiques et découpages thématiques publiés sous licence
+            <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.fr" target="_blank" rel="noopener noreferrer">CC BY-SA 4.0</a>.
+            Code source sous licence
+            <a href="{{ repo_url }}/blob/main/LICENSE" target="_blank" rel="noopener noreferrer">Apache-2.0</a>.
+            Rendu mathématique assuré localement par KaTeX (<a href="{{ base_url }}/assets/vendor/katex/LICENSE">licence MIT</a>).
+          </p>
+        </div>
+        <div>
+          <h2 class="footer-heading">Vie privée &amp; mentions légales</h2>
+          <p>
+            <strong>Zéro compte, zéro cookie, zéro traceur tiers</strong> : vos repères « À revoir » et
+            signalements restent stockés uniquement sur votre appareil (<code>localStorage</code>).
+            Éditeur : Severin Ferrand (<a href="{{ repo_url }}" target="_blank" rel="noopener noreferrer">dépôt public GitHub</a>) ·
+            Hébergement statique : GitHub Pages (GitHub, Inc.).
+          </p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Tiroir du panier de signalements (osarai-feedback-v1) -->
+  <dialog id="feedback-drawer" class="modal-dialog" aria-labelledby="feedback-drawer-title">
+    <div class="modal-surface">
+      <div class="modal-header">
+        <h2 id="feedback-drawer-title">Éléments signalés sur cet appareil</h2>
+        <button type="button" class="btn-icon" data-close-dialog="feedback-drawer" aria-label="Fermer le panneau de signalements">✕</button>
+      </div>
+      <p class="modal-lead">
+        Les cartes et questions signalées sont immédiatement mises en quarantaine de vos séances de révision.
+        Vous pouvez les transmettre à un parent ou ouvrir un rapport sur GitHub sans compte élève.
+      </p>
+      <div id="feedback-drawer-list" class="feedback-list"></div>
+      <p id="feedback-drawer-status" class="feedback-status-msg" role="status" aria-live="polite"></p>
+      <div class="modal-actions">
+        <button type="button" id="btn-share-feedback" class="btn btn-primary">
+          Copier / Partager le signalement
+        </button>
+        <button type="button" id="btn-github-issue-feedback" class="btn btn-outline">
+          Ouvrir une Issue GitHub
+        </button>
+        <button type="button" id="btn-clear-feedback" class="btn btn-danger-subtle">
+          Vider la liste
+        </button>
+      </div>
+      <div id="feedback-clear-confirm" class="confirm-bar" hidden>
+        <span>Confirmer la suppression de tous les signalements locaux ?</span>
+        <div class="confirm-bar-btns">
+          <button type="button" id="btn-confirm-clear-feedback" class="btn btn-danger">Confirmer</button>
+          <button type="button" id="btn-cancel-clear-feedback" class="btn btn-subtle">Annuler</button>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- Fenêtre de saisie d'un signalement unitaire -->
+  <dialog id="flag-item-dialog" class="modal-dialog" aria-labelledby="flag-item-dialog-title">
+    <div class="modal-surface">
+      <div class="modal-header">
+        <h2 id="flag-item-dialog-title">Signaler une erreur sur cet élément</h2>
+        <button type="button" class="btn-icon" data-close-dialog="flag-item-dialog" aria-label="Annuler et fermer">✕</button>
+      </div>
+      <p class="modal-lead">
+        Identifiant : <code id="flag-target-id"></code> — cet élément sera retiré de votre pile active jusqu'à sa correction.
+      </p>
+      <div class="field-group">
+        <label for="flag-reason-select">Motif du signalement</label>
+        <select id="flag-reason-select" class="select-input">
+          <option value="formulation_ambigue">Question ou réponse ambiguë</option>
+          <option value="erreur_factuelle">Erreur scientifique ou historique</option>
+          <option value="hors_programme">Notion hors-programme pour ma classe</option>
+          <option value="masque_decale">Masque mal placé sur le schéma / la carte</option>
+          <option value="coquille">Faute d'orthographe ou d'affichage</option>
+          <option value="autre">Autre remarque</option>
+        </select>
+      </div>
+      <div class="field-group">
+        <label for="flag-note-input">Précision facultative (300 caractères max.)</label>
+        <textarea
+          id="flag-note-input"
+          class="textarea-input"
+          rows="3"
+          maxlength="300"
+          placeholder="Expliquez brièvement le souci repéré…"
+        ></textarea>
+      </div>
+      <div class="modal-actions">
+        <button type="button" id="btn-submit-flag" class="btn btn-primary">Mettre en quarantaine et enregistrer</button>
+        <button type="button" class="btn btn-subtle" data-close-dialog="flag-item-dialog">Annuler</button>
+      </div>
+    </div>
+  </dialog>
+
+  {% block extra_dialogs %}{% endblock %}
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% block title %}Osarai — Révisions scolaires libres pour le Collège{% endblock %}
+{% block og_title %}Osarai — Révisions scolaires libres pour le Collège{% endblock %}
+
+{% block content %}
+<section class="hero-banner">
+  <div class="hero-copy">
+    <p class="eyebrow">Conforme au Bulletin Officiel · Sans compte · 100 % libre</p>
+    <h1>Révise tes contrôles du collège efficacement</h1>
+    <p class="hero-subtitle">
+      Fiches de synthèse claires, schémas et cartes à légendes masquées, cartes mémoire actives et QCM corrigés
+      calibrés pour ta classe (<strong data-current-grade-label>5ème</strong> par défaut).
+    </p>
+  </div>
+</section>
+
+<section class="subjects-section" aria-labelledby="subjects-heading">
+  <div class="section-header">
+    <h2 id="subjects-heading">Matières disponibles</h2>
+    <button type="button" id="btn-show-all-grades" class="btn btn-subtle" hidden>
+      Afficher tous les niveaux du collège
+    </button>
+  </div>
+
+  {% if subjects %}
+  <div class="card-grid" id="home-subjects-grid">
+    {% for subj in subjects %}
+    <article
+      class="subject-card"
+      data-reperes-levels="{{ subj.reperes_levels | join(',') }}"
+    >
+      <div class="card-meta-row">
+        <span class="cycle-tag">{{ CYCLE_LABELS.get(subj.cycle, subj.cycle) }}</span>
+        <div class="grade-badges">
+          {% for lvl in subj.reperes_levels %}
+          <span class="grade-badge">{{ GRADE_LABELS.get(lvl, lvl) }}</span>
+          {% endfor %}
+        </div>
+      </div>
+      <h3>
+        <a class="stretched-link" href="{{ base_url }}{{ subj.url }}">{{ subj.subject_label }}</a>
+      </h3>
+      <p class="subject-count">
+        {{ subj.themes | length }} thème{% if (subj.themes | length) > 1 %}s{% endif %} publié{% if (subj.themes | length) > 1 %}s{% endif %}
+      </p>
+      {% if subj.themes %}
+      <ul class="subject-theme-preview">
+        {% for th in subj.themes[:3] %}
+        <li>{{ th.title }}</li>
+        {% endfor %}
+      </ul>
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+  <p id="empty-grade-notice" class="empty-state" hidden>
+    Aucun thème n'est encore publié pour la classe sélectionnée. Utilisez le sélecteur de classe en haut de page (ex. <strong>5ème</strong>).
+  </p>
+  {% else %}
+  <div class="empty-state">
+    <p>Aucun thème pédagogique n'est encore publié dans ce dépôt. Exécutez la compétence <code>author-theme</code> puis recompilez le portail avec <code>uv run osarai build-site</code>.</p>
+  </div>
+  {% endif %}
+</section>
+{% endblock %}

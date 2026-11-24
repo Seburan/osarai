@@ -354,3 +354,40 @@ def test_cli_jalon2_subcommands(sample_repo: Path, sample_tabular_pdf: Path) -> 
         app, ["fetch-commons", "--repo-root", str(sample_repo), "--file", "File:X.png", "--json"]
     )
     assert fc_err.exit_code == 2
+
+
+def test_cli_build_site_text_and_json(sample_repo: Path, tmp_path: Path) -> None:
+    out_dir = tmp_path / "dist_cli"
+    res_json = runner.invoke(
+        app,
+        [
+            "build-site",
+            "--repo-root",
+            str(sample_repo),
+            "--output",
+            str(out_dir),
+            "--base-url",
+            "/osarai",
+            "--json",
+        ],
+    )
+    assert res_json.exit_code == 0
+    payload = json.loads(res_json.stdout)
+    assert payload["ok"] is True
+    assert payload["themes_count"] == 1
+    assert (out_dir / "assets" / "vendor" / "katex" / "LICENSE").is_file()
+
+    res_txt = runner.invoke(
+        app,
+        [
+            "build-site",
+            "--repo-root",
+            str(sample_repo),
+            "--output",
+            str(tmp_path / "dist_txt"),
+            "--base-url",
+            "/",
+        ],
+    )
+    assert res_txt.exit_code == 0
+    assert "Portail statique compilé" in res_txt.stdout

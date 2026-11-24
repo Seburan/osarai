@@ -1,4 +1,4 @@
-"""Point d'entrée CLI `Typer` (`osarai`) — Jalons 1 & 2 (hors-ligne et utilitaires réseau)."""
+"""Point d'entrée CLI `Typer` (`osarai`) — Validation, utilitaires réseau et génération statique."""
 
 from __future__ import annotations
 
@@ -17,6 +17,7 @@ from osarai.grounding_fetcher import fetch_grounding, search_grounding
 from osarai.id_manager import assign_missing_ids
 from osarai.occlusion_preview import generate_occlusion_previews
 from osarai.schemas import SourcesPolicy
+from osarai.site_builder import build_site
 from osarai.url_checker import check_repository_urls, probe_urls
 from osarai.validator import validate_feedback_file, validate_target
 from osarai.yaml_io import load_yaml
@@ -536,3 +537,49 @@ def cmd_validate(
 
     _emit(report.to_dict(), as_json=as_json, human_lines=human_lines)
     raise typer.Exit(code=int(ExitCode.OK if report.ok else ExitCode.VALIDATION_ERROR))
+
+
+@app.command("build-site")
+def cmd_build_site(
+    output: Annotated[
+        Path,
+        typer.Option("--output", help="Répertoire de sortie du site statique compilé."),
+    ] = Path("dist"),
+    base_url: Annotated[
+        str,
+        typer.Option("--base-url", help="Préfixe de sous-chemin GitHub Pages (ex. `/osarai`)."),
+    ] = "",
+    repo_url: Annotated[
+        str | None,
+        typer.Option("--repo-url", help="URL du dépôt GitHub pour les liens de signalement."),
+    ] = None,
+    repo_root: RepoRootOpt = Path("."),
+    as_json: JsonOpt = False,
+) -> None:
+    """Compile le portail web statique `dist/` (HTML pré-rendu, index de recherche et KaTeX)."""
+    try:
+        resolved_out = output if output.is_absolute() else (repo_root / output)
+        summary = build_site(
+            repo_root=repo_root,
+            output_dir=resolved_out,
+            base_url=base_url,
+            repo_url=repo_url,
+        )
+    except ValidationError as exc:
+        _handle_error(
+            OsaraiError(f"Erreur de schéma lors du build : {exc}", ExitCode.VALIDATION_ERROR),
+            as_json=as_json,
+        )
+        return
+    except OsaraiError as exc:
+        _handle_error(exc, as_json=as_json)
+        return
+
+    payload = {"ok": True, **summary.to_dict()}
+    human = [
+        f"Portail statique compilé dans `{summary.output_dir}` (base_url={summary.base_url!r}) :",
+        f"- {summary.subjects_count} matière(s), {summary.themes_count} thème(s), "
+        f"build_sha={summary.build_sha}",
+    ]
+    _emit(payload, as_json=as_json, human_lines=human)
+    raise typer.Exit(code=int(ExitCode.OK))
