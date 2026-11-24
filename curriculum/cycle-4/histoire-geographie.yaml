@@ -1,0 +1,220 @@
+schema_version: 1
+cycle: "cycle-4"
+subject: "histoire-geographie"
+subject_code: "hg"
+subject_label: "Histoire-Géographie"
+
+bo_sources:
+  - title: "Programme d'enseignement du cycle des approfondissements (cycle 4) — BO n° 31 du 30 juillet 2020"
+    producer: "Ministère de l'Éducation nationale (Éduscol)"
+    publication_date: 2020-07-30
+    url: "https://eduscol.education.gouv.fr/sites/default/files/document/programme-d-enseignement-du-cycle-4-67722.pdf"
+    license_spdx: "Etalab-2.0"
+    license_url: "https://www.etalab.gouv.fr/licence-ouverte-open-licence/"
+    sha256: "de42e9816d7d012fd5d6b3349171cf43dd038c1e50fa0fe9e664bcc8521194b9"
+  - title: "Géographie 5e — Thème 1 : La question démographique et l'inégal développement"
+    producer: "Ministère de l'Éducation nationale (Éduscol)"
+    publication_date: 2016-03-01
+    url: "https://eduscol.education.gouv.fr/sites/default/files/document/c4geo5th1questiondemographiqueinegalitesdeveloppement558058pdf-78237.pdf"
+    license_spdx: "Etalab-2.0"
+    license_url: "https://www.etalab.gouv.fr/licence-ouverte-open-licence/"
+    sha256: "a34b681ee66b554691250c942b796b1ea9634d1eb13ebbac169214faa8cfd1cf"
+
+themes:
+  - theme_slug: "la-croissance-demographique-et-ses-effets"
+    title: "La croissance démographique et ses effets"
+    macro_theme_bo: "Géographie 5e — Thème 1 : La question démographique et l'inégal développement"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Décrire l'évolution globale de la population mondiale et comparer la diversité des trajectoires démographiques à partir d'études de cas : une puissance émergente (Inde ou Chine) et un pays d'Afrique en forte croissance (ex. Nigeria), mis en perspective avec l'Europe et les États-Unis."
+      - "Expliquer les effets d'une croissance démographique rapide (jeunesse de la population, urbanisation) ou ralentie (vieillissement) sur la capacité des sociétés à satisfaire les besoins essentiels : alimentation (ODD 2), santé (ODD 3), éducation, logement, eau et énergie."
+      - "Lire et mettre en relation des cartes thématiques et indicateurs simples (effectif de population, taux de natalité et de mortalité, accroissement naturel, espérance de vie, IDH) pour montrer que la croissance démographique constitue un défi mais pas un obstacle fatal au développement durable et équitable."
+    scope_exclusions:
+      - "Modélisation théorique détaillée des quatre phases de la transition démographique et calculs démographiques avancés (taux brut de reproduction, table de mortalité — programme de Seconde)."
+      - "Thèses démographiques malthusiennes ou néo-malthusiennes catastrophistes."
+      - "Opposition binaire figée d'une limite unique Nord / Sud sans nuances internes aux États."
+      - "Géographie approfondie des flux migratoires transnationaux (programme de Géographie 4ème)."
+
+  - theme_slug: "repartition-de-la-richesse-et-de-la-pauvrete-dans-le-monde"
+    title: "Répartition de la richesse et de la pauvreté dans le monde"
+    macro_theme_bo: "Géographie 5e — Thème 1 : La question démographique et l'inégal développement"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Décrire à l'échelle mondiale l'inégale répartition de la richesse et de la pauvreté à l'aide de planisphères thématiques (PIB par habitant, IDH, pauvreté extrême) en distinguant pays développés, puissances émergentes et pays les moins avancés (PMA)."
+      - "Montrer que les inégalités socio-spatiales s'observent à toutes les échelles, y compris à l'intérieur des États riches ou émergents et au sein des métropoles, en lien avec les Objectifs de développement durable (ODD 1, 4, 5 et 10)."
+    scope_exclusions:
+      - "Calcul économétrique du coefficient de Gini, courbes de Lorenz et parité de pouvoir d'achat (SES Lycée)."
+      - "Vision figée d'une coupure Nord / Sud ignorant l'essor des pays émergents et la pauvreté dans les pays développés."
+
+  - theme_slug: "des-ressources-limitees-a-gerer-et-a-renouveler"
+    title: "Des ressources limitées, à gérer et à renouveler (eau, énergie, alimentation)"
+    macro_theme_bo: "Géographie 5e — Thème 2 : Des ressources limitées, à gérer et à renouveler"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Identifier les tensions liées à l'inégale disponibilité et à la consommation croissante de l'eau douce et de l'énergie, et expliquer les choix d'aménagement durable et de transition vers les énergies renouvelables (ODD 6 et ODD 7)."
+      - "Expliquer comment nourrir durablement une humanité en croissance aux besoins alimentaires accrus tout en luttant contre la sous-alimentation, la malnutrition et le gaspillage (ODD 2 et ODD 12)."
+    scope_exclusions:
+      - "Géopolitique détaillée des marchés financiers des matières premières et fonctionnement technique des centrales nucléaires ou réseaux électriques (Lycée)."
+
+  - theme_slug: "changement-climatique-et-prevention-des-risques"
+    title: "Le changement global climatique et la prévention des risques"
+    macro_theme_bo: "Géographie 5e — Thème 3 : L'environnement, du local au planétaire"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Identifier les principaux effets géographiques régionaux du changement climatique global et les politiques locales, nationales ou internationales d'atténuation et d'adaptation (ODD 13 et ODD 15)."
+      - "Distinguer aléa, vulnérabilité et risque (industriel, technologique, sanitaire ou climatique) à partir d'études de cas pour comprendre les mesures de prévention et la résilience des sociétés."
+    scope_exclusions:
+      - "Physique radiative de l'effet de serre et droit technique des plans de prévention des risques technologiques."
+
+  - theme_slug: "chretientes-et-islam-des-mondes-en-contact"
+    title: "Chrétientés et islam (VIe-XIIIe siècles), des mondes en contact"
+    macro_theme_bo: "Histoire 5e — Thème 1 : Chrétientés et islam (VIe-XIIIe siècles), des mondes en contact"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Situer dans le temps et l'espace l'Empire byzantin (Justinien, basileus, schisme de 1054), l'Empire carolingien (Charlemagne, sacre de 800) et le monde musulman de la naissance de l'islam au VIIe siècle jusqu'à la prise de Bagdad en 1258."
+      - "Caractériser les relations entre pouvoirs politiques, militaires et religieux (basileus, empereur, calife) ainsi que la variété des contacts en Méditerranée (affrontements, croisades, commerce et échanges scientifiques et culturels)."
+    scope_exclusions:
+      - "Querelles théologiques dogmatiques détaillées des conciles œcuméniques et généalogies dynastiques exhaustives des califats."
+
+  - theme_slug: "societe-eglise-et-pouvoir-dans-l-occident-feodal"
+    title: "Société, Église et pouvoir politique dans l'Occident féodal (XIe-XVe siècles)"
+    macro_theme_bo: "Histoire 5e — Thème 2 : Société, Église et pouvoir politique dans l'Occident féodal (XIe-XVe siècles)"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Expliquer l'organisation de la seigneurie rurale (réserve, tenures, redevances, corvées), l'encadrement religieux des fidèles par l'Église et l'essor des villes marchandes à partir du XIIe siècle."
+      - "Retracer l'affirmation progressive de l'État monarchique en France sous les Capétiens et les Valois (extension du domaine royal, administration, guerre de Cent Ans) face aux grands seigneurs féodaux."
+    scope_exclusions:
+      - "Droit coutumier féodal spécialisé et chronologie militaire exhaustive des batailles de la guerre de Cent Ans."
+
+  - theme_slug: "transformations-de-l-europe-et-ouverture-sur-le-monde"
+    title: "Transformations de l'Europe et ouverture sur le monde (XVIe-XVIIe siècles)"
+    macro_theme_bo: "Histoire 5e — Thème 3 : Transformations de l'Europe et ouverture sur le monde aux XVIe et XVIIe siècles"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Caractériser la première mondialisation aux XVe-XVIe siècles (grandes découvertes maritimes, empires ibériques, empire ottoman de Soliman le Magnifique face à Charles Quint)."
+      - "Relier l'humanisme, la Renaissance artistique et scientifique, l'imprimerie et les Réformes protestante et catholique aux conflits religieux européens."
+      - "Expliquer le passage du prince de la Renaissance (François Ier) à la pacification religieuse (Henri IV, édit de Nantes) puis à la monarchie absolue (Louis XIV à Versailles)."
+    scope_exclusions:
+      - "Histoire diplomatique détaillée de la guerre de Trente Ans et doctrines théologiques approfondies de la prédestination."
+
+  - theme_slug: "expansions-lumieres-et-revolutions-au-xviiie-siecle"
+    title: "Le XVIIIe siècle : expansions, Lumières et Révolution française"
+    macro_theme_bo: "Histoire 4e — Thème 1 : Le XVIIIe siècle. Expansions, Lumières et révolutions"
+    reperes_levels: ["4eme"]
+    attendus_bo:
+      - "Relier l'essor du grand commerce maritime européen et des ports atlantiques au XVIIIe siècle à l'économie de plantation coloniale, aux traites négrières et à l'esclavage."
+      - "Expliquer la diffusion de l'esprit scientifique et des idées des philosophes des Lumières contestant l'absolutisme et la société d'ordres."
+      - "Identifier les ruptures politiques et sociales majeures de la Révolution française et de l'Empire (1789, DDHC, Ire République, Code civil) en France et en Europe."
+    scope_exclusions:
+      - "Historiographie universitaire des factions révolutionnaires et détail des campagnes militaires napoléoniennes (Première générale)."
+
+  - theme_slug: "l-europe-industrielle-et-coloniale-au-xixe-siecle"
+    title: "L'Europe de la révolution industrielle et des conquêtes coloniales au XIXe siècle"
+    macro_theme_bo: "Histoire 4e — Thème 2 : L'Europe et le monde au XIXe siècle"
+    reperes_levels: ["4eme"]
+    attendus_bo:
+      - "Expliquer les transformations économiques, spatiales et sociales liées à l'industrialisation européenne (charbon, machine à vapeur, chemin de fer, salariat ouvrier, bourgeoisie, émigration et nouvelles idéologies)."
+      - "Caractériser les logiques de la colonisation européenne au XIXe siècle, le fonctionnement inégalitaire d'une société coloniale et l'abolition définitive de l'esclavage (1848 en France)."
+    scope_exclusions:
+      - "Cycles économiques de Kondratiev et histoire diplomatique exhaustive du partage colonial."
+
+  - theme_slug: "societe-culture-et-politique-dans-la-france-du-xixe-siecle"
+    title: "Société, culture et politique dans la France du XIXe siècle"
+    macro_theme_bo: "Histoire 4e — Thème 3 : Société, culture et politique dans la France du XIXe siècle"
+    reperes_levels: ["4eme"]
+    attendus_bo:
+      - "Retracer l'apprentissage du suffrage universel masculin (1848) à travers les régimes politiques de 1815 à 1870, puis l'enracinement de la IIIe République (école gratuite, laïque et obligatoire, libertés, loi de séparation de 1905) malgré les crises (affaire Dreyfus)."
+      - "Décrire l'évolution de la condition des femmes au XIXe siècle, leur place économique et sociale et leurs revendications face à leur exclusion politique."
+    scope_exclusions:
+      - "Histoire parlementaire ministérielle détaillée de la Monarchie de Juillet et de la IIIe République (Première générale)."
+
+  - theme_slug: "l-urbanisation-du-monde"
+    title: "L'urbanisation du monde : espaces, paysages et réseaux"
+    macro_theme_bo: "Géographie 4e — Thème 1 : L'urbanisation du monde"
+    reperes_levels: ["4eme"]
+    attendus_bo:
+      - "Caractériser l'accélération de l'urbanisation mondiale et décrire l'organisation des espaces urbains (centres d'affaires, quartiers résidentiels, périurbanisation, bidonvilles)."
+      - "Expliquer l'inégale connexion des villes aux réseaux de la mondialisation en opposant villes mondiales intégrées et villes en déclin (shrinking cities)."
+    scope_exclusions:
+      - "Concept de métropolisation et hiérarchie fonctionnelle des réseaux urbains mondiaux approfondis en Première générale."
+
+  - theme_slug: "les-mobilites-humaines-transnationales"
+    title: "Les mobilités humaines transnationales : migrations et tourisme"
+    macro_theme_bo: "Géographie 4e — Thème 2 : Les mobilités humaines transnationales"
+    reperes_levels: ["4eme"]
+    attendus_bo:
+      - "Identifier la diversité des motivations migratoires (économiques, conflits, climat, études) et des grands foyers et flux migratoires mondiaux (Sud-Nord comme Sud-Sud)."
+      - "Analyser l'ampleur du tourisme international, ses principaux foyers émetteurs et récepteurs et ses effets économiques, sociaux et environnementaux sur les territoires."
+    scope_exclusions:
+      - "Droit international détaillé de l'asile et économie financière des multinationales touristiques."
+
+  - theme_slug: "des-espaces-transformes-par-la-mondialisation"
+    title: "Mers et océans, États-Unis et Afrique dans la mondialisation"
+    macro_theme_bo: "Géographie 4e — Thème 3 : Des espaces transformés par la mondialisation"
+    reperes_levels: ["4eme"]
+    attendus_bo:
+      - "Expliquer le rôle stratégique des mers, océans et littoraux dans le commerce maritime mondial, l'exploitation des ressources et les enjeux environnementaux."
+      - "Caractériser les dynamiques territoriales des États-Unis et d'un grand ensemble régional africain face à la mondialisation."
+    scope_exclusions:
+      - "Géopolitique juridique détaillée de la convention de Montego Bay (ZEE, plateau continental étendu — Terminale)."
+
+  - theme_slug: "l-europe-theatre-majeur-des-guerres-totales-1914-1945"
+    title: "L'Europe, un théâtre majeur des guerres totales (1914-1945)"
+    macro_theme_bo: "Histoire 3e — Thème 1 : L'Europe, un théâtre majeur des guerres totales (1914-1945)"
+    reperes_levels: ["3eme"]
+    attendus_bo:
+      - "Caractériser la Première Guerre mondiale comme guerre totale mobilisant civils et militaires et marquée par des violences de masse (tranchées, génocide des Arméniens en 1915, révolutions russes de 1917)."
+      - "Expliquer la fragilisation des démocraties (crise des années 1930, Front populaire) et la mise en place des régimes totalitaires stalinien et nazi dans l'entre-deux-guerres."
+      - "Analyser la Seconde Guerre mondiale comme guerre d'anéantissement planétaire (génocides des Juifs et des Tziganes) ainsi que la situation de la France occupée (régime de Vichy, collaboration, Résistance intérieure et France libre)."
+    scope_exclusions:
+      - "Histoire diplomatique détaillée des traités de 1919-1920 et historiographie spécialisée des rouages administratifs totalitaires (Terminale)."
+
+  - theme_slug: "le-monde-depuis-1945"
+    title: "Le monde depuis 1945 : décolonisation, guerre froide, Europe et nouveaux enjeux"
+    macro_theme_bo: "Histoire 3e — Thème 2 : Le monde depuis 1945"
+    reperes_levels: ["3eme"]
+    attendus_bo:
+      - "Expliquer les processus d'indépendance des colonies asiatiques et africaines et l'émergence du tiers-monde."
+      - "Caractériser l'affrontement bipolaire américano-soviétique de la guerre froide (1947-1991), les grandes étapes et réalisations concrètes de la construction européenne, puis la conflictualité multipolaire du monde après 1989."
+    scope_exclusions:
+      - "Doctrines nucléaires stratégiques détaillées et traités institutionnels européens exhaustifs (Terminale)."
+
+  - theme_slug: "francaises-et-francais-dans-une-republique-repensee"
+    title: "Françaises et Français dans une République repensée depuis 1944"
+    macro_theme_bo: "Histoire 3e — Thème 3 : Françaises et Français dans une République repensée"
+    reperes_levels: ["3eme"]
+    attendus_bo:
+      - "Expliquer la refondation républicaine et sociale à la Libération (1944-1947 : droit de vote des femmes, programme du CNR, Sécurité sociale)."
+      - "Caractériser les institutions et l'évolution politique de la Ve République fondée en 1958 (renforcement de l'exécutif, alternance, cohabitation) ainsi que les mutations sociales et culturelles de la société française des années 1950 aux années 1980."
+    scope_exclusions:
+      - "Droit constitutionnel comparé approfondi des IVe et Ve Républiques."
+
+  - theme_slug: "dynamiques-territoriales-de-la-france-contemporaine"
+    title: "Dynamiques territoriales de la France contemporaine"
+    macro_theme_bo: "Géographie 3e — Thème 1 : Dynamiques territoriales de la France contemporaine"
+    reperes_levels: ["3eme"]
+    attendus_bo:
+      - "Décrire l'organisation et l'influence des aires urbaines en France (ville-centre, banlieue, couronne périurbaine, mobilités quotidiennes)."
+      - "Analyser les mutations des espaces productifs français (industriels, agricoles, touristiques et de services) dans la mondialisation ainsi que la diversité et les atouts des espaces de faible densité."
+    scope_exclusions:
+      - "Zonages statistiques INSEE spécialisés (bassins de vie, zones d'emploi) hors définition scolaire de l'aire urbaine."
+
+  - theme_slug: "pourquoi-et-comment-amenager-le-territoire-francais"
+    title: "Pourquoi et comment aménager le territoire français (métropole et outre-mer)"
+    macro_theme_bo: "Géographie 3e — Thème 2 : Pourquoi et comment aménager le territoire ?"
+    reperes_levels: ["3eme"]
+    attendus_bo:
+      - "Expliquer les objectifs (réduire les inégalités territoriales, renforcer la compétitivité et la transition écologique) et le rôle des acteurs (État, collectivités territoriales, Union européenne, acteurs privés) d'un aménagement en France."
+      - "Caractériser les spécificités géographiques, les contraintes d'éloignement et d'insularité et les atouts des territoires ultramarins français."
+    scope_exclusions:
+      - "Droit administratif détaillé des collectivités territoriales et contrats de plan État-Région."
+
+  - theme_slug: "la-france-et-l-union-europeenne"
+    title: "La France et l'Union européenne dans le monde"
+    macro_theme_bo: "Géographie 3e — Thème 3 : La France et l'Union européenne"
+    reperes_levels: ["3eme"]
+    attendus_bo:
+      - "Situer et caractériser le territoire de l'Union européenne (contrastes de richesse et de peuplement, mégalopole européenne, politiques régionales de cohésion)."
+      - "Identifier les facteurs et limites du rayonnement mondial de la France et de l'Union européenne (présence ultramarine et ZEE, poids économique, culturel, diplomatique et francophonie)."
+    scope_exclusions:
+      - "Mécanismes budgétaires techniques des fonds structurels européens (Première/Terminale)."

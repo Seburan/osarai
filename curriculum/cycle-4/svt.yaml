@@ -1,0 +1,179 @@
+schema_version: 1
+cycle: "cycle-4"
+subject: "svt"
+subject_code: "svt"
+subject_label: "Sciences de la Vie et de la Terre (SVT)"
+
+bo_sources:
+  - title: "Programme d'enseignement du cycle des approfondissements (cycle 4) — BO n° 31 du 30 juillet 2020"
+    producer: "Ministère de l'Éducation nationale (Éduscol)"
+    publication_date: 2020-07-30
+    url: "https://eduscol.education.gouv.fr/sites/default/files/document/programme-d-enseignement-du-cycle-4-67722.pdf"
+    license_spdx: "Etalab-2.0"
+    license_url: "https://www.etalab.gouv.fr/licence-ouverte-open-licence/"
+    sha256: "de42e9816d7d012fd5d6b3349171cf43dd038c1e50fa0fe9e664bcc8521194b9"
+  - title: "SVT Cycle 4 — Propositions pour un enseignement spiralaire sur les trois années du cycle 4"
+    producer: "Ministère de l'Éducation nationale (Éduscol)"
+    publication_date: 2016-03-01
+    url: "https://eduscol.education.gouv.fr/sites/default/files/document/ra16c4svtenseigspiralairend578226pdf-78066.pdf"
+    license_spdx: "Etalab-2.0"
+    license_url: "https://www.etalab.gouv.fr/licence-ouverte-open-licence/"
+    sha256: "bf2fd1d46d83c2dbc5fd0d8249bd6644e383a7121059db20e594857ac6a7bd48"
+  - title: "SVT Cycle 4 — Mettre en œuvre son enseignement : Le corps humain et la santé"
+    producer: "Ministère de l'Éducation nationale (Éduscol)"
+    publication_date: 2016-03-01
+    url: "https://eduscol.education.gouv.fr/sites/default/files/document/ra16c4svtmetoeuvenseigt3corpshumnd562838pdf-77799.pdf"
+    license_spdx: "Etalab-2.0"
+    license_url: "https://www.etalab.gouv.fr/licence-ouverte-open-licence/"
+    sha256: "071aa5d37f7104ac3cf8e8d2cbd3a6863ac4c4703777a9f9319e03a0ba366e3c"
+
+themes:
+  - theme_slug: "la-respiration"
+    title: "La respiration et les échanges gazeux"
+    macro_theme_bo: "Le corps humain et la santé"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Relier les besoins en dioxygène et en nutriments des cellules d'un organe (notamment musculaire) à l'évolution des rythmes respiratoire et cardiaque lors d'un effort."
+      - "Décrire le trajet du dioxygène dans l'appareil respiratoire humain (fosses nasales ou bouche, trachée, bronches, bronchioles, alvéoles pulmonaires)."
+      - "Expliquer comment les caractéristiques des alvéoles pulmonaires (grande surface, paroi très fine, riche vascularisation en capillaires sanguins) favorisent les échanges gazeux entre l'air alvéolaire et le sang."
+      - "Identifier la diversité des organes respiratoires dans le monde animal (poumons, trachées des insectes, branchies des poissons) en lien avec le milieu de vie, ainsi que l'impact de substances nocives (tabac, pollution de l'air) sur l'appareil respiratoire."
+    scope_exclusions:
+      - "Mécanismes biochimiques de la respiration cellulaire mitochondriale, cycle de Krebs, chaîne respiratoire et synthèse d'ATP (programme de Lycée)."
+      - "Pressions partielles des gaz respiratoires, loi de Fick et courbes de dissociation de l'oxyhémoglobine."
+      - "Étude intracellulaire de la fibre musculaire et mécanisme moléculaire de sa contraction."
+      - "Régulation nerveuse bulbaire de la ventilation et contrôle de la pression artérielle à l'effort (classe de Seconde)."
+
+  - theme_slug: "la-digestion"
+    title: "La digestion et l'absorption des nutriments"
+    macro_theme_bo: "Le corps humain et la santé"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Décrire l'organisation fonctionnelle de l'appareil digestif humain en distinguant les organes du tube digestif (bouche, œsophage, estomac, intestin grêle, gros intestin) et les glandes digestives productrices de sucs."
+      - "Expliquer le devenir des aliments dans le tube digestif par l'action complémentaire de transformations mécaniques (mastication, brassage) et de transformations chimiques assurées par les enzymes digestives qui simplifient les aliments en nutriments solubles."
+      - "Relier la structure de la paroi de l'intestin grêle (replis, villosités intestinales très fines et richement irriguées par des capillaires sanguins) à l'absorption des nutriments vers le sang et à leur distribution aux organes."
+      - "Expliquer le rôle bénéfique du microbiote intestinal dans la digestion et relier apports alimentaires, équilibre nutritionnel et préservation de la santé."
+    scope_exclusions:
+      - "Détail moléculaire des réactions chimiques d'hydrolyse enzymatique des glucides, lipides et protides (réservé à la classe de 3ème et au Lycée)."
+      - "Structure tridimensionnelle des protéines enzymatiques, site actif et cinétique enzymatique (spécialité SVT Lycée)."
+      - "Mémorisation exhaustive de toutes les glandes digestives annexes et classification figée des groupes d'aliments."
+      - "Étude médicale des troubles des comportements alimentaires (boulimie, anorexie mentale)."
+
+  - theme_slug: "circulation-sanguine-et-effort-musculaire"
+    title: "La circulation sanguine et l'adaptation à l'effort"
+    macro_theme_bo: "Le corps humain et la santé"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Expliquer comment la mise en mouvement du sang à sens unique par le cœur cloisonné dans un circuit fermé (artères, capillaires, veines) assure l'approvisionnement permanent des organes en dioxygène et nutriments et l'évacuation des déchets."
+      - "Relier les modifications cardiovasculaires et respiratoires lors d'un effort physique aux besoins accrus des muscles et identifier l'existence de limites physiologiques (rythme cardiaque maximal, consommation maximale de dioxygène)."
+      - "Argumenter l'intérêt d'un entraînement adapté et d'une bonne hygiène de vie par opposition aux dangers du surentraînement et du dopage."
+    scope_exclusions:
+      - "Anatomie fine des valves cardiaques, tissu nodal, électrocardiogramme et régulation baroréflexe de la pression artérielle (classe de Seconde)."
+      - "Étude cellulaire des cellules souches satellites musculaires et voies métaboliques anaérobies lactiques."
+
+  - theme_slug: "nutrition-et-organisation-des-etres-vivants"
+    title: "La nutrition des animaux et des plantes chlorophylliennes"
+    macro_theme_bo: "Le vivant et son évolution"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Relier les besoins des cellules d'une plante chlorophyllienne (eau, sels minéraux, dioxyde de carbone et énergie lumineuse) aux organes de prélèvement (racines, feuilles à stomates), de production de matière organique et de stockage."
+      - "Comparer les systèmes de transport internes chez les végétaux (sève brute et sève élaborée dans des vaisseaux conducteurs) et chez les animaux."
+      - "Illustrer le rôle d'interactions avec des micro-organismes dans la nutrition (symbioses racinaires comme les mycorhizes ou nodosités)."
+    scope_exclusions:
+      - "Phases photochimique et non photochimique de la photosynthèse, cycle de Calvin et structure fine des chloroplastes (Lycée)."
+      - "Potentiel hydrique et mécanismes moléculaires du chargement phloémien."
+
+  - theme_slug: "meteo-climat-et-risques-naturels"
+    title: "Météorologie, zones climatiques et risques externes"
+    macro_theme_bo: "La planète Terre, l'environnement et l'action humaine"
+    reperes_levels: ["5eme"]
+    attendus_bo:
+      - "Distinguer météorologie (temps court et local) et climatologie (moyennes sur plusieurs décennies) et relier l'inégale répartition de l'énergie solaire à la surface du globe aux grandes zones climatiques et à la dynamique des masses d'air et d'eau."
+      - "Définir et relier aléa météorologique (tempête, inondation, cyclone), vulnérabilité des enjeux humains et risque naturel afin d'expliquer les mesures de prévision, de prévention et de protection."
+    scope_exclusions:
+      - "Force de Coriolis formalisée vectoriellement, équations thermodynamiques de l'atmosphère et cellules de Ferrel/Polaire détaillées."
+      - "Paramètres orbitaux de Milankovitch et paléoclimatologie isotopique (Lycée)."
+
+  - theme_slug: "seismes-volcanisme-et-tectonique-des-plaques"
+    title: "Séismes, volcanisme et tectonique des plaques"
+    macro_theme_bo: "La planète Terre, l'environnement et l'action humaine"
+    reperes_levels: ["4eme"]
+    attendus_bo:
+      - "Expliquer l'origine et les manifestations des séismes (rupture au foyer, propagation d'ondes sismiques) et des éruptions volcaniques (effusives et explosives en lien avec la viscosité du magma)."
+      - "Relier la répartition mondiale des séismes et des volcans à la découpe de la lithosphère rigide en plaques mobiles sur l'asthénosphère moins rigide (divergence aux dorsales, convergence dans les zones de subduction et de collision)."
+      - "Relier aléas géologiques et vulnérabilité des populations aux mesures de prévention et de protection parasismique ou volcanique."
+    scope_exclusions:
+      - "Pétrologie métamorphique des zones de subduction, tomographie sismique quantitative et géochimie isotopique du manteau (Lycée)."
+
+  - theme_slug: "systeme-nerveux-et-comportements-responsables"
+    title: "Le système nerveux et l'hygiène de vie"
+    macro_theme_bo: "Le corps humain et la santé"
+    reperes_levels: ["4eme"]
+    attendus_bo:
+      - "Identifier le trajet d'un message nerveux entre organes récepteurs sensoriels, centres nerveux (cerveau, moelle épinière) et organes effecteurs (muscles) via les nerfs sensitifs et moteurs."
+      - "Expliquer la communication entre neurones et avec les fibres musculaires : nature électrique du message le long de la fibre nerveuse et transmission chimique par neuromédiateurs au niveau de la synapse."
+      - "Mettre en évidence le rôle intégrateur du cerveau et relier manque de sommeil, bruit excessif ou consommation de substances psychoactives (alcool, tabac, drogues) aux perturbations du système nerveux."
+    scope_exclusions:
+      - "Potentiel de repos, canaux ioniques voltage-dépendants, potentiel d'action et sommation spatio-temporelle postsynaptique (Lycée)."
+      - "Nomenclature anatomique exhaustive des lobes et noyaux cérébraux."
+
+  - theme_slug: "reproduction-des-etres-vivants-et-dynamique-des-populations"
+    title: "Reproduction des êtres vivants et dynamique des populations"
+    macro_theme_bo: "Le vivant et son évolution"
+    reperes_levels: ["4eme"]
+    attendus_bo:
+      - "Distinguer reproduction sexuée (rencontre de gamètes mâle et femelle, fécondation interne ou externe selon les milieux aquatique ou aérien) et reproduction asexuée."
+      - "Relier l'influence des facteurs du milieu (ressources alimentaires, prédation, activités humaines) sur la reproduction et la survie des individus à la dynamique des populations."
+    scope_exclusions:
+      - "Cycles de développement haplo-diplophasiques complexes des végétaux et modèles mathématiques différentiels de Lotka-Volterra."
+
+  - theme_slug: "reproduction-humaine-et-sexualite"
+    title: "Reproduction humaine, hormones et sexualité responsable"
+    macro_theme_bo: "Le corps humain et la santé"
+    reperes_levels: ["4eme"]
+    attendus_bo:
+      - "Relier les transformations de la puberté au déclenchement hormonal du fonctionnement continu des testicules (production de spermatozoïdes) et cyclique des ovaires et de l'utérus (ovulation, règles)."
+      - "Décrire les grandes étapes de la fécondation, de la nidation et du développement embryonnaire et fœtal grâce aux échanges placentaires."
+      - "Expliquer les principes d'action des méthodes contraceptives (préventives ou d'urgence), d'aide médicale à la procréation et de prévention des infections sexuellement transmissibles (IST)."
+    scope_exclusions:
+      - "Rétrocontrôles positif et négatif détaillés du complexe hypothalamo-hypophysaire (GnRH, FSH, LH) étudiés au Lycée."
+
+  - theme_slug: "monde-microbien-et-systeme-immunitaire"
+    title: "Le monde microbien, l'immunité et les politiques de santé"
+    macro_theme_bo: "Le corps humain et la santé"
+    reperes_levels: ["3eme"]
+    attendus_bo:
+      - "Relier l'ubiquité et la diversité du microbiote humain à son rôle protecteur et distinguer contamination (franchissement des barrières naturelles) et infection."
+      - "Expliquer la réponse immunitaire rapide non spécifique (phagocytose par des leucocytes phagocytes) puis les réactions immunitaires lentes et spécifiques (production d'anticorps neutralisants et destruction de cellules infectées par des lymphocytes, mémoire immunitaire)."
+      - "Expliquer le mode d'action de l'asepsie, des antiseptiques, des antibiotiques (actifs uniquement sur les bactéries, enjeu de l'antibiorésistance) et de la vaccination préventive individuelle et collective."
+    scope_exclusions:
+      - "Complexe majeur d'histocompatibilité (CMH), sélection clonale thymique, interleukines et structure moléculaire des chaînes d'immunoglobulines (Spécialité Première)."
+
+  - theme_slug: "diversite-genetique-adn-et-heredite"
+    title: "Diversité génétique, chromosomes, gènes et hérédité"
+    macro_theme_bo: "Le vivant et son évolution"
+    reperes_levels: ["3eme"]
+    attendus_bo:
+      - "Relier les caractères héréditaires d'un individu (phénotype, modulé par l'environnement) à l'information génétique portée par l'ADN des chromosomes (caryotype humain à 23 paires, gènes et allèles)."
+      - "Expliquer le maintien du caryotype lors de la division cellulaire (mitose précédée de la copie des chromosomes) et l'origine de la diversité génétique des individus par les mutations, le brassage aléatoire lors de la formation des gamètes (méiose) et la fécondation."
+    scope_exclusions:
+      - "Transcription en ARN messager, code génétique, traduction ribosomale, réplication semi-conservative détaillée et brassage intrachromosomique par crossing-over (Lycée)."
+
+  - theme_slug: "classification-et-evolution-des-especes"
+    title: "Parenté des êtres vivants et mécanismes de l'évolution"
+    macro_theme_bo: "Le vivant et son évolution"
+    reperes_levels: ["3eme"]
+    attendus_bo:
+      - "Interpréter des groupes emboîtés ou des arbres de parenté fondés sur le partage d'attributs héréditaires (incluant Homo sapiens parmi les Primates) comme le résultat d'une ascendance commune."
+      - "Mettre en évidence le renouvellement des espèces au cours des temps géologiques (fossiles, crises biologiques) et expliquer l'évolution des populations sous l'effet conjoint du hasard (mutations, dérive) et de la sélection naturelle."
+    scope_exclusions:
+      - "Équilibre mathématique de Hardy-Weinberg, horloge moléculaire quantitative et mécanismes détaillés de spéciation allopatrique/sympatrique (Lycée)."
+
+  - theme_slug: "changement-climatique-ecosystemes-et-ressources"
+    title: "Changement climatique, écosystèmes et gestion des ressources"
+    macro_theme_bo: "La planète Terre, l'environnement et l'action humaine"
+    reperes_levels: ["3eme"]
+    attendus_bo:
+      - "Distinguer les variations climatiques naturelles passées du réchauffement climatique actuel lié aux émissions anthropiques de gaz à effet de serre et analyser ses conséquences sur les océans et la répartition de la biodiversité."
+      - "Expliquer comment l'exploitation des ressources naturelles (eau, sols, énergies fossiles et renouvelables, ressources halieutiques) modifie la dynamique des écosystèmes et justifier des solutions d'atténuation, d'adaptation et de préservation."
+    scope_exclusions:
+      - "Forçage radiatif en W/m², albédo planétaire quantitatif et rétroactions géochimiques du cycle profond du carbone (Enseignement scientifique Lycée)."

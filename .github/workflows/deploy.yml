@@ -1,0 +1,53 @@
+name: Déploiement GitHub Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Compilation et publication sur GitHub Pages
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Récupération du dépôt
+        uses: actions/checkout@v4
+
+      - name: Installation de uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Configuration de GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Synchronisation verrouillée de l'environnement Python
+        run: uv sync --frozen
+
+      - name: Validation hors-ligne des contenus et schémas
+        run: uv run osarai validate
+
+      - name: Compilation du portail statique dist/
+        run: uv run osarai build-site --output dist --base-url "${{ steps.pages.outputs.base_path }}"
+
+      - name: Téléversement de l'archive GitHub Pages
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+      - name: Publication sur GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

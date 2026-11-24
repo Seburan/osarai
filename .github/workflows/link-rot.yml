@@ -1,0 +1,80 @@
+name: Surveillance Hebdomadaire des Liens Externes
+
+on:
+  schedule:
+    - cron: "15 5 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  check-links:
+    name: Vérification des ressources externes publiées
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Récupération du dépôt
+        uses: actions/checkout@v4
+
+      - name: Installation de uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Synchronisation verrouillée de l'environnement Python
+        run: uv sync --frozen
+
+      - name: Exécution de check-urls et génération de link-report.json
+        continue-on-error: true
+        run: uv run osarai check-urls --json-report link-report.json
+
+      - name: Synchronisation de l'Issue de maintenance des liens morts
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          ISSUE_TITLE: "[Maintenance] Liens externes indisponibles"
+        run: |
+          if [ ! -f link-report.json ]; then
+            echo "Aucun rapport link-report.json généré."
+            exit 0
+          fi
+
+          DEAD_COUNT=$(jq '.dead_links | length' link-report.json)
+          EXISTING_NUMBER=$(gh issue list --state open --search "\"$ISSUE_TITLE\" in:title" --json number,title --jq ".[] | select(.title == \"$ISSUE_TITLE\") | .number" | head -n 1)
+
+          if [ "$DEAD_COUNT" -gt 0 ]; then
+            uv run python - <<'PY' > issue-body.md
+          import json
+          from pathlib import Path
+
+          report = json.loads(Path("link-report.json").read_text(encoding="utf-8"))
+          lines = [
+              "## Liens externes définitivement indisponibles (`404` / `410` / `oEmbed` / `Soft-404`)",
+              "",
+              f"- **Date de vérification** : `{report['checked_at']}`",
+              f"- **Nombre de liens en échec** : **{len(report['dead_links'])}**",
+              "",
+              "| Thème | URL | Statut | Diagnostic |",
+              "| :--- | :--- | :---: | :--- |",
+          ]
+          for item in report["dead_links"]:
+              status = item.get("status") if item.get("status") is not None else "—"
+              reason = str(item.get("reason", "")).replace("|", "\\|")
+              lines.append(f"| `{item['theme']}` | {item['url']} | `{status}` | {reason} |")
+          if report.get("warnings"):
+              lines.extend(
+                  [
+                      "",
+                      f"*(Note : {len(report['warnings'])} avertissement(s) temporaire(s) `403`/`429`/`5xx` non bloquants ignorés).* ",
+                  ]
+              )
+          print("\n".join(lines))
+          PY
+
+            if [ -n "$EXISTING_NUMBER" ]; then
+              gh issue edit "$EXISTING_NUMBER" --body-file issue-body.md
+            else
+              gh issue create --title "$ISSUE_TITLE" --body-file issue-body.md
+            fi
+          elif [ -n "$EXISTING_NUMBER" ]; then
+            gh issue close "$EXISTING_NUMBER" --comment "Tous les liens externes publiés dans `resources.yaml` répondent de nouveau correctement."
+          fi

@@ -1,0 +1,35 @@
+schema_version: 1
+
+subjects:
+  - cycle: "cycle-4"
+    subject: "svt"
+    documents:
+      - title: "Programme d'enseignement du cycle des approfondissements (cycle 4) — BO n° 31 du 30 juillet 2020"
+        url: "https://eduscol.education.gouv.fr/sites/default/files/document/programme-d-enseignement-du-cycle-4-67722.pdf"
+        doc_type: "programme"
+        publication_date: 2020-07-30
+        sha256: de42e9816d7d012fd5d6b3349171cf43dd038c1e50fa0fe9e664bcc8521194b9
+      - title: "SVT Cycle 4 — Propositions pour un enseignement spiralaire sur les trois années du cycle 4"
+        url: "https://eduscol.education.gouv.fr/sites/default/files/document/ra16c4svtenseigspiralairend578226pdf-78066.pdf"
+        doc_type: "reperes"
+        publication_date: 2016-03-01
+        sha256: bf2fd1d46d83c2dbc5fd0d8249bd6644e383a7121059db20e594857ac6a7bd48
+      - title: "SVT Cycle 4 — Mettre en œuvre son enseignement : Le corps humain et la santé"
+        url: "https://eduscol.education.gouv.fr/sites/default/files/document/ra16c4svtmetoeuvenseigt3corpshumnd562838pdf-77799.pdf"
+        doc_type: "ressource"
+        publication_date: 2016-03-01
+        sha256: 071aa5d37f7104ac3cf8e8d2cbd3a6863ac4c4703777a9f9319e03a0ba366e3c
+
+  - cycle: "cycle-4"
+    subject: "histoire-geographie"
+    documents:
+      - title: "Programme d'enseignement du cycle des approfondissements (cycle 4) — BO n° 31 du 30 juillet 2020"
+        url: "https://eduscol.education.gouv.fr/sites/default/files/document/programme-d-enseignement-du-cycle-4-67722.pdf"
+        doc_type: "programme"
+        publication_date: 2020-07-30
+        sha256: de42e9816d7d012fd5d6b3349171cf43dd038c1e50fa0fe9e664bcc8521194b9
+      - title: "Géographie 5e — Thème 1 : La question démographique et l'inégal développement"
+        url: "https://eduscol.education.gouv.fr/sites/default/files/document/c4geo5th1questiondemographiqueinegalitesdeveloppement558058pdf-78237.pdf"
+        doc_type: "ressource"
+        publication_date: 2016-03-01
+        sha256: a34b681ee66b554691250c942b796b1ea9634d1eb13ebbac169214faa8cfd1cf

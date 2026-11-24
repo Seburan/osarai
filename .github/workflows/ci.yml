@@ -1,0 +1,61 @@
+name: CI — Validation et Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    name: Qualité Python, Schémas YAML 1.2 et Build Statique
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Récupération complète de l'historique Git (merge-base)
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Installation de uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Synchronisation verrouillée de l'environnement Python
+        run: uv sync --frozen
+
+      - name: Analyse statique Ruff
+        run: uv run ruff check src/ tests/
+
+      - name: Vérification du formatage Ruff
+        run: uv run ruff format --check src/ tests/
+
+      - name: Suite de tests et couverture de branches (>= 85 %)
+        run: uv run pytest --cov=osarai --cov-branch --cov-fail-under=85
+
+      - name: Validation hors-ligne et immuabilité Git (Pull Request)
+        if: github.event_name == 'pull_request'
+        run: uv run osarai validate --against-ref origin/main
+
+      - name: Validation hors-ligne complète (branche main)
+        if: github.event_name != 'pull_request'
+        run: uv run osarai validate
+
+      - name: Compilation hors-ligne du portail statique
+        run: uv run osarai build-site --output dist --base-url "/osarai"
+
+      - name: Détection de changements sur les liens externes (Pull Request)
+        if: github.event_name == 'pull_request'
+        id: url_diff
+        run: |
+          if git diff --name-only origin/main...HEAD | grep -Eq '^(sources\.yaml|(.+/)?resources\.yaml)$'; then
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Contrôle réseau des nouveaux liens externes
+        if: github.event_name == 'pull_request' && steps.url_diff.outputs.changed == 'true'
+        run: uv run osarai check-urls --diff origin/main
