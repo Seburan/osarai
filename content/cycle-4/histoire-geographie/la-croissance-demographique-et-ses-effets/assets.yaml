@@ -1,0 +1,28 @@
+schema_version: 1
+assets:
+  - asset_id: croissance-mondiale
+    filename: c4-hg-la-croissance-demographique-et-ses-effets--croissance-mondiale.webp
+    width: 1280
+    height: 657
+    sha256: e7dacde78a1b740a9befe48803e454a197fea1f24c667ecabcd21673298a5f42
+    commons_title: File:Population growth rate world 2021.svg
+    source_url: https://commons.wikimedia.org/wiki/File:Population_growth_rate_world_2021.svg
+    license_spdx: CC0-1.0
+    license_url: https://creativecommons.org/publicdomain/zero/1.0/
+    author: Angerdan
+    title: Population growth rate world 2021
+    modifications_note: Rendu Wikimedia Commons (SVG langfr 1280 px) converti en WebP (qualité 85) sans modification éditoriale.
+    hitl_verified: true
+  - asset_id: evolution-population
+    filename: c4-hg-la-croissance-demographique-et-ses-effets--evolution-population.webp
+    width: 1280
+    height: 1030
+    sha256: 37480903f61b6b316cc7c930a70c29e2afe7b4c9cd35efb223dddbac96ff1ec1
+    commons_title: File:Évolution de la population mondiale entre 1800 et 2023, et projection jusqu'en 2100.svg
+    source_url: https://commons.wikimedia.org/wiki/File:%C3%89volution_de_la_population_mondiale_entre_1800_et_2023,_et_projection_jusqu%27en_2100.svg
+    license_spdx: CC-BY-SA-4.0
+    license_url: https://creativecommons.org/licenses/by-sa/4.0
+    author: Teek36
+    title: Évolution de la population mondiale entre 1800 et 2023, et projection jusqu'en 2100
+    modifications_note: Rendu Wikimedia Commons (SVG langfr 1280 px) converti en WebP (qualité 85) sans modification éditoriale.
+    hitl_verified: true

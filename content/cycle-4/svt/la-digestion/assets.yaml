@@ -1,0 +1,28 @@
+schema_version: 1
+assets:
+  - asset_id: appareil-digestif
+    filename: c4-svt-la-digestion--appareil-digestif.webp
+    width: 1280
+    height: 1930
+    sha256: 752515a207523786c31c38e36fded3c736c6d2b7f3932fcd036fd4490e47e5dd
+    commons_title: File:Digestive system simplified FR.svg
+    source_url: https://commons.wikimedia.org/wiki/File:Digestive_system_simplified_FR.svg
+    license_spdx: CC-PDM-1.0
+    license_url: https://creativecommons.org/publicdomain/mark/1.0/
+    author: 'File:Digestive system simplified.svg: Mariana Ruiz LadyofHats derivative work: Chandres'
+    title: Digestive system simplified FR
+    modifications_note: Rendu Wikimedia Commons (SVG langfr 1280 px) converti en WebP (qualité 85) sans modification éditoriale.
+    hitl_verified: true
+  - asset_id: tube-digestif
+    filename: c4-svt-la-digestion--tube-digestif.webp
+    width: 1280
+    height: 1323
+    sha256: 453add76e58324fbbf004700775fda7cebd9ee621f6a679413581768c755d941
+    commons_title: File:Stomach colon rectum diagram-fr.svg
+    source_url: https://commons.wikimedia.org/wiki/File:Stomach_colon_rectum_diagram-fr.svg
+    license_spdx: CC-PDM-1.0
+    license_url: https://creativecommons.org/publicdomain/mark/1.0/
+    author: 'Indolences created it then alnokta translated it. This SVG image was created by Medium69. Cette image SVG a été créée par Medium69. Please credit this : William Crochot'
+    title: Stomach colon rectum diagram-fr
+    modifications_note: Rendu Wikimedia Commons (SVG langfr 1280 px) converti en WebP (qualité 85) sans modification éditoriale.
+    hitl_verified: true

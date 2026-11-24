@@ -1,0 +1,28 @@
+schema_version: 1
+assets:
+  - asset_id: appareil-respiratoire
+    filename: c4-svt-la-respiration--appareil-respiratoire.webp
+    width: 1280
+    height: 1663
+    sha256: a4fdba8fffdfd5f6edfb3a9a6e8d2aaaa4e3b9284b151023488e31583c194401
+    commons_title: File:Respiratory system complete fr simplified.svg
+    source_url: https://commons.wikimedia.org/wiki/File:Respiratory_system_complete_fr_simplified.svg
+    license_spdx: CC-BY-SA-3.0
+    license_url: https://creativecommons.org/licenses/by-sa/3.0
+    author: https://commons.wikimedia.org/wiki/User:Berrucomons
+    title: Respiratory system complete fr simplified
+    modifications_note: Rendu Wikimedia Commons (SVG langfr 1280 px) converti en WebP (qualité 75) sans modification éditoriale.
+    hitl_verified: true
+  - asset_id: alveoles
+    filename: c4-svt-la-respiration--alveoles.webp
+    width: 1280
+    height: 879
+    sha256: 6d70d4e2bab03e2cdb94798a505960357a328185a27b3d9eeb1b65e55163715d
+    commons_title: File:Gas exchange in the aveolus simple (fr).svg
+    source_url: https://commons.wikimedia.org/wiki/File:Gas_exchange_in_the_aveolus_simple_(fr).svg
+    license_spdx: CC-BY-4.0
+    license_url: https://creativecommons.org/licenses/by/4.0
+    author: domdomegg
+    title: Gas exchange in the aveolus simple (fr)
+    modifications_note: Rendu Wikimedia Commons (SVG langfr 1280 px) converti en WebP (qualité 85) sans modification éditoriale.
+    hitl_verified: true

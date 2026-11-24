@@ -516,10 +516,11 @@ def test_occlusion_preview_generates_full_and_mobile_320w(sample_repo: Path) -> 
 
     with Image.open(full_png) as img_full:
         assert img_full.size == (640, 480)
-        # Vérifier la distinction visuelle entre boîte target (x=15%, y=20%) et mask (x=55%, y=60%)
+        # Vérifier l'opacité totale (alpha=255, zéro transparence) et la distinction target/mask
         target_px = img_full.getpixel((int(0.16 * 640), int(0.22 * 480)))
         mask_px = img_full.getpixel((int(0.56 * 640), int(0.62 * 480)))
-        assert target_px != mask_px
+        assert target_px == (217, 119, 6)
+        assert mask_px == (71, 85, 105)
 
     with Image.open(mobile_png) as img_mob:
         assert img_mob.width == 320

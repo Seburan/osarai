@@ -1,0 +1,23 @@
+schema_version: 1
+resources:
+  - title: "C'est pas sorcier — Nos poumons, sources d'inspiration"
+    url: "https://www.youtube.com/watch?v=drSiOlmp7N4"
+    source_domain: "youtube.com"
+    type: "video"
+    channel_url: "https://www.youtube.com/@Cestpassorcierofficiel"
+    last_verified_at: 2026-11-23
+  - title: "Activité — Quels échanges ont lieu lors de la respiration ? (Lelivrescolaire.fr)"
+    url: "https://www.lelivrescolaire.fr/page/16121001"
+    source_domain: "lelivrescolaire.fr"
+    type: "exercice"
+    last_verified_at: 2026-11-23
+  - title: "Bilan — Les échanges de matière indispensables à la vie (Lelivrescolaire.fr)"
+    url: "https://www.lelivrescolaire.fr/page/16120850"
+    source_domain: "lelivrescolaire.fr"
+    type: "cours"
+    last_verified_at: 2026-11-23
+  - title: "Alvéole pulmonaire — Encyclopédie Wikipédia"
+    url: "https://fr.wikipedia.org/wiki/Alv%C3%A9ole_pulmonaire"
+    source_domain: "fr.wikipedia.org"
+    type: "article"
+    last_verified_at: 2026-11-23

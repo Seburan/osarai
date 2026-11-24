@@ -1,0 +1,29 @@
+schema_version: 1
+resources:
+  - title: "La répartition de la population mondiale et ses dynamiques — Les Bons Profs"
+    url: "https://www.youtube.com/watch?v=DXhCm8z51Uw"
+    source_domain: "youtube.com"
+    type: "video"
+    channel_url: "https://www.youtube.com/@LesBonsProfs"
+    last_verified_at: 2026-11-23
+  - title: "Sommes-nous trop nombreux ? — ARTE"
+    url: "https://www.youtube.com/watch?v=M6cQ0WKBjNg"
+    source_domain: "youtube.com"
+    type: "video"
+    channel_url: "https://www.youtube.com/@ARTE"
+    last_verified_at: 2026-11-23
+  - title: "Chapitre 5ème — La croissance démographique et ses effets (Lelivrescolaire.fr)"
+    url: "https://www.lelivrescolaire.fr/page/15110270"
+    source_domain: "lelivrescolaire.fr"
+    type: "cours"
+    last_verified_at: 2026-11-23
+  - title: "Étude de cas — Croissance démographique et développement au Nigeria (Lelivrescolaire.fr)"
+    url: "https://www.lelivrescolaire.fr/page/15110288"
+    source_domain: "lelivrescolaire.fr"
+    type: "exercice"
+    last_verified_at: 2026-11-23
+  - title: "Population mondiale — Encyclopédie Wikipédia"
+    url: "https://fr.wikipedia.org/wiki/Population_mondiale"
+    source_domain: "fr.wikipedia.org"
+    type: "article"
+    last_verified_at: 2026-11-23

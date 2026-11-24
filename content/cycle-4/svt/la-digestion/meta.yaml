@@ -1,0 +1,65 @@
+schema_version: 1
+cycle: "cycle-4"
+subject: "svt"
+subject_code: "svt"
+theme_slug: "la-digestion"
+title: "La digestion et l'absorption des nutriments"
+reperes_levels:
+  - "5eme"
+scope_exclusions:
+  - "Détail moléculaire des réactions chimiques d'hydrolyse enzymatique des glucides, lipides et protides (réservé à la classe de 3ème et au Lycée)."
+  - "Structure tridimensionnelle des protéines enzymatiques, site actif et cinétique enzymatique (spécialité SVT Lycée)."
+  - "Mémorisation exhaustive de toutes les glandes digestives annexes et classification figée des groupes d'aliments."
+  - "Étude médicale des troubles des comportements alimentaires (boulimie, anorexie mentale)."
+qa_status: "hitl_verified"
+key_concepts:
+  - concept_id: "organisation-appareil-digestif"
+    label: "Tube digestif et glandes digestives annexes"
+    reperes_level: "5eme"
+  - concept_id: "actions-mecaniques-et-enzymes"
+    label: "Transformations mécaniques et action chimique des enzymes digestives"
+    reperes_level: "5eme"
+  - concept_id: "aliments-et-nutriments"
+    label: "Simplification des aliments en nutriments solubles"
+    reperes_level: "5eme"
+  - concept_id: "absorption-intestinale-villosites"
+    label: "Absorption intestinale au niveau des villosités de l'intestin grêle"
+    reperes_level: "5eme"
+  - concept_id: "role-microbiote-intestinal"
+    label: "Rôle du microbiote intestinal dans la digestion et la santé"
+    reperes_level: "5eme"
+  - concept_id: "besoins-et-equilibre-alimentaire"
+    label: "Besoins nutritionnels des organes et équilibre alimentaire"
+    reperes_level: "5eme"
+sources_used:
+  - title: Digestion — Vikidia
+    url: https://fr.vikidia.org/wiki/Digestion
+    source_domain: fr.vikidia.org
+    authors_or_history_url: https://fr.vikidia.org/wiki/Special:History/Digestion
+    license_spdx: CC-BY-SA-3.0
+    license_url: https://creativecommons.org/licenses/by-sa/3.0/
+    revision_or_date: '2577403'
+  - title: Appareil digestif — Vikidia
+    url: https://fr.vikidia.org/wiki/Appareil_digestif
+    source_domain: fr.vikidia.org
+    authors_or_history_url: https://fr.vikidia.org/wiki/Special:History/Appareil_digestif
+    license_spdx: CC-BY-SA-3.0
+    license_url: https://creativecommons.org/licenses/by-sa/3.0/
+    revision_or_date: '2575741'
+  - title: Microbiote — Vikidia
+    url: https://fr.vikidia.org/wiki/Microbiote
+    source_domain: fr.vikidia.org
+    authors_or_history_url: https://fr.vikidia.org/wiki/Special:History/Microbiote
+    license_spdx: CC-BY-SA-3.0
+    license_url: https://creativecommons.org/licenses/by-sa/3.0/
+    revision_or_date: '2557675'
+  - title: Villosité intestinale — Wikipédia
+    url: https://fr.wikipedia.org/wiki/Villosit%C3%A9_intestinale
+    source_domain: fr.wikipedia.org
+    authors_or_history_url: https://fr.wikipedia.org/wiki/Special:History/Villosit%C3%A9_intestinale
+    license_spdx: CC-BY-SA-4.0
+    license_url: https://creativecommons.org/licenses/by-sa/4.0/deed.fr
+    revision_or_date: '215260727'
+last_card_seq: 24
+last_quiz_seq: 12
+retired_ids: []

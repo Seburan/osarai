@@ -1,0 +1,183 @@
+schema_version: 1
+questions:
+  - id: c4-svt-la-respiration-q0001
+    concept_id: "besoins-cellulaires-et-effort"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Lorsque l'on compare le sang entrant dans un muscle en activité et le sang qui en ressort, on constate que le sang sortant contient :"
+    choices:
+      - "Moins de dioxygène (\\(\\text{O}_2\\)) et plus de dioxyde de carbone (\\(\\text{CO}_2\\))."
+      - "Plus de dioxygène (\\(\\text{O}_2\\)) et moins de dioxyde de carbone (\\(\\text{CO}_2\\))."
+      - "Plus de dioxygène (\\(\\text{O}_2\\)) et plus de nutriments."
+      - "Exactement les mêmes quantités de \\(\\text{O}_2\\) et de \\(\\text{CO}_2\\) qu'à l'entrée."
+    answer_index: 0
+    explanation: "Le muscle prélève du \\(\\text{O}_2\\) et des nutriments dans le sang qui le traverse et y rejette un déchet, le \\(\\text{CO}_2\\)."
+
+  - id: c4-svt-la-respiration-q0002
+    concept_id: "besoins-cellulaires-et-effort"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Au cours d'une course d'endurance, pourquoi le rythme respiratoire et le rythme cardiaque d'un élève augmentent-ils simultanément ?"
+    choices:
+      - "Pour refroidir uniquement l'air contenu dans la trachée."
+      - "Pour renouveler plus vite l'air alvéolaire et accélérer le transport sanguin de \\(\\text{O}_2\\) vers les muscles."
+      - "Pour permettre au sang d'absorber le diazote (\\(\\text{N}_2\\)) de l'air."
+      - "Pour stocker durablement de l'air gazeux à l'intérieur des muscles."
+    answer_index: 1
+    explanation: "L'effort augmente les besoins musculaires : ventiler plus vite enrichit le sang en \\(\\text{O}_2\\), et un débit cardiaque accru le distribue plus rapidement."
+
+  - id: c4-svt-la-respiration-q0003
+    concept_id: "trajet-air-appareil-respiratoire"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Quel est l'ordre exact des organes traversés par l'air lors d'une inspiration chez l'être humain ?"
+    choices:
+      - "Nez -> œsophage -> bronches -> trachée -> alvéoles pulmonaires."
+      - "Nez -> trachée -> bronchioles -> bronches -> capillaires sanguins."
+      - "Nez -> trachée -> bronches -> bronchioles -> alvéoles pulmonaires."
+      - "Nez -> larynx -> alvéoles pulmonaires -> bronches -> trachée."
+    answer_index: 2
+    explanation: "Après les fosses nasales, le pharynx et le larynx, l'air descend dans la trachée, se divise en deux bronches, puis en bronchioles jusqu'aux alvéoles."
+
+  - id: c4-svt-la-respiration-q0004
+    concept_id: "trajet-air-appareil-respiratoire"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Sur ce schéma de l'appareil respiratoire humain, comment se nomment les petits sacs microscopiques désignés par **`?`** dans l'encart de droite ?"
+    choices:
+      - "Les villosités intestinales."
+      - "Les branchies pulmonaires."
+      - "Les bronchioles principales."
+      - "Les alvéoles pulmonaires."
+    answer_index: 3
+    explanation: "L'encart agrandit l'extrémité d'une bronchiole terminée par un bouquet d'alvéoles pulmonaires entourées d'un filet de capillaires sanguins."
+    asset_id: "appareil-respiratoire"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "q-occ-alveoles"
+        x: 83.2
+        y: 28.0
+        w: 14.5
+        h: 3.6
+        role: "target"
+        badge: "?"
+
+  - id: c4-svt-la-respiration-q0005
+    concept_id: "echanges-gazeux-alveolaires"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Laquelle de ces affirmations compare correctement la composition de l'air inspiré et celle de l'air expiré ?"
+    choices:
+      - "L'air expiré ne contient plus du tout de dioxygène (\\(0\\,\\%\\))."
+      - "L'air expiré contient moins de \\(\\text{O}_2\\) (\\(\\approx 16\\,\\%\\) contre \\(21\\,\\%\\)) et plus de \\(\\text{CO}_2\\) que l'air inspiré."
+      - "L'air expiré contient beaucoup moins de diazote (\\(\\text{N}_2\\)) que l'air inspiré."
+      - "L'air expiré contient davantage de \\(\\text{O}_2\\) que l'air inspiré."
+    answer_index: 1
+    explanation: "Une partie seulement du \\(\\text{O}_2\\) inspiré passe dans le sang (il en reste environ \\(16\\,\\%\\)), tandis que le \\(\\text{CO}_2\\) rejeté passe de \\(0,03\\,\\%\\) à environ \\(4\\,\\%\\)."
+
+  - id: c4-svt-la-respiration-q0006
+    concept_id: "echanges-gazeux-alveolaires"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Sur ce schéma d'une alvéole pulmonaire, que représente la flèche orange dont la légende est masquée par **`?`** ?"
+    choices:
+      - "Le passage du dioxygène (\\(\\text{O}_2\\)) de l'air alvéolaire vers le sang du capillaire."
+      - "Le passage du dioxyde de carbone (\\(\\text{CO}_2\\)) de l'alvéole vers le sang."
+      - "Le passage des globules rouges du sang vers l'intérieur de l'alvéole."
+      - "L'entrée de bulles de diazote (\\(\\text{N}_2\\)) dans les vaisseaux sanguins."
+    answer_index: 0
+    explanation: "La flèche orange part de la cavité de l'alvéole et traverse la fine paroi vers le capillaire sanguin : c'est le passage du \\(\\text{O}_2\\) dans le sang."
+    asset_id: "alveoles"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "q-occ-o2"
+        x: 42.5
+        y: 40.0
+        w: 10.0
+        h: 11.0
+        role: "target"
+        badge: "?"
+      - id: "q-occ-co2-mask"
+        x: 54.0
+        y: 56.5
+        w: 15.5
+        h: 10.3
+        role: "mask"
+
+  - id: c4-svt-la-respiration-q0007
+    concept_id: "caracteristiques-surface-echange"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Parmi les propositions suivantes, laquelle réunit exactement les **trois caractéristiques** expliquant l'efficacité des alvéoles pulmonaires ?"
+    choices:
+      - "Une paroi épaisse et rigide, peu de vaisseaux sanguins et un petit volume."
+      - "Une grande surface totale, une paroi très fine et de nombreux capillaires sanguins."
+      - "La présence d'enzymes digestives, de muscles puissants et d'anneaux de cartilage."
+      - "Une température élevée, l'absence d'humidité et un stockage prolongé de l'air."
+    answer_index: 1
+    explanation: "Comme toute surface d'échange biologique performante, l'ensemble des alvéoles combine grande surface (\\(\\approx 75\\,\\text{m}^2\\)), finesse de paroi et riche vascularisation."
+
+  - id: c4-svt-la-respiration-q0008
+    concept_id: "caracteristiques-surface-echange"
+    reperes_level: "5eme"
+    difficulty: "difficile"
+    question: "Chez un patient atteint d'**emphysème pulmonaire**, les parois d'un grand nombre d'alvéoles sont détruites. Quelle en est la conséquence directe à l'effort ?"
+    choices:
+      - "La surface totale d'échange diminue, ce qui limite le passage de \\(\\text{O}_2\\) dans le sang et provoque un essoufflement rapide."
+      - "Le sang s'enrichit beaucoup plus vite en \\(\\text{O}_2\\) car les cavités pulmonaires sont plus larges."
+      - "L'air inspiré passe directement dans l'estomac par l'œsophage."
+      - "Les muscles cessent d'avoir besoin de dioxygène pour se contracter."
+    answer_index: 0
+    explanation: "La destruction des parois alvéolaires réduit drastiquement la surface de contact entre l'air et les capillaires sanguins, diminuant l'oxygénation du sang."
+
+  - id: c4-svt-la-respiration-q0009
+    concept_id: "diversite-organes-respiratoires"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Quel organe respiratoire permet à une truite de prélever le dioxygène dissous dans l'eau ?"
+    choices:
+      - "Des poumons alvéolaires."
+      - "Des trachées ouvertes par des stigmates."
+      - "Des branchies formées de filaments richement irrigués par le sang."
+      - "Une vessie natatoire reliée à l'estomac."
+    answer_index: 2
+    explanation: "L'eau entre par la bouche du poisson et baigne les filaments branchiaux très fins et rouges (riches en capillaires), où s'effectuent les échanges gazeux."
+
+  - id: c4-svt-la-respiration-q0010
+    concept_id: "diversite-organes-respiratoires"
+    reperes_level: "5eme"
+    difficulty: "difficile"
+    question: "Quel point commun partagent les **poumons** d'un humain, les **branchies** d'un poisson et le réseau de **trachées** d'un criquet ?"
+    choices:
+      - "Ils ne fonctionnent que dans l'air atmosphérique sec."
+      - "Ils imposent tous que le sang transporte le dioxygène jusqu'aux cellules."
+      - "Ils constituent tous une paroi très fine et étendue facilitant le prélèvement de \\(\\text{O}_2\\) dans le milieu de vie."
+      - "Ils sont tous mis en mouvement par un diaphragme musculaire."
+    answer_index: 2
+    explanation: "Malgré des structures adaptées à l'air ou à l'eau (et l'absence de transport sanguin du \\(\\text{O}_2\\) chez l'insecte), tous reposent sur la finesse et l'étendue de la surface d'échange."
+
+  - id: c4-svt-la-respiration-q0011
+    concept_id: "sante-appareil-respiratoire"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Dans la fumée de tabac, quelle substance est principalement responsable du dépôt noirâtre sur les alvéoles et des cancers du poumon ?"
+    choices:
+      - "La vapeur d'eau."
+      - "Le diazote."
+      - "Les goudrons."
+      - "Le glucose."
+    answer_index: 2
+    explanation: "Les goudrons issus de la combustion du tabac s'accumulent dans les bronches et les alvéoles et contiennent de nombreux composés cancérigènes."
+
+  - id: c4-svt-la-respiration-q0012
+    concept_id: "sante-appareil-respiratoire"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Quelle mesure collective ou individuelle protège efficacement l'appareil respiratoire au quotidien ?"
+    choices:
+      - "Boucher les grilles d'aération du logement en hiver pour conserver la chaleur."
+      - "Ne pas fumer, aérer quotidiennement les pièces et limiter les efforts intenses lors des pics de pollution atmosphérique."
+      - "Pratiquer un effort intense à proximité immédiate d'un axe routier très fréquenté."
+      - "Remplacer l'activité physique régulière par le tabagisme passif."
+    answer_index: 1
+    explanation: "L'absence de tabagisme, l'aération quotidienne des espaces clos et l'adaptation de l'activité lors des pics de pollution préservent la muqueuse bronchique et les alvéoles."

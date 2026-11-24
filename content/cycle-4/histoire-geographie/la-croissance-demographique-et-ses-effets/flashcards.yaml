@@ -1,0 +1,262 @@
+schema_version: 1
+cards:
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0001
+    concept_id: "croissance-population-mondiale"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "La population mondiale a franchi le cap des {{c1::8 milliards::ordre de grandeur}} d'habitants en 2022 et devrait approcher {{c2::9,6 à 10 milliards::ordre de grandeur}} vers 2050 selon l'ONU."
+    back: ""
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0002
+    concept_id: "croissance-population-mondiale"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Comment définit-on l'**accroissement naturel** (ou solde naturel) d'une population sur une année ?"
+    back: "C'est la **différence entre le nombre de naissances et le nombre de décès** enregistrés sur un territoire pendant une année (\\(\\text{Naissances} - \\text{Décès}\\))."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0003
+    concept_id: "croissance-population-mondiale"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Pourquoi est-il faux d'affirmer que la population mondiale diminue alors que son taux de croissance annuel ralentit depuis les années 1960 ?"
+    back: "Tant que le taux d'accroissement reste **positif** (environ \\(+0,8\\,\\%\\) par an), la population mondiale **continue d'augmenter**, simplement à un rythme moins rapide qu'auparavant."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0004
+    concept_id: "croissance-population-mondiale"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Sur ce graphique de l'ONU, quel effectif de population mondiale (en milliards d'habitants) est projeté en **2100** dans le **scénario médian** (cible **`?`** sur la courbe rose) ?"
+    back: "Environ **\\(10,18\\) milliards** (soit un peu plus de **\\(10\\) milliards** d'habitants)."
+    explanation: "Le scénario médian de l'ONU prévoit un plafonnement de la population mondiale légèrement au-dessus de 10 milliards d'habitants vers la fin du XXIe siècle."
+    asset_id: "evolution-population"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-proj-2100"
+        x: 94.8
+        y: 29.2
+        w: 5.0
+        h: 3.0
+        role: "target"
+        badge: "?"
+      - id: "occ-lecture-mask"
+        x: 1.5
+        y: 94.0
+        w: 98.0
+        h: 2.8
+        role: "mask"
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0005
+    concept_id: "etudes-de-cas-emergents-afrique"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce planisphère, quelle puissance émergente d'Asie du Sud désignée par **`?`** est devenue l'État le plus peuplé du monde (plus de \\(1,4\\) milliard d'habitants) ?"
+    back: "L'**Inde**."
+    explanation: "Avec plus de 1,4 milliard d'habitants, l'Inde a dépassé la Chine et conserve une croissance démographique positive portée par la jeunesse de sa population."
+    asset_id: "croissance-mondiale"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-inde"
+        x: 66.8
+        y: 33.5
+        w: 4.2
+        h: 8.5
+        role: "target"
+        badge: "?"
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0006
+    concept_id: "etudes-de-cas-emergents-afrique"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce planisphère du taux de croissance démographique, quel grand pays d'Afrique de l'Ouest désigné par **`?`** au bord du golfe de Guinée est le pays le plus peuplé d'Afrique ?"
+    back: "Le **Nigeria**."
+    explanation: "Fort de plus de 220 millions d'habitants et d'une croissance rapide, le Nigeria (où se situe la mégapole de Lagos) est un futur géant démographique mondial."
+    asset_id: "croissance-mondiale"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-nigeria"
+        x: 47.5
+        y: 40.2
+        w: 3.6
+        h: 6.0
+        role: "target"
+        badge: "?"
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0007
+    concept_id: "etudes-de-cas-emergents-afrique"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "Le continent qui connaît aujourd'hui la croissance démographique la plus rapide au monde est l'{{c1::Afrique::continent}}, et plus particulièrement sa partie située au sud du {{c2::Sahara::désert}} (zone subsaharienne)."
+    back: ""
+    asset_id: "croissance-mondiale"
+    asset_role: "back_reference"
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0008
+    concept_id: "etudes-de-cas-emergents-afrique"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Quelle différence majeure distingue aujourd'hui la dynamique démographique de la **Chine** de celle de l'**Inde** ?"
+    back: "La population de la **Chine** stagne puis **commence à diminuer et vieillit vite** (après des décennies de contrôle strict des naissances), alors que celle de l'**Inde** est plus jeune et continue de croître."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0009
+    concept_id: "vieillissement-pays-developpes"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Qu'appelle-t-on le **vieillissement de la population** d'un territoire, et quelles en sont les deux causes principales ?"
+    back: "C'est l'**augmentation de la part des personnes âgées** dans la population totale, provoquée par l'**allongement de l'espérance de vie** et une **faible fécondité**."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0010
+    concept_id: "vieillissement-pays-developpes"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "En **Europe** et aux **États-Unis**, la croissance démographique est {{c1::faible::rythme}} (voire négative dans certains États européens) et l'enjeu majeur est le {{c2::vieillissement}} de la population."
+    back: ""
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0011
+    concept_id: "vieillissement-pays-developpes"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Quels sont les **deux grands défis économiques et sociaux** posés par le vieillissement de la population en Europe ?"
+    back: "1. Le **financement des retraites** (moins d'actifs cotisants par retraité) ; 2. L'adaptation des **services de santé et d'accompagnement de la dépendance** pour le grand âge."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0012
+    concept_id: "vieillissement-pays-developpes"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Sur ce planisphère, quel foyer majeur de population en Asie orientale désigné par **`?`** apparaît en violet foncé car sa croissance démographique est devenue quasi nulle voire négative ?"
+    back: "La **Chine**."
+    explanation: "Comme l'Europe ou le Japon, la Chine fait désormais face à un ralentissement démographique marqué et à un vieillissement accéléré de sa société."
+    asset_id: "croissance-mondiale"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-chine"
+        x: 69.5
+        y: 22.5
+        w: 8.5
+        h: 9.0
+        role: "target"
+        badge: "?"
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0013
+    concept_id: "defis-besoins-essentiels"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Cite **quatre besoins essentiels** que les États à forte croissance démographique doivent satisfaire en priorité pour leur population nombreuse et jeune."
+    back: "Se **nourrir** (alimentation et eau potable), se **soigner** (santé), s'**instruire** (écoles et enseignants) et se **loger** décemment (avec accès à l'électricité et à l'assainissement)."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0014
+    concept_id: "defis-besoins-essentiels"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "Dans les pays en développement rapide, l'afflux d'habitants vers les grandes villes accélère l'{{c1::urbanisation}} et peut entraîner l'extension de quartiers précaires sous-équipés appelés {{c2::bidonvilles}}."
+    back: ""
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0015
+    concept_id: "defis-besoins-essentiels"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Pourquoi la **scolarisation des filles** joue-t-elle un rôle décisif à la fois sur le développement humain et sur la maîtrise de la croissance démographique ?"
+    back: "Mieux instruites, les femmes accèdent davantage à l'emploi qualifié, à l'information sanitaire (baisse de la mortalité infantile) et à la contraception, ce qui réduit durablement la fécondité."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0016
+    concept_id: "defis-besoins-essentiels"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Quelles conséquences spatiales et environnementales une croissance urbaine et démographique mal maîtrisée peut-elle provoquer dans une puissance émergente ?"
+    back: "Creusement des **inégalités entre métropoles et campagnes**, forte pression sur l'**eau et l'énergie**, gestion difficile des **déchets** et **pollutions** de l'air ou des sols."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0017
+    concept_id: "developpement-durable-et-odd"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "Le **développement durable** repose sur l'équilibre entre trois piliers indissociables : le pilier {{c1::économique}}, le pilier {{c2::social}} et le pilier {{c3::environnemental::écologique}}."
+    back: ""
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0018
+    concept_id: "developpement-durable-et-odd"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Que désigne le sigle **ODD** adopté par l'Organisation des Nations unies (ONU) à l'horizon 2030 ?"
+    back: "Les **Objectifs de développement durable** : \\(17\\) objectifs mondiaux visant à éradiquer la pauvreté, répondre aux besoins essentiels (faim zéro, santé, éducation) et protéger la planète."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0019
+    concept_id: "developpement-durable-et-odd"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "La croissance démographique empêche-t-elle fatalement tout développement durable et équitable des sociétés humaines ?"
+    back: "**Non** : elle représente un **défi** (un frein potentiel si les équipements manquent), mais les progrès agricoles, sanitaires, éducatifs et des politiques publiques adaptées permettent d'améliorer le niveau de vie."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0020
+    concept_id: "developpement-durable-et-odd"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Quels acteurs interviennent aux côtés des États pour améliorer l'accès à la santé, à l'éducation ou à l'eau dans les pays en forte croissance ?"
+    back: "Les **organisations internationales** (ONU, UNICEF, OMS), les **ONG** (organisations non gouvernementales humanitaires et de développement) et les **collectivités locales**."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0021
+    concept_id: "lecture-cartes-et-indicateurs"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "L'**Indice de développement humain** ({{c1::IDH::sigle}}), compris entre \\(0\\) et \\(1\\), combine trois dimensions : la {{c2::richesse::économie}} par habitant, l'{{c3::espérance de vie::santé}} et le niveau d'éducation."
+    back: ""
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0022
+    concept_id: "lecture-cartes-et-indicateurs"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Pourquoi l'**IDH** est-il un indicateur plus complet que le seul **PIB par habitant** pour évaluer le développement d'un pays ?"
+    back: "Le **PIB par habitant** ne mesure que la richesse économique moyenne produite, tandis que l'**IDH** vérifie aussi si cette richesse profite à la **santé** et à l'**éducation** de la population."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0023
+    concept_id: "lecture-cartes-et-indicateurs"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Pourquoi les géographes ne se contentent-ils plus d'une limite unique opposant un « Nord riche » à un « Sud pauvre » ?"
+    back: "L'essor rapide des **pays émergents** (Chine, Inde, Brésil...) brouille cette ancienne frontière, et d'importantes **inégalités sociales et territoriales** s'observent à l'intérieur de chaque pays."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-c0024
+    concept_id: "lecture-cartes-et-indicateurs"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce graphique de l'ONU, à partir de quelle décennie environ la croissance de la population mondiale s'accélère-t-elle très fortement, et quel niveau atteint-elle en **2023** (cible **`?`**) ?"
+    back: "Elle s'accélère fortement après **1950** (environ \\(2,5\\) milliards) et atteint environ **\\(8,09\\) milliards d'habitants** en 2023."
+    explanation: "Entre 1950 et 2023, la population mondiale a plus que triplé sous l'effet du recul massif de la mortalité infantile et de l'allongement de l'espérance de vie."
+    asset_id: "evolution-population"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-pop-2023"
+        x: 68.3
+        y: 38.0
+        w: 4.6
+        h: 2.8
+        role: "target"
+        badge: "?"
+      - id: "occ-lecture-2023-mask"
+        x: 1.5
+        y: 94.0
+        w: 98.0
+        h: 2.8
+        role: "mask"

@@ -1,0 +1,183 @@
+schema_version: 1
+questions:
+  - id: c4-svt-la-digestion-q0001
+    concept_id: "organisation-appareil-digestif"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Parmi les listes suivantes, laquelle indique dans le bon ordre uniquement des organes **traversés par les aliments** dans le tube digestif ?"
+    choices:
+      - "Bouche -> trachée -> estomac -> foie -> gros intestin."
+      - "Bouche -> œsophage -> estomac -> intestin grêle -> gros intestin."
+      - "Bouche -> œsophage -> pancréas -> reins -> vessie."
+      - "Bouche -> estomac -> vésicule biliaire -> gros intestin -> intestin grêle."
+    answer_index: 1
+    explanation: "La trachée appartient à l'appareil respiratoire, les reins à l'appareil urinaire, et le foie ainsi que le pancréas sont des glandes annexes non traversées par les aliments."
+
+  - id: c4-svt-la-digestion-q0002
+    concept_id: "organisation-appareil-digestif"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Sur ce schéma de l'appareil digestif, quel est le rôle des glandes désignées par **`?`** au niveau de la bouche ?"
+    choices:
+      - "Sécréter la salive qui humidifie les aliments et commence leur digestion chimique."
+      - "Fabriquer la bile destinée à digérer les graisses dans l'estomac."
+      - "Absorber directement tous les nutriments vers le cœur."
+      - "Filtrer le dioxygène de l'air inspiré."
+    answer_index: 0
+    explanation: "Il s'agit des **glandes salivaires**, qui déversent la salive (contenant une enzyme digestive) dans la bouche lors de la mastication."
+    asset_id: "appareil-digestif"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "q-occ-salivaires"
+        x: 2.5
+        y: 7.3
+        w: 26.5
+        h: 3.0
+        role: "target"
+        badge: "?"
+
+  - id: c4-svt-la-digestion-q0003
+    concept_id: "actions-mecaniques-et-enzymes"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Quel est le rôle précis des **enzymes digestives** présentes dans la salive, le suc gastrique ou le suc pancréatique ?"
+    choices:
+      - "Broyer mécaniquement les aliments comme le font les dents."
+      - "Transformer chimiquement de grosses structures alimentaires en nutriments simples et solubles."
+      - "Transporter le dioxygène dans les globules rouges."
+      - "Rendre la paroi de l'intestin totalement imperméable."
+    answer_index: 1
+    explanation: "Les enzymes digestives agissent chimiquement (à environ \\(37\\,^\\circ\\text{C}\\)) pour simplifier les aliments en nutriments capables de passer dans le sang."
+
+  - id: c4-svt-la-digestion-q0004
+    concept_id: "actions-mecaniques-et-enzymes"
+    reperes_level: "5eme"
+    difficulty: "difficile"
+    question: "Au laboratoire, on place à \\(37\\,^\\circ\\text{C}\\) deux tubes contenant de l'eau et une enzyme digestive : le tube A contient un cube entier de blanc d'œuf cuit, le tube B contient la même masse finement hachée. Qu'observe-t-on après une heure ?"
+    choices:
+      - "Aucun des deux tubes n'est digéré car il manque la lumière solaire."
+      - "Le tube A est digéré plus vite car le cube entier retient mieux la chaleur."
+      - "Le tube B est digéré beaucoup plus vite car la fragmentation mécanique augmente la surface d'action des enzymes."
+      - "L'eau pure sans enzyme suffit à dissoudre le blanc d'œuf cuit en quelques secondes."
+    answer_index: 2
+    explanation: "Cette expérience modélise l'intérêt de la mastication : en fragmentant l'aliment, l'action mécanique offre davantage de surface de contact aux enzymes digestives."
+
+  - id: c4-svt-la-digestion-q0005
+    concept_id: "aliments-et-nutriments"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Que deviennent la majorité des matières contenues dans une pomme après sa digestion complète chez un élève en bonne santé ?"
+    choices:
+      - "Elles ressortent intégralement par l'anus au bout de quelques heures."
+      - "Elles sont transformées en nutriments qui traversent l'intestin grêle pour passer dans le sang ; seules les fibres non digérées forment les selles."
+      - "Elles passent directement de l'estomac vers la vessie pour former l'urine."
+      - "Elles s'accumulent définitivement dans le foie."
+    answer_index: 1
+    explanation: "Le tube digestif n'est pas un tuyau imperméable : l'eau et les nutriments issus de la pomme passent dans le sang au niveau de l'intestin grêle."
+
+  - id: c4-svt-la-digestion-q0006
+    concept_id: "aliments-et-nutriments"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Parmi les éléments suivants présents dans le tube digestif, lequel est déjà un **nutriment** directement utilisable par les cellules ?"
+    choices:
+      - "Un morceau de mie de pain riche en amidon."
+      - "Le glucose dissous."
+      - "Une fibre musculaire de viande."
+      - "Une goutte d'huile végétale non digérée."
+    answer_index: 1
+    explanation: "L'amidon du pain, les protéines de la viande et les lipides de l'huile doivent d'abord être simplifiés par les enzymes, tandis que le glucose est déjà un nutriment soluble."
+
+  - id: c4-svt-la-digestion-q0007
+    concept_id: "absorption-intestinale-villosites"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Sur ce schéma du tube digestif abdominal, quel organe désigné par **`?`** possède des millions de villosités permettant le passage des nutriments dans le sang ?"
+    choices:
+      - "L'œsophage."
+      - "L'intestin grêle."
+      - "L'appendice."
+      - "La trachée."
+    answer_index: 1
+    explanation: "Au centre de l'abdomen, l'intestin grêle assure l'absorption intestinale grâce à ses nombreux replis et villosités richement vascularisées."
+    asset_id: "tube-digestif"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "q-occ-intestin-grele"
+        x: 11.8
+        y: 11.3
+        w: 28.6
+        h: 5.5
+        role: "target"
+        badge: "?"
+      - id: "q-occ-colon-mask"
+        x: 69.0
+        y: 75.5
+        w: 13.5
+        h: 5.0
+        role: "mask"
+
+  - id: c4-svt-la-digestion-q0008
+    concept_id: "absorption-intestinale-villosites"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Pourquoi la paroi interne de l'intestin grêle permet-elle une absorption très rapide et efficace des nutriments vers le sang ?"
+    choices:
+      - "Elle est lisse, très épaisse et dépourvue de vaisseaux sanguins."
+      - "Ses nombreux replis et villosités offrent une grande surface, une paroi très fine et un riche réseau de capillaires sanguins."
+      - "Elle est percée de larges trous laissant passer des morceaux entiers d'aliments dans les artères."
+      - "Elle refoule tous les nutriments vers l'estomac."
+    answer_index: 1
+    explanation: "Tout comme les alvéoles pulmonaires pour le \\(\\text{O}_2\\), les villosités intestinales réunissent grande surface, finesse de paroi et riche vascularisation."
+
+  - id: c4-svt-la-digestion-q0009
+    concept_id: "role-microbiote-intestinal"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Laquelle de ces affirmations décrit correctement le **microbiote intestinal** humain ?"
+    choices:
+      - "C'est une maladie grave qu'il faut éliminer le plus vite possible avec des antibiotiques."
+      - "C'est un ensemble de milliards de micro-organismes bénéfiques vivant dans l'intestin et participant à la digestion et à la défense de l'organisme."
+      - "C'est le nom donné aux dents de sagesse qui broient les fibres végétales."
+      - "C'est un suc acide fabriqué par la vésicule biliaire."
+    answer_index: 1
+    explanation: "Le microbiote intestinal vit en symbiose avec nous : il dégrade certaines fibres, synthétise des vitamines et empêche la prolifération de microbes pathogènes."
+
+  - id: c4-svt-la-digestion-q0010
+    concept_id: "role-microbiote-intestinal"
+    reperes_level: "5eme"
+    difficulty: "difficile"
+    question: "Des souris élevées sans aucun microbiote intestinal (axéniques) digèrent moins bien certaines fibres végétales et tombent plus facilement malades lors d'une exposition à une bactérie pathogène. Que permet de conclure cette observation ?"
+    choices:
+      - "Le microbiote intestinal empêche l'absorption de l'eau dans l'estomac."
+      - "Le microbiote intestinal complète l'action de nos propres enzymes digestives et contribue à la barrière de protection de l'organisme."
+      - "Les souris dépourvues de microbiote n'ont plus d'intestin grêle."
+      - "Tous les micro-organismes présents dans les aliments sont mortels."
+    answer_index: 1
+    explanation: "La comparaison avec un lot témoin prouve expérimentalement la double fonction digestive et protectrice du microbiote intestinal."
+
+  - id: c4-svt-la-digestion-q0011
+    concept_id: "besoins-et-equilibre-alimentaire"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Comment un adolescent qui pratique une séance intensive de sport doit-il adapter son alimentation par rapport à une journée sédentaire ?"
+    choices:
+      - "Supprimer totalement l'eau et les féculents avant et après l'effort."
+      - "Augmenter son hydratation et ajuster ses apports énergétiques (notamment en glucides complexes) aux dépenses accrues de ses muscles."
+      - "Ne consommer que des bonbons et des sodas toute la journée."
+      - "Diviser par deux sa ration alimentaire quotidienne."
+    answer_index: 1
+    explanation: "L'équilibre alimentaire consiste à ajuster les apports en eau et en énergie aux besoins réels de l'organisme, qui augmentent avec l'activité physique et la croissance."
+
+  - id: c4-svt-la-digestion-q0012
+    concept_id: "besoins-et-equilibre-alimentaire"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Dans quel but les pouvoirs publics diffusent-ils des repères nutritionnels (privilégier fruits, légumes et légumineuses, limiter les produits ultra-transformés très sucrés, gras ou salés, bouger chaque jour) ?"
+    choices:
+      - "Pour interdire toute consommation de pain ou de produits laitiers."
+      - "Pour prévenir à l'échelle individuelle et collective les maladies liées aux déséquilibres alimentaires (obésité, diabète, maladies cardiovasculaires, caries)."
+      - "Pour imposer exactement le même menu quotidien à tous les habitants quel que soit leur âge."
+      - "Pour ralentir l'absorption du dioxygène dans les poumons."
+    answer_index: 1
+    explanation: "Les politiques de prévention nutritionnelle s'appuient sur les connaissances scientifiques pour aider chacun à couvrir ses besoins sans excès ni carence."

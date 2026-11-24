@@ -1,0 +1,65 @@
+schema_version: 1
+cycle: "cycle-4"
+subject: "histoire-geographie"
+subject_code: "hg"
+theme_slug: "la-croissance-demographique-et-ses-effets"
+title: "La croissance démographique et ses effets"
+reperes_levels:
+  - "5eme"
+scope_exclusions:
+  - "Modélisation théorique détaillée des quatre phases de la transition démographique et calculs démographiques avancés (taux brut de reproduction, table de mortalité — programme de Seconde)."
+  - "Thèses démographiques malthusiennes ou néo-malthusiennes catastrophistes."
+  - "Opposition binaire figée d'une limite unique Nord / Sud sans nuances internes aux États."
+  - "Géographie approfondie des flux migratoires transnationaux (programme de Géographie 4ème)."
+qa_status: "hitl_verified"
+key_concepts:
+  - concept_id: "croissance-population-mondiale"
+    label: "Évolution de la population mondiale et indicateurs démographiques"
+    reperes_level: "5eme"
+  - concept_id: "etudes-de-cas-emergents-afrique"
+    label: "Trajectoires démographiques des puissances émergentes (Inde, Chine) et de l'Afrique (Nigeria)"
+    reperes_level: "5eme"
+  - concept_id: "vieillissement-pays-developpes"
+    label: "Ralentissement démographique et vieillissement en Europe et aux États-Unis"
+    reperes_level: "5eme"
+  - concept_id: "defis-besoins-essentiels"
+    label: "Satisfaction des besoins essentiels : alimentation, santé, éducation et logement"
+    reperes_level: "5eme"
+  - concept_id: "developpement-durable-et-odd"
+    label: "Développement durable, équitable et Objectifs de développement durable (ODD)"
+    reperes_level: "5eme"
+  - concept_id: "lecture-cartes-et-indicateurs"
+    label: "Lecture de cartes thématiques et d'indicateurs de développement (IDH, espérance de vie)"
+    reperes_level: "5eme"
+sources_used:
+  - title: Croissance démographique — Wikipédia
+    url: https://fr.wikipedia.org/wiki/Croissance_d%C3%A9mographique
+    source_domain: fr.wikipedia.org
+    authors_or_history_url: https://fr.wikipedia.org/wiki/Special:History/Croissance_d%C3%A9mographique
+    license_spdx: CC-BY-SA-4.0
+    license_url: https://creativecommons.org/licenses/by-sa/4.0/deed.fr
+    revision_or_date: '240895984'
+  - title: Population mondiale — Wikipédia
+    url: https://fr.wikipedia.org/wiki/Population_mondiale
+    source_domain: fr.wikipedia.org
+    authors_or_history_url: https://fr.wikipedia.org/wiki/Special:History/Population_mondiale
+    license_spdx: CC-BY-SA-4.0
+    license_url: https://creativecommons.org/licenses/by-sa/4.0/deed.fr
+    revision_or_date: '241376074'
+  - title: Inde — Vikidia
+    url: https://fr.vikidia.org/wiki/Inde
+    source_domain: fr.vikidia.org
+    authors_or_history_url: https://fr.vikidia.org/wiki/Special:History/Inde
+    license_spdx: CC-BY-SA-3.0
+    license_url: https://creativecommons.org/licenses/by-sa/3.0/
+    revision_or_date: '2589286'
+  - title: Développement durable — Vikidia
+    url: https://fr.vikidia.org/wiki/D%C3%A9veloppement_durable
+    source_domain: fr.vikidia.org
+    authors_or_history_url: https://fr.vikidia.org/wiki/Special:History/D%C3%A9veloppement_durable
+    license_spdx: CC-BY-SA-3.0
+    license_url: https://creativecommons.org/licenses/by-sa/3.0/
+    revision_or_date: '2556115'
+last_card_seq: 24
+last_quiz_seq: 12
+retired_ids: []

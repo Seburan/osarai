@@ -1,0 +1,58 @@
+schema_version: 1
+cycle: "cycle-4"
+subject: "svt"
+subject_code: "svt"
+theme_slug: "la-respiration"
+title: "La respiration et les échanges gazeux"
+reperes_levels:
+  - "5eme"
+scope_exclusions:
+  - "Mécanismes biochimiques de la respiration cellulaire mitochondriale, cycle de Krebs, chaîne respiratoire et synthèse d'ATP (programme de Lycée)."
+  - "Pressions partielles des gaz respiratoires, loi de Fick et courbes de dissociation de l'oxyhémoglobine."
+  - "Étude intracellulaire de la fibre musculaire et mécanisme moléculaire de sa contraction."
+  - "Régulation nerveuse bulbaire de la ventilation et contrôle de la pression artérielle à l'effort (classe de Seconde)."
+qa_status: "hitl_verified"
+key_concepts:
+  - concept_id: "besoins-cellulaires-et-effort"
+    label: "Besoins des organes en dioxygène et adaptation à l'effort"
+    reperes_level: "5eme"
+  - concept_id: "trajet-air-appareil-respiratoire"
+    label: "Trajet de l'air dans l'appareil respiratoire humain"
+    reperes_level: "5eme"
+  - concept_id: "echanges-gazeux-alveolaires"
+    label: "Échanges gazeux entre l'air des alvéoles et le sang"
+    reperes_level: "5eme"
+  - concept_id: "caracteristiques-surface-echange"
+    label: "Caractéristiques d'une surface d'échange efficace"
+    reperes_level: "5eme"
+  - concept_id: "diversite-organes-respiratoires"
+    label: "Diversité des organes respiratoires chez les animaux (poumons, trachées, branchies)"
+    reperes_level: "5eme"
+  - concept_id: "sante-appareil-respiratoire"
+    label: "Effets du tabac et de la pollution sur l'appareil respiratoire"
+    reperes_level: "5eme"
+sources_used:
+  - title: Appareil respiratoire humain — Vikidia
+    url: https://fr.vikidia.org/wiki/Appareil_respiratoire_humain
+    source_domain: fr.vikidia.org
+    authors_or_history_url: https://fr.vikidia.org/wiki/Special:History/Appareil_respiratoire_humain
+    license_spdx: CC-BY-SA-3.0
+    license_url: https://creativecommons.org/licenses/by-sa/3.0/
+    revision_or_date: '2495712'
+  - title: Respiration — Vikidia
+    url: https://fr.vikidia.org/wiki/Respiration
+    source_domain: fr.vikidia.org
+    authors_or_history_url: https://fr.vikidia.org/wiki/Special:History/Respiration
+    license_spdx: CC-BY-SA-3.0
+    license_url: https://creativecommons.org/licenses/by-sa/3.0/
+    revision_or_date: '2560540'
+  - title: Alvéole pulmonaire — Wikipédia
+    url: https://fr.wikipedia.org/wiki/Alv%C3%A9ole_pulmonaire
+    source_domain: fr.wikipedia.org
+    authors_or_history_url: https://fr.wikipedia.org/wiki/Special:History/Alv%C3%A9ole_pulmonaire
+    license_spdx: CC-BY-SA-4.0
+    license_url: https://creativecommons.org/licenses/by-sa/4.0/deed.fr
+    revision_or_date: '238406977'
+last_card_seq: 24
+last_quiz_seq: 12
+retired_ids: []

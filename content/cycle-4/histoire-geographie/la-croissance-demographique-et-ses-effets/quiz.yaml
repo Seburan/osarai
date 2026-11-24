@@ -1,0 +1,183 @@
+schema_version: 1
+questions:
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0001
+    concept_id: "croissance-population-mondiale"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Quel est l'ordre de grandeur actuel de la **population mondiale** et de son évolution d'ici 2050 selon les projections médianes de l'ONU ?"
+    choices:
+      - "Environ 2,5 milliards d'habitants aujourd'hui et 1 milliard en 2050."
+      - "Plus de 8 milliards d'habitants aujourd'hui et près de 9,6 à 10 milliards vers 2050."
+      - "Environ 20 milliards d'habitants aujourd'hui et 40 milliards en 2050."
+      - "Exactement 5 milliards d'habitants stables depuis 1950."
+    answer_index: 1
+    explanation: "Franchi en novembre 2022, le seuil des 8 milliards se prolonge vers environ 9,6 milliards en 2050 selon le scénario médian de l'ONU."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0002
+    concept_id: "croissance-population-mondiale"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Un pays enregistre une natalité de \\(28\\,\\text{‰}\\) et une mortalité de \\(8\\,\\text{‰}\\) sur une année. Que peut-on en déduire sur son **accroissement naturel** ?"
+    choices:
+      - "Son accroissement naturel est négatif : la population diminue naturellement."
+      - "Son accroissement naturel est nul."
+      - "Son accroissement naturel est nettement positif (\\(+20\\,\\text{‰}\\), soit \\(+2\\,\\%\\)), les naissances dépassant largement les décès."
+      - "Son espérance de vie est obligatoirement supérieure à 90 ans."
+    answer_index: 2
+    explanation: "L'accroissement naturel vaut \\(28 - 8 = +20\\,\\text{‰}\\) (soit \\(+2\\,\\%\\)) : le nombre élevé de naissances par rapport aux décès entraîne une croissance rapide."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0003
+    concept_id: "etudes-de-cas-emergents-afrique"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Sur ce planisphère du taux de croissance démographique, quel État d'Afrique de l'Ouest désigné par **`?`** illustre un pays à très forte croissance démographique et à population très jeune ?"
+    choices:
+      - "L'Afrique du Sud."
+      - "Le Nigeria."
+      - "L'Inde."
+      - "Le Brésil."
+    answer_index: 1
+    explanation: "Situé au bord du golfe de Guinée, le Nigeria dépasse 220 millions d'habitants et connaît une croissance démographique très soutenue."
+    asset_id: "croissance-mondiale"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "q-occ-nigeria"
+        x: 47.5
+        y: 40.2
+        w: 3.6
+        h: 6.0
+        role: "target"
+        badge: "?"
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0004
+    concept_id: "etudes-de-cas-emergents-afrique"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Quel point commun et quelle différence majeurs caractérisent aujourd'hui les deux géants démographiques asiatiques que sont l'**Inde** et la **Chine** ?"
+    choices:
+      - "Tous deux comptent moins de 100 millions d'habitants et ont une natalité très élevée."
+      - "Tous deux dépassent 1,4 milliard d'habitants et connaissent d'importants écarts villes/campagnes, mais la population indienne croît encore tandis que celle de la Chine vieillit et commence à baisser."
+      - "L'Inde a imposé la politique de l'enfant unique pendant trente ans tandis que la Chine a la population la plus jeune du monde."
+      - "Aucun des deux pays ne possède de grandes métropoles."
+    answer_index: 1
+    explanation: "Puissances émergentes de plus de 1,4 milliard d'habitants chacune, l'Inde et la Chine divergent désormais par leur dynamique démographique et le rythme de leur vieillissement."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0005
+    concept_id: "vieillissement-pays-developpes"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Quelle est la principale caractéristique démographique commune à l'**Union européenne** et, dans une moindre mesure, aux **États-Unis** ?"
+    choices:
+      - "Une explosion démographique supérieure à 3 % par an."
+      - "Une espérance de vie inférieure à 50 ans."
+      - "Une croissance démographique faible et un vieillissement marqué de la population."
+      - "Une population composée à plus de 60 % de moins de 15 ans."
+    answer_index: 2
+    explanation: "Dans les pays développés d'Europe et d'Amérique du Nord, l'allongement de la durée de vie et une fécondité modérée ou basse entraînent le vieillissement de la population."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0006
+    concept_id: "vieillissement-pays-developpes"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Quel problème concret le **vieillissement de la population** pose-t-il prioritairement aux sociétés européennes ?"
+    choices:
+      - "Construire chaque année des milliers d'écoles primaires supplémentaires."
+      - "Financer les retraites et organiser la prise en charge médicale et sociale des personnes âgées dépendantes."
+      - "Lutter contre une natalité de plus de 6 enfants par femme."
+      - "Faire face à un doublement de la population totale tous les vingt ans."
+    answer_index: 1
+    explanation: "Lorsque la part des plus de 65 ans augmente par rapport à la population en âge de travailler, les dépenses de retraites et de santé augmentent."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0007
+    concept_id: "defis-besoins-essentiels"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Dans un pays à forte croissance démographique comme le Nigeria, quels équipements publics doivent être multipliés en priorité pour répondre à la **jeunesse** de la population ?"
+    choices:
+      - "Uniquement des maisons de retraite médicalisées."
+      - "Des écoles, des centres de santé maternelle et infantile, des réseaux d'eau potable et des emplois pour les jeunes."
+      - "Des stations de sports d'hiver."
+      - "La fermeture des universités et des dispensaires ruraux."
+    answer_index: 1
+    explanation: "Une population très jeune nécessite d'importants investissements éducatifs, sanitaires, alimentaires et urbains (logement, eau, électricité)."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0008
+    concept_id: "defis-besoins-essentiels"
+    reperes_level: "5eme"
+    difficulty: "difficile"
+    question: "Dans une grande métropole d'un pays émergent ou en développement (comme Lagos ou Mumbai), que révèle la coexistence de quartiers d'affaires modernes et de vastes **bidonvilles** ?"
+    choices:
+      - "L'absence totale de croissance urbaine depuis cinquante ans."
+      - "Une croissance urbaine rapide accompagnée de fortes inégalités socio-spatiales d'accès au logement décent et aux services de base."
+      - "Une répartition parfaitement égalitaire des richesses entre tous les citadins."
+      - "La disparition complète des activités économiques en ville."
+    answer_index: 1
+    explanation: "La rapidité de la croissance démographique et urbaine dépasse souvent la construction de logements accessibles, rendant visibles les fractures sociales à l'échelle locale."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0009
+    concept_id: "developpement-durable-et-odd"
+    reperes_level: "5eme"
+    difficulty: "facile"
+    question: "Quels sont les **trois piliers** qu'un projet de **développement durable** cherche à concilier ?"
+    choices:
+      - "Économique, social et environnemental."
+      - "Militaire, spatial et publicitaire."
+      - "Uniquement financier et industriel, sans tenir compte des habitants."
+      - "Agricole, minier et autoroutier."
+    answer_index: 0
+    explanation: "Un développement n'est durable et équitable que s'il est à la fois économiquement viable, socialement juste (accès de tous aux besoins de base) et respectueux de l'environnement."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0010
+    concept_id: "developpement-durable-et-odd"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Parmi les **Objectifs de développement durable (ODD)** fixés par l'ONU, lesquels répondent le plus directement aux défis immédiats d'une forte croissance démographique étudiés en 5ème ?"
+    choices:
+      - "Lutte contre la faim (ODD 2), accès à la santé (ODD 3) et accès à une éducation de qualité (ODD 4)."
+      - "Exploration habitée de la planète Mars."
+      - "Augmentation de la consommation mondiale de charbon."
+      - "Suppression des échanges culturels internationaux."
+    answer_index: 0
+    explanation: "Le programme officiel souligne en particulier les ODD 2 (sécurité alimentaire), ODD 3 (santé et bien-être) et ODD 4 (éducation) face à la croissance de la population."
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0011
+    concept_id: "lecture-cartes-et-indicateurs"
+    reperes_level: "5eme"
+    difficulty: "moyen"
+    question: "Sur ce graphique de l'ONU, que représente la courbe rose désignée dans la légende par **`?`** entre 2023 et 2100 ?"
+    choices:
+      - "Le nombre de naissances enregistrées uniquement en France."
+      - "Les projections du scénario médian de l'ONU (scénario jugé le plus probable, menant vers 10,18 milliards d'habitants en 2100)."
+      - "L'évolution de la superficie des continents depuis 1800."
+      - "Le scénario d'extinction totale de l'humanité avant 2050."
+    answer_index: 1
+    explanation: "Entre le scénario de fertilité haute (courbe jaune) et celui de fertilité basse (courbe bleue), la courbe rose trace la projection médiane de référence des Nations unies."
+    asset_id: "evolution-population"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "q-occ-scenario-median"
+        x: 9.5
+        y: 17.0
+        w: 23.8
+        h: 3.0
+        role: "target"
+        badge: "?"
+      - id: "q-occ-lecture-mask"
+        x: 1.5
+        y: 94.0
+        w: 98.0
+        h: 2.8
+        role: "mask"
+
+  - id: c4-hg-la-croissance-demographique-et-ses-effets-q0012
+    concept_id: "lecture-cartes-et-indicateurs"
+    reperes_level: "5eme"
+    difficulty: "difficile"
+    question: "Quels sont exactement les **trois critères** combinés pour calculer l'**Indice de développement humain (IDH)** d'un État ?"
+    choices:
+      - "La superficie du pays, son nombre de fleuves et sa température moyenne."
+      - "Le niveau de vie par habitant, l'espérance de vie à la naissance et le niveau d'instruction (scolarisation)."
+      - "Le nombre de médailles olympiques, le nombre d'aéroports et la taille de l'armée."
+      - "Uniquement le taux de natalité et la densité de population au kilomètre carré."
+    answer_index: 1
+    explanation: "Créé par le PNUD (ONU), l'IDH varie de 0 (très faible) à 1 (très élevé) en associant richesse par habitant, santé et éducation."

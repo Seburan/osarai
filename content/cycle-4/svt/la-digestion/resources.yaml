@@ -1,0 +1,29 @@
+schema_version: 1
+resources:
+  - title: "C'est pas sorcier — La nutrition (intégrale)"
+    url: "https://www.youtube.com/watch?v=4C0_d6F-Juc"
+    source_domain: "youtube.com"
+    type: "video"
+    channel_url: "https://www.youtube.com/@Cestpassorcierofficiel"
+    last_verified_at: 2026-11-23
+  - title: "C'est pas sorcier — Les risques de l'obésité"
+    url: "https://www.youtube.com/watch?v=jTn_fYvM9kI"
+    source_domain: "youtube.com"
+    type: "video"
+    channel_url: "https://www.youtube.com/@Cestpassorcierofficiel"
+    last_verified_at: 2026-11-23
+  - title: "Bilan — Des aliments aux nutriments et rôle du microbiote (Lelivrescolaire.fr)"
+    url: "https://www.lelivrescolaire.fr/page/16120882"
+    source_domain: "lelivrescolaire.fr"
+    type: "cours"
+    last_verified_at: 2026-11-23
+  - title: "Bilan — Le fonctionnement de l'appareil digestif (Lelivrescolaire.fr)"
+    url: "https://www.lelivrescolaire.fr/page/16121472"
+    source_domain: "lelivrescolaire.fr"
+    type: "cours"
+    last_verified_at: 2026-11-23
+  - title: "Digestion humaine — Encyclopédie Wikipédia"
+    url: "https://fr.wikipedia.org/wiki/Digestion_humaine"
+    source_domain: "fr.wikipedia.org"
+    type: "article"
+    last_verified_at: 2026-11-23

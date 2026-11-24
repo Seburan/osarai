@@ -1,0 +1,285 @@
+schema_version: 1
+cards:
+  - id: c4-svt-la-digestion-c0001
+    concept_id: "organisation-appareil-digestif"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "Dans le tube digestif, les aliments passent successivement par la bouche, l'{{c1::œsophage}}, l'{{c2::estomac}}, l'{{c3::intestin grêle}} puis le gros intestin."
+    back: ""
+    asset_id: "appareil-digestif"
+    asset_role: "back_reference"
+
+  - id: c4-svt-la-digestion-c0002
+    concept_id: "organisation-appareil-digestif"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Les aliments traversent-ils le **foie** ou le **pancréas** au cours de la digestion ? Justifie."
+    back: "**Non** : ce sont des **glandes annexes** situées hors du tube digestif ; elles fabriquent des liquides (bile, suc pancréatique) déversés par des canaux au début de l'intestin grêle."
+
+  - id: c4-svt-la-digestion-c0003
+    concept_id: "organisation-appareil-digestif"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce schéma de l'appareil digestif, quel conduit musculaire désigné par **`?`** transporte le bol alimentaire de la bouche jusqu'à l'estomac ?"
+    back: "L'**œsophage**."
+    explanation: "Situé derrière la trachée, l'œsophage fait descendre les aliments avalés jusqu'à l'estomac grâce à des contractions musculaires."
+    asset_id: "appareil-digestif"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-oesophage"
+        x: 59.5
+        y: 28.0
+        w: 16.5
+        h: 3.2
+        role: "target"
+        badge: "?"
+
+  - id: c4-svt-la-digestion-c0004
+    concept_id: "organisation-appareil-digestif"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce schéma de l'appareil digestif, quelle glande annexe allongée désignée par **`?`** (en jaune sous l'estomac) déverse un suc riche en enzymes dans l'intestin grêle ?"
+    back: "Le **pancréas**."
+    explanation: "Le pancréas sécrète le suc pancréatique qui rejoint le début de l'intestin grêle (duodénum) pour poursuivre la digestion chimique."
+    asset_id: "appareil-digestif"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-pancreas"
+        x: 73.8
+        y: 56.3
+        w: 14.2
+        h: 3.0
+        role: "target"
+        badge: "?"
+      - id: "occ-estomac-mask"
+        x: 75.0
+        y: 45.8
+        w: 13.5
+        h: 3.0
+        role: "mask"
+
+  - id: c4-svt-la-digestion-c0005
+    concept_id: "actions-mecaniques-et-enzymes"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Quelles sont les **deux catégories de transformations** subies par les aliments dans le tube digestif, et comment se complètent-elles ?"
+    back: "Les **actions mécaniques** (mastication, brassage) fragmentent les aliments en petits morceaux, ce qui facilite l'**action chimique** des **enzymes** contenues dans les sucs digestifs."
+
+  - id: c4-svt-la-digestion-c0006
+    concept_id: "actions-mecaniques-et-enzymes"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "Les sucs digestifs contiennent des substances actives appelées {{c1::enzymes digestives::substances}}, qui transforment chimiquement les aliments en {{c2::nutriments}} à \\(37\\,^\\circ\\text{C}\\)."
+    back: ""
+
+  - id: c4-svt-la-digestion-c0007
+    concept_id: "actions-mecaniques-et-enzymes"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Qu'a démontré au XVIIIe siècle l'expérience historique de **Réaumur** en faisant avaler à une buse un morceau de viande placé dans un tube métallique grillagé ?"
+    back: "Bien que protégée du broyage mécanique par le tube rigide, la viande était dissoute : la digestion n'est donc pas seulement mécanique, elle est aussi **chimique** grâce aux **sucs digestifs**."
+
+  - id: c4-svt-la-digestion-c0008
+    concept_id: "actions-mecaniques-et-enzymes"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce schéma de l'appareil digestif, quel organe en forme de poche désigné par **`?`** brasse les aliments avec un suc gastrique acide ?"
+    back: "L'**estomac**."
+    explanation: "La paroi musclée de l'estomac brasse longuement les aliments imprégnés de suc gastrique avant leur passage progressif dans l'intestin grêle."
+    asset_id: "appareil-digestif"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-estomac"
+        x: 75.0
+        y: 45.8
+        w: 13.5
+        h: 3.0
+        role: "target"
+        badge: "?"
+
+  - id: c4-svt-la-digestion-c0009
+    concept_id: "aliments-et-nutriments"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Quelle est la différence fondamentale entre un **aliment** et un **nutriment** ?"
+    back: "Un **aliment** est composé d'éléments complexes trop gros pour passer dans le sang, tandis qu'un **nutriment** (ex. glucose) est un élément **simple et soluble** capable de traverser la paroi intestinale."
+
+  - id: c4-svt-la-digestion-c0010
+    concept_id: "aliments-et-nutriments"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "À l'issue de la digestion, les aliments sont simplifiés en {{c1::nutriments::éléments solubles}} qui passent dans le {{c2::sang}} pour approvisionner tous les organes."
+    back: ""
+
+  - id: c4-svt-la-digestion-c0011
+    concept_id: "aliments-et-nutriments"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Sur ce schéma du tube digestif, quel organe désigné par **`?`** reçoit les matières **non digérées** (fibres), réabsorbe l'eau et forme les selles ?"
+    back: "Le **côlon** (ou **gros intestin**)."
+    explanation: "Seuls les résidus alimentaires non absorbés dans l'intestin grêle poursuivent leur trajet dans le côlon, où ils sont déshydratés avant l'évacuation."
+    asset_id: "tube-digestif"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-colon"
+        x: 69.0
+        y: 75.5
+        w: 13.5
+        h: 5.0
+        role: "target"
+        badge: "?"
+      - id: "occ-intestin-grele-mask"
+        x: 11.8
+        y: 11.3
+        w: 28.6
+        h: 5.5
+        role: "mask"
+
+  - id: c4-svt-la-digestion-c0012
+    concept_id: "aliments-et-nutriments"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Pourquoi l'eau et les sels minéraux contenus dans nos boissons n'ont-ils pas besoin d'être transformés par des enzymes digestives ?"
+    back: "Ce sont déjà des **éléments très petits et solubles** : ce sont directement des **nutriments** capables de traverser la paroi intestinale tels quels."
+
+  - id: c4-svt-la-digestion-c0013
+    concept_id: "absorption-intestinale-villosites"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Qu'appelle-t-on l'**absorption intestinale**, et dans quel organe précis du tube digestif se déroule-t-elle principalement ?"
+    back: "C'est le **passage des nutriments dans le sang** à travers la paroi de l'**intestin grêle**."
+
+  - id: c4-svt-la-digestion-c0014
+    concept_id: "absorption-intestinale-villosites"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce schéma du tube digestif abdominal, quel long organe replié au centre et désigné par **`?`** constitue le lieu principal de l'absorption des nutriments ?"
+    back: "L'**intestin grêle**."
+    explanation: "Long d'environ 6 mètres et tapissé de replis et de villosités, l'intestin grêle transfère les nutriments vers les capillaires sanguins."
+    asset_id: "tube-digestif"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-intestin-grele"
+        x: 11.8
+        y: 11.3
+        w: 28.6
+        h: 5.5
+        role: "target"
+        badge: "?"
+      - id: "occ-colon-mask"
+        x: 69.0
+        y: 75.5
+        w: 13.5
+        h: 5.0
+        role: "mask"
+
+  - id: c4-svt-la-digestion-c0015
+    concept_id: "absorption-intestinale-villosites"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "La paroi interne de l'intestin grêle forme des millions de {{c1::villosités intestinales::replis microscopiques}} à paroi très {{c2::fine}} et riches en {{c3::capillaires sanguins}}."
+    back: ""
+
+  - id: c4-svt-la-digestion-c0016
+    concept_id: "absorption-intestinale-villosites"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Comment évolue la concentration en glucose du sang entre son entrée et sa sortie de la paroi de l'intestin grêle après un repas ?"
+    back: "Le sang **sortant de l'intestin grêle est beaucoup plus riche en glucose** (et autres nutriments) que le sang entrant, preuve que les nutriments y ont été absorbés."
+
+  - id: c4-svt-la-digestion-c0017
+    concept_id: "role-microbiote-intestinal"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Qu'est-ce que le **microbiote intestinal** (autrefois appelé flore intestinale) ?"
+    back: "C'est l'ensemble des milliards de **micro-organismes non pathogènes** (surtout des bactéries) qui vivent naturellement dans notre intestin en symbiose avec nous."
+
+  - id: c4-svt-la-digestion-c0018
+    concept_id: "role-microbiote-intestinal"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Cite **deux rôles bénéfiques** du microbiote intestinal pour le corps humain."
+    back: "1. Il **aide à digérer** certaines fibres alimentaires que nos enzymes ne savent pas découper (et produit des vitamines) ; 2. Il **protège l'organisme** contre l'installation de microbes pathogènes."
+
+  - id: c4-svt-la-digestion-c0019
+    concept_id: "role-microbiote-intestinal"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "cloze"
+    front: "Une alimentation variée riche en {{c1::fibres::composants végétaux}} favorise la diversité du {{c2::microbiote intestinal}}, tandis qu'une prise répétée et inutile d'antibiotiques peut l'appauvrir."
+    back: ""
+
+  - id: c4-svt-la-digestion-c0020
+    concept_id: "role-microbiote-intestinal"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Sur ce schéma de l'appareil digestif, quel volumineux organe rouge-brun désigné par **`?`** produit la **bile** qui aide à disperser les graisses dans l'intestin ?"
+    back: "Le **foie**."
+    explanation: "La bile fabriquée par le foie (et stockée dans la vésicule biliaire) ne contient pas d'enzymes mais émulsionne les lipides, facilitant le travail des enzymes pancréatiques."
+    asset_id: "appareil-digestif"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-foie"
+        x: 15.8
+        y: 38.4
+        w: 7.4
+        h: 3.0
+        role: "target"
+        badge: "?"
+      - id: "occ-vesicule-mask"
+        x: 4.0
+        y: 55.6
+        w: 23.4
+        h: 3.0
+        role: "mask"
+
+  - id: c4-svt-la-digestion-c0021
+    concept_id: "besoins-et-equilibre-alimentaire"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "De quels facteurs principaux dépendent les **besoins énergétiques alimentaires** quotidiens d'un individu ?"
+    back: "Ils varient principalement selon l'**âge** (croissance à l'adolescence), le **sexe**, la taille/masse corporelle et surtout le niveau d'**activité physique**."
+
+  - id: c4-svt-la-digestion-c0022
+    concept_id: "besoins-et-equilibre-alimentaire"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "Une alimentation équilibrée ajuste les apports {{c1::quantitatifs::énergie}} aux dépenses physiques de l'organisme et assure des apports {{c2::qualitatifs::variété}} diversifiés."
+    back: ""
+
+  - id: c4-svt-la-digestion-c0023
+    concept_id: "besoins-et-equilibre-alimentaire"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Quelle est la conséquence à long terme d'apports alimentaires énergétiques systématiquement supérieurs aux dépenses de l'organisme ?"
+    back: "L'excédent d'énergie est stocké sous forme de graisses, favorisant le **surpoids**, l'**obésité**, le diabète et les maladies cardiovasculaires."
+
+  - id: c4-svt-la-digestion-c0024
+    concept_id: "besoins-et-equilibre-alimentaire"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Pourquoi le brossage régulier des dents et la limitation des boissons ou grignotages sucrés sont-ils liés à la bonne santé de l'appareil digestif ?"
+    back: "Des bactéries buccales transforment les sucres en **acides** qui attaquent l'émail des dents (**caries**), ce qui gêne ensuite la **mastication**, première étape mécanique de la digestion."

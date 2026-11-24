@@ -46,6 +46,10 @@ grounding_and_media_sources:
     allow_grounding: false
     allow_embed_media: true
     adapter: "wikimedia_commons"
+  - domain: "thumb.wikimedia.org"
+    allow_grounding: false
+    allow_embed_media: true
+    adapter: "wikimedia_commons"
 
 outbound_only_sources:
   - domain: "lumni.fr"

@@ -1,0 +1,282 @@
+schema_version: 1
+cards:
+  - id: c4-svt-la-respiration-c0001
+    concept_id: "besoins-cellulaires-et-effort"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Quels sont les deux éléments prélevés en permanence dans le sang par les cellules d'un organe en activité ?"
+    back: "Du **dioxygène** (\\(\\text{O}_2\\)) et des **nutriments** (comme le glucose), nécessaires pour produire l'énergie utile à leur fonctionnement."
+    explanation: "En contrepartie de cette consommation, les cellules rejettent des déchets dans le sang, notamment du dioxyde de carbone (\\(\\text{CO}_2\\))."
+
+  - id: c4-svt-la-respiration-c0002
+    concept_id: "besoins-cellulaires-et-effort"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "Lors d'un effort physique, les muscles consomment davantage de {{c1::dioxygène::gaz}} et rejettent davantage de {{c2::dioxyde de carbone::déchet gazeux}} dans le sang."
+    back: ""
+    explanation: "L'augmentation de l'activité musculaire accroît simultanément les besoins énergétiques et les rejets de déchets."
+
+  - id: c4-svt-la-respiration-c0003
+    concept_id: "besoins-cellulaires-et-effort"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Comment évoluent les rythmes respiratoire et cardiaque lors d'un effort musculaire, et dans quel but ?"
+    back: "Les deux rythmes **augmentent** afin d'apporter plus vite davantage de \\(\\text{O}_2\\) et de nutriments aux muscles et d'évacuer plus rapidement le \\(\\text{CO}_2\\)."
+
+  - id: c4-svt-la-respiration-c0004
+    concept_id: "besoins-cellulaires-et-effort"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Quel réactif chimique limpide utilise-t-on en SVT pour prouver qu'un être vivant rejette du \\(\\text{CO}_2\\), et qu'observe-t-on ?"
+    back: "On utilise de l'**eau de chaux** : initialement transparente, elle **se trouble** (blanchit) en présence de dioxyde de carbone (\\(\\text{CO}_2\\))."
+
+  - id: c4-svt-la-respiration-c0005
+    concept_id: "trajet-air-appareil-respiratoire"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "Lors de l'inspiration, l'air descend par la {{c1::trachée::conduit unique}}, se divise dans les deux {{c2::bronches}}, puis dans les fines {{c3::bronchioles}} avant d'atteindre les alvéoles pulmonaires."
+    back: ""
+    asset_id: "appareil-respiratoire"
+    asset_role: "back_reference"
+
+  - id: c4-svt-la-respiration-c0006
+    concept_id: "trajet-air-appareil-respiratoire"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce schéma de l'appareil respiratoire humain, quel conduit annelé désigné par **`?`** relie le larynx aux deux bronches ?"
+    back: "La **trachée**."
+    explanation: "Maintenue ouverte par des anneaux cartilagineux, la trachée conduit l'air vers les deux bronches principales."
+    asset_id: "appareil-respiratoire"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-trachee"
+        x: 6.0
+        y: 36.8
+        w: 13.5
+        h: 3.5
+        role: "target"
+        badge: "?"
+
+  - id: c4-svt-la-respiration-c0007
+    concept_id: "trajet-air-appareil-respiratoire"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce schéma de l'appareil respiratoire, comment se nomment les fines ramifications désignées par **`?`** qui terminent l'arbre bronchique ?"
+    back: "Les **bronchioles**."
+    explanation: "Les bronches se ramifient en une multitude de bronchioles très fines qui débouchent dans les sacs alvéolaires."
+    asset_id: "appareil-respiratoire"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-bronchioles"
+        x: 1.0
+        y: 61.3
+        w: 18.5
+        h: 3.5
+        role: "target"
+        badge: "?"
+      - id: "occ-bronches-mask"
+        x: 4.3
+        y: 51.3
+        w: 15.2
+        h: 3.5
+        role: "mask"
+
+  - id: c4-svt-la-respiration-c0008
+    concept_id: "trajet-air-appareil-respiratoire"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Sur ce schéma, quel grand muscle plat situé sous les poumons et désigné par **`?`** assure les mouvements de ventilation pulmonaire ?"
+    back: "Le **diaphragme**."
+    explanation: "En se contractant et en s'abaissant, le diaphragme augmente le volume de la cage thoracique, ce qui provoque l'inspiration."
+    asset_id: "appareil-respiratoire"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-diaphragme"
+        x: 0.5
+        y: 77.3
+        w: 19.0
+        h: 3.8
+        role: "target"
+        badge: "?"
+
+  - id: c4-svt-la-respiration-c0009
+    concept_id: "echanges-gazeux-alveolaires"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce schéma d'une alvéole pulmonaire, quel gaz désigné par **`?`** (flèche orange) passe de l'air alvéolaire vers le sang du capillaire ?"
+    back: "Le **dioxygène** (\\(\\text{O}_2\\))."
+    explanation: "Le sang entrant dans le capillaire pulmonaire est pauvre en \\(\\text{O}_2\\) : il s'enrichit en \\(\\text{O}_2\\) au contact de l'air alvéolaire."
+    asset_id: "alveoles"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-o2"
+        x: 42.5
+        y: 40.0
+        w: 10.0
+        h: 11.0
+        role: "target"
+        badge: "?"
+      - id: "occ-co2-mask"
+        x: 54.0
+        y: 56.5
+        w: 15.5
+        h: 10.3
+        role: "mask"
+
+  - id: c4-svt-la-respiration-c0010
+    concept_id: "echanges-gazeux-alveolaires"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce schéma d'une alvéole pulmonaire, quel gaz déchet désigné par **`?`** (flèche jaune) passe du sang du capillaire vers l'air de l'alvéole ?"
+    back: "Le **dioxyde de carbone** (\\(\\text{CO}_2\\))."
+    explanation: "Rejeté par les organes dans le sang, le \\(\\text{CO}_2\\) passe dans l'air alvéolaire pour être évacué lors de l'expiration."
+    asset_id: "alveoles"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-co2"
+        x: 54.0
+        y: 56.5
+        w: 15.5
+        h: 10.3
+        role: "target"
+        badge: "?"
+      - id: "occ-o2-mask"
+        x: 42.5
+        y: 40.0
+        w: 10.0
+        h: 11.0
+        role: "mask"
+
+  - id: c4-svt-la-respiration-c0011
+    concept_id: "echanges-gazeux-alveolaires"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "L'air inspiré contient environ {{c1::21 %::pourcentage}} de \\(\\text{O}_2\\), tandis que l'air expiré en contient encore environ {{c2::16 %::pourcentage}}."
+    back: ""
+    explanation: "Contrairement à une idée reçue, l'air expiré contient encore une part importante de dioxygène non prélevée."
+
+  - id: c4-svt-la-respiration-c0012
+    concept_id: "echanges-gazeux-alveolaires"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Pourquoi la proportion de diazote (\\(\\text{N}_2 \\approx 78\\,\\%\\)) est-elle identique dans l'air inspiré et dans l'air expiré ?"
+    back: "Parce que le **diazote n'est ni consommé ni produit** par les organes du corps humain : il n'intervient pas dans la respiration."
+
+  - id: c4-svt-la-respiration-c0013
+    concept_id: "caracteristiques-surface-echange"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Quelles sont les **trois caractéristiques** des alvéoles pulmonaires qui en font une surface d'échange très efficace ?"
+    back: "1. Une **très grande surface totale** (\\(\\approx 75\\,\\text{m}^2\\) pour \\(300\\) millions d'alvéoles) ; 2. Une **paroi extrêmement fine** ; 3. Une **riche vascularisation** en capillaires sanguins."
+
+  - id: c4-svt-la-respiration-c0014
+    concept_id: "caracteristiques-surface-echange"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Sur ce schéma, comment appelle-t-on le très fin vaisseau désigné par **`?`** (en rouge) qui entoure l'alvéole pulmonaire ?"
+    back: "Un **capillaire sanguin**."
+    explanation: "Sa paroi microscopique accolée à celle de l'alvéole facilite le passage rapide du \\(\\text{O}_2\\) et du \\(\\text{CO}_2\\)."
+    asset_id: "alveoles"
+    asset_role: "front_occluded"
+    occlusions:
+      - id: "occ-capillaire"
+        x: 1.0
+        y: 19.0
+        w: 22.0
+        h: 13.8
+        role: "target"
+        badge: "?"
+
+  - id: c4-svt-la-respiration-c0015
+    concept_id: "caracteristiques-surface-echange"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "À la sortie des alvéoles pulmonaires, le sang est {{c1::enrichi::enrichi ou appauvri ?}} en \\(\\text{O}_2\\) et {{c2::appauvri::enrichi ou appauvri ?}} en \\(\\text{CO}_2\\)."
+    back: ""
+
+  - id: c4-svt-la-respiration-c0016
+    concept_id: "caracteristiques-surface-echange"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Est-ce l'air tout entier qui passe des alvéoles pulmonaires vers le sang ? Justifie ta réponse."
+    back: "**Non** : seul le gaz **dioxygène dissous** (\\(\\text{O}_2\\)) traverse la paroi alvéolaire ; des bulles d'air dans les vaisseaux bloqueraient la circulation sanguine."
+
+  - id: c4-svt-la-respiration-c0017
+    concept_id: "diversite-organes-respiratoires"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "Les poissons respirent dans l'eau grâce à des {{c1::branchies::organes}}, tandis que les insectes respirent dans l'air grâce à un réseau de {{c2::trachées::conduits}}."
+    back: ""
+
+  - id: c4-svt-la-respiration-c0018
+    concept_id: "diversite-organes-respiratoires"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Comment les branchies d'un poisson permettent-elles la respiration en milieu aquatique ?"
+    back: "Composées de nombreux filaments à **paroi fine** et **riches en vaisseaux sanguins**, elles prélèvent le \\(\\text{O}_2\\) dissous dans l'eau et y rejettent le \\(\\text{CO}_2\\)."
+
+  - id: c4-svt-la-respiration-c0019
+    concept_id: "diversite-organes-respiratoires"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Quelle est la particularité du mode de transport du dioxygène chez un insecte (comme le criquet) par rapport à un mammifère ?"
+    back: "Chez l'insecte, l'air entre par des **stigmates** et circule dans des **trachées** ramifiées qui livrent le \\(\\text{O}_2\\) **directement aux organes**, sans transport par le sang."
+
+  - id: c4-svt-la-respiration-c0020
+    concept_id: "diversite-organes-respiratoires"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Pourquoi un dauphin ou une baleine doit-il régulièrement remonter respirer à la surface bien qu'il vive dans l'océan ?"
+    back: "Ce sont des **mammifères** possédant des **poumons** (et non des branchies) : ils ne peuvent prélever le \\(\\text{O}_2\\) que dans l'air atmosphérique."
+
+  - id: c4-svt-la-respiration-c0021
+    concept_id: "sante-appareil-respiratoire"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Comment les goudrons contenus dans la fumée de tabac perturbent-ils le fonctionnement des voies respiratoires et des alvéoles ?"
+    back: "Ils **paralysent puis détruisent les cils vibratiles** des bronches (accumulation de mucus, toux) et **encrassent la paroi des alvéoles**, réduisant les échanges gazeux."
+
+  - id: c4-svt-la-respiration-c0022
+    concept_id: "sante-appareil-respiratoire"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "cloze"
+    front: "Dans la fumée de cigarette, la {{c1::nicotine::substance}} entraîne une forte dépendance tandis que les {{c2::goudrons::substances}} sont les principaux responsables des cancers pulmonaires."
+    back: ""
+
+  - id: c4-svt-la-respiration-c0023
+    concept_id: "sante-appareil-respiratoire"
+    reperes_level: "5eme"
+    priority: "approfondissement"
+    type: "basic"
+    front: "Pourquoi le monoxyde de carbone (gaz inodore issu du tabac ou d'un chauffage mal réglé) diminue-t-il l'oxygénation des organes ?"
+    back: "Il passe à travers les alvéoles et se fixe sur les **globules rouges** à la place du \\(\\text{O}_2\\), diminuant fortement le transport de dioxygène par le sang."
+
+  - id: c4-svt-la-respiration-c0024
+    concept_id: "sante-appareil-respiratoire"
+    reperes_level: "5eme"
+    priority: "essentiel"
+    type: "basic"
+    front: "Qu'est-ce qu'une crise d'**asthme** au niveau de l'appareil respiratoire, et quels facteurs peuvent la favoriser ?"
+    back: "C'est un **rétrécissement temporaire des bronchioles** (inflammation et contraction) gênant le passage de l'air, favorisé par les allergènes, la pollution de l'air ou le tabagisme passif."
