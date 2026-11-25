@@ -16,13 +16,10 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  deploy:
-    name: Compilation et publication sur GitHub Pages
+  build:
+    name: Validation et compilation du portail statique
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Récupération du dépôt
         uses: actions/checkout@v4
@@ -44,10 +41,23 @@ jobs:
         run: uv run osarai build-site --output dist --base-url "${{ steps.pages.outputs.base_path }}"
 
       - name: Téléversement de l'archive GitHub Pages
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           path: dist
 
+  deploy:
+    name: Publication sur GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Attente de propagation de l'index d'artefacts GitHub
+        run: sleep 10
+
       - name: Publication sur GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
+
