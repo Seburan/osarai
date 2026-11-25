@@ -113,24 +113,47 @@ osarai/
 
 ---
 
-## Utilisation de la CLI (`uv run osarai`)
+## Démarrage Rapide (Développement Local & CLI)
 
-Prérequis : [`uv`](https://docs.astral.sh/uv/) (`Python >= 3.12`).
+### 1. Prérequis et installation de l'environnement (`Python >= 3.12`)
+Aucun outil `Node.js` ni `Ruby` n'est requis ; [`uv`](https://docs.astral.sh/uv/) gère automatiquement l'interpréteur Python et les dépendances verrouillées :
 
 ```bash
-# Installer l'environnement verrouillé
-uv sync --frozen
+# Installer uv si nécessaire (Linux / macOS)
+command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
 
-# Attribuer automatiquement les identifiants monotones manquants d'un thème
-uv run osarai assign-ids --theme content/cycle-4/svt/la-respiration
+# Cloner le dépôt (sous Windows, activer d'abord : git config --global core.symlinks true)
+git clone https://github.com/Seburan/osarai.git
+cd osarai
 
-# Valider hors-ligne les schémas YAML 1.2, formules LaTeX/Cloze, crédits TASL et immuabilité Git
-uv run osarai validate --against-ref origin/main
+# Synchroniser l'environnement verrouillé et installer le paquet local en mode éditable
+uv sync --frozen --reinstall-package osarai
+```
 
-# Compiler le portail statique localement et le prévisualiser sur http://localhost:8000
+### 2. Vérifier la qualité, les schémas et la suite de tests
+```bash
+uv run osarai validate
+uv run ruff check src/ tests/ && uv run ruff format --check src/ tests/
+uv run pytest --cov=src/osarai --cov-branch --cov-fail-under=85
+```
+
+### 3. Compiler et tester le portail statique en local
+```bash
+# Aperçu standard à la racine (http://localhost:8000)
 uv run osarai build-site --output dist --base-url ""
 uv run python -m http.server -d dist 8000
+
+# Simulation exacte du sous-chemin GitHub Pages (http://localhost:8000/osarai/)
+mkdir -p .osarai_tmp/gh_pages_sim
+uv run osarai build-site --output .osarai_tmp/gh_pages_sim/osarai --base-url "/osarai"
+uv run python -m http.server -d .osarai_tmp/gh_pages_sim 8000
 ```
+
+### 4. Principales commandes métier (`uv run osarai --help`)
+- `uv run osarai assign-ids --theme <chemin>` : attribue les identifiants permanents monotones manquants.
+- `uv run osarai preview-occlusions --theme <chemin>` : génère dans `.osarai_tmp/previews/` les aperçus `--full.png` et `--mobile-320w.png`.
+- `uv run osarai validate --against-ref origin/main` : valide hors-ligne les schémas YAML 1.2, LaTeX/Cloze, TASL et l'immuabilité Git.
+- `uv run osarai check-urls` : vérifie les liens externes de `resources.yaml` (`oEmbed` YouTube et détection Soft-404).
 
 ---
 

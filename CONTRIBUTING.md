@@ -20,9 +20,19 @@ Lors de l'ouverture d'une *Pull Request*, veuillez cocher la case de confirmatio
 
 ---
 
-## 2. Prérequis Techniques et Liens Symboliques (`core.symlinks`)
+## 2. Prérequis Techniques et Installation Locale
 
 L'outillage local repose uniquement sur `Python >= 3.12` et le gestionnaire [`uv`](https://docs.astral.sh/uv/) (aucun environnement `Node.js` ni `Ruby` n'est requis).
+
+### Installation de `uv`
+- **Linux / macOS** :
+  ```bash
+  command -v uv >/dev/null || curl -LsSf https://astral.sh/uv/install.sh | sh
+  ```
+- **Windows (PowerShell)** :
+  ```powershell
+  powershell -ExecutionPolicy ByPass -c "irm https://astral.sh/uv/install.ps1 | iex"
+  ```
 
 ### Utilisateurs Windows (`git config core.symlinks`)
 Le dépôt utilise des liens symboliques relatifs (`CLAUDE.md -> AGENTS.md` et `.claude/skills/* -> ../../.agents/skills/*`) pour éviter toute duplication des consignes entre agents IA. Sous **Windows**, activez le support des liens symboliques avant de cloner le dépôt (Mode Développeur Windows activé) :
@@ -31,11 +41,17 @@ Le dépôt utilise des liens symboliques relatifs (`CLAUDE.md -> AGENTS.md` et `
 git config --global core.symlinks true
 ```
 
-### Installation de l'environnement local
+### Synchronisation de l'environnement local (`.venv`)
+À la racine du dépôt cloné, synchronisez les dépendances verrouillées et installez le paquet `osarai` en mode éditable :
 
 ```bash
-uv sync --frozen
+uv sync --frozen --reinstall-package osarai
 ```
+
+> **Astuce** : relancez également `uv sync --frozen --reinstall-package osarai` après un `git pull` majeur, un changement de version mineure de Python (`3.12` / `3.13` / `3.14`) ou un déplacement du répertoire de travail afin de rafraîchir le pointeur éditable `.pth` de `.venv`.
+
+### Agents de code compatibles (`AGENTS.md` & `.agents/skills/`)
+À l'ouverture du projet dans **Antigravity**, **Claude Code** ou **OpenAI Codex**, les consignes permanentes de [`AGENTS.md`](AGENTS.md) (et son lien `CLAUDE.md`) ainsi que les compétences guidées `.agents/skills/*` sont détectées automatiquement sans fichier `.env` ni configuration supplémentaire.
 
 ---
 
@@ -72,3 +88,50 @@ Si vous utilisez un agent de code compatible avec le format portable `SKILL.md` 
 ### Règles impératives sur les sources et formules
 - Ne copiez et n'adaptez **jamais** de texte issu d'un manuel scolaire propriétaire ou sous licence non commerciale (`CC BY-NC-SA`, ex. *Lelivrescolaire.fr*, *Lumni*). Seuls les domaines marqués `allow_grounding: true` dans `sources.yaml` peuvent servir de source textuelle.
 - Délimitez toutes les formules mathématiques et chimiques avec `\(...\)` (en ligne) et `\[...\]` (bloc), en utilisant `\text{CO}_2` plutôt que la macro non standard `\ce{...}`.
+
+---
+
+## 5. Contribuer au Code Python et au Portail Statique (Tests, Aperçu & Dépannage)
+
+### Contrôles automatisés avant Pull Request
+Toute modification sous `src/`, `tests/` ou `.github/workflows/` doit passer l'ensemble des vérifications locales reproduisant la CI :
+
+```bash
+# Linter et formatage Ruff
+uv run ruff check src/ tests/
+uv run ruff format --check src/ tests/
+
+# Suite de tests unitaires et d'intégration (seuil de couverture de branches >= 85 %)
+uv run pytest --cov
+# (équivalent explicite : uv run pytest --cov=src/osarai --cov-branch --cov-fail-under=85)
+
+# Validation complète des schémas, identifiants et contenus
+uv run osarai validate --against-ref origin/main
+```
+
+### Aperçu local et checklist navigateur (*DevTools*)
+1. **Aperçu racine (`http://localhost:8000`)** :
+   ```bash
+   uv run osarai build-site --output dist --base-url ""
+   uv run python -m http.server -d dist 8000
+   ```
+2. **Simulation du sous-chemin GitHub Pages (`http://localhost:8000/osarai/`)** :
+   ```bash
+   mkdir -p .osarai_tmp/gh_pages_sim
+   uv run osarai build-site --output .osarai_tmp/gh_pages_sim/osarai --base-url "/osarai"
+   uv run python -m http.server -d .osarai_tmp/gh_pages_sim 8000
+   ```
+3. **Points à vérifier dans les *DevTools* du navigateur (`F12`)** :
+   - **Onglet *Console* & *Network*** : aucune erreur `Content-Security-Policy` et **zéro requête vers un domaine externe** (polices et CSS KaTeX chargés localement depuis `/assets/vendor/katex/`).
+   - **Modes clair / sombre** : le conteneur d'illustration `.asset-container` conserve son fond `#ffffff`, les masques d'occultation (`target` orange `?` et `mask` ardoise) sont 100 % opaques et alignés, et le bouton *Agrandir le schéma* ouvre la boîte `<dialog>` plein écran.
+   - **Quarantaine & Sauvegarde** : le signalement d'une carte ou d'un QCM l'écarte immédiatement dans `localStorage`, génère un JSON valide pour `uv run osarai validate --feedback <fichier>`, et l'export/import `osarai-backup-v1.json` restaure la progression.
+
+### Dépannage fréquent (*Troubleshooting*)
+- **`CoverageWarning: No data was collected (no-data-collected)` (`Total coverage: 0.00%`) lors de `pytest --cov`** :
+  Survient lorsqu'un environnement `.venv` préexistant contient un pointeur éditable `_editable_impl_osarai.pth` obsolète (après un déplacement de dossier, un changement de version de Python ou une initialisation antérieure) ou en cas d'ambiguïté sur le nom du module. Exécutez :
+  ```bash
+  uv sync --frozen --reinstall-package osarai
+  uv run pytest --cov=src/osarai --cov-branch --cov-fail-under=85
+  ```
+- **`HTTP 403` / code de sortie `3` sur certaines pages HTML ministérielles ou encyclopédiques (`sync-bo --discover-url`, `probe-links`)** :
+  Certains pare-feu distants filtrent ponctuellement les requêtes automatisées ou les plages d'IP infonuagiques sur leurs pages HTML (ce que la CLI signale proprement par le code `3` *limitation distante*). Privilégiez les URL directes des documents `.pdf` officiels dans `curriculum/sources/bo_manifest.yaml` (et l'API MediaWiki utilisée par `fetch-grounding` / `fetch-commons`), ou relancez le sondage depuis un poste local résidentiel.

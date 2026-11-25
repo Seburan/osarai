@@ -53,3 +53,11 @@ select = ["E", "F", "I", "B", "UP"]
 [tool.pytest.ini_options]
 testpaths = ["tests"]
 addopts = "-ra"
+
+[tool.coverage.run]
+branch = true
+source = ["src/osarai"]
+
+[tool.coverage.report]
+fail_under = 85
+show_missing = true
