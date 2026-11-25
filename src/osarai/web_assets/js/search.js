@@ -8,8 +8,23 @@ export function normalizeSearchQuery(text) {
     .replace(/[\u2018\u2019]/g, "'")
     .normalize("NFKD")
     .replace(/[\u0300-\u036f]/g, "")
+    .replace(/[^a-z0-9]+/g, " ")
     .replace(/\s+/g, " ")
     .trim();
+}
+
+export function matchesSearchToken(hay, tok) {
+  if (hay.includes(tok)) return true;
+  if (tok.length >= 4 && (tok.endsWith("s") || tok.endsWith("x"))) {
+    if (hay.includes(tok.slice(0, -1))) return true;
+  }
+  if (tok.length >= 6 && tok.endsWith("ie")) {
+    if (hay.includes(`${tok.slice(0, -2)}ique`)) return true;
+  }
+  if (tok.length >= 8 && tok.endsWith("ique")) {
+    if (hay.includes(`${tok.slice(0, -4)}ie`)) return true;
+  }
+  return false;
 }
 
 const GRADE_DISPLAY = {
@@ -58,11 +73,13 @@ export function initSearch({ baseUrl }) {
       return;
     }
 
-    const tokens = queryNorm.split(" ").filter(Boolean);
+    const rawTokens = queryNorm.split(" ").filter(Boolean);
+    const multiFiltered = rawTokens.filter((t) => t.length >= 2);
+    const tokens = multiFiltered.length > 0 ? multiFiltered : rawTokens;
     const matches = entries
       .filter((entry) => {
         const hay = String(entry.concepts_text_normalized || "");
-        return tokens.every((tok) => hay.includes(tok));
+        return tokens.every((tok) => matchesSearchToken(hay, tok));
       })
       .slice(0, 12);
 

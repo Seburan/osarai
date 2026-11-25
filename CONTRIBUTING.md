@@ -123,7 +123,7 @@ uv run osarai validate --against-ref origin/main
    ```
 3. **Points à vérifier dans les *DevTools* du navigateur (`F12`)** :
    - **Onglet *Console* & *Network*** : aucune erreur `Content-Security-Policy` et **zéro requête vers un domaine externe** (polices et CSS KaTeX chargés localement depuis `/assets/vendor/katex/`).
-   - **Modes clair / sombre** : le conteneur d'illustration `.asset-container` conserve son fond `#ffffff`, les masques d'occultation (`target` orange `?` et `mask` ardoise) sont 100 % opaques et alignés, et le bouton *Agrandir le schéma* ouvre la boîte `<dialog>` plein écran.
+   - **Modes clair / sombre** : utilisez le bouton `🌙 Sombre` / `☀️ Clair` dans l'en-tête en haut à droite pour vérifier que le conteneur d'illustration `.asset-container` conserve son fond `#ffffff`, que les masques d'occultation (`target` orange `?` et `mask` ardoise) sont 100 % opaques et alignés, et que le bouton *Agrandir le schéma* ouvre la boîte `<dialog>` plein écran.
    - **Quarantaine & Sauvegarde** : le signalement d'une carte ou d'un QCM l'écarte immédiatement dans `localStorage`, génère un JSON valide pour `uv run osarai validate --feedback <fichier>`, et l'export/import `osarai-backup-v1.json` restaure la progression.
 
 ### Dépannage fréquent (*Troubleshooting*)

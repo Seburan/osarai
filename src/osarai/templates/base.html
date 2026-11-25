@@ -3,7 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
+  <script src="{{ base_url }}/assets/js/theme-init.js"></script>
   <title>{% block title %}Osarai — Révisions libres du Collège{% endblock %}</title>
   <meta name="description" content="{% block meta_description %}Plateforme libre et statique de révisions scolaires pour le collège français (cours, cartes mémoire, schémas masqués et QCM corrigés).{% endblock %}">
   <meta property="og:type" content="website">
@@ -37,7 +39,7 @@
           id="global-search-input"
           class="search-input"
           type="search"
-          placeholder="Rechercher un cours, ex. alvéole, cœur, démographie…"
+          placeholder="Rechercher un cours, ex. alvéole, œsophage, démographie…"
           autocomplete="off"
           aria-expanded="false"
           aria-controls="global-search-results"
@@ -58,6 +60,22 @@
             {% endfor %}
           </select>
         </div>
+
+        <button
+          type="button"
+          id="btn-theme-toggle"
+          class="btn btn-subtle theme-toggle"
+          title="Basculer entre le thème clair et le thème sombre"
+        >
+          <span class="theme-toggle-to-dark">
+            <span aria-hidden="true">🌙 Sombre</span>
+            <span class="sr-only">Passer au thème sombre</span>
+          </span>
+          <span class="theme-toggle-to-light">
+            <span aria-hidden="true">☀️ Clair</span>
+            <span class="sr-only">Passer au thème clair</span>
+          </span>
+        </button>
 
         <div class="backup-actions">
           <button type="button" id="btn-export-backup" class="btn btn-subtle" title="Exporter ma progression locale (osarai-backup-v1.json)">

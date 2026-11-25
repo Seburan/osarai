@@ -6,6 +6,7 @@ import { initQuiz } from "./quiz.js";
 import { initSearch } from "./search.js";
 
 const GRADE_STORAGE_KEY = "osarai:v1:grade";
+const THEME_STORAGE_KEY = "osarai:v1:theme";
 const PROGRESS_PREFIX = "osarai:v1:progress:";
 const VALID_GRADES = new Set(["6eme", "5eme", "4eme", "3eme"]);
 const GRADE_LABELS = {
@@ -298,6 +299,60 @@ function initBackupControls() {
   }
 }
 
+function getStoredTheme() {
+  try {
+    const val = window.localStorage.getItem(THEME_STORAGE_KEY);
+    return val === "light" || val === "dark" ? val : null;
+  } catch {
+    return null;
+  }
+}
+
+function initThemeToggle() {
+  const toggleBtn = document.getElementById("btn-theme-toggle");
+  const meta = document.querySelector('meta[name="color-scheme"]');
+  if (!meta) return;
+
+  const applyMeta = (scheme) => {
+    meta.content = scheme === "light" || scheme === "dark" ? scheme : "light dark";
+  };
+
+  applyMeta(getStoredTheme());
+
+  if (toggleBtn) {
+    toggleBtn.addEventListener("click", () => {
+      const sysDark =
+        Boolean(window.matchMedia) && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const sysScheme = sysDark ? "dark" : "light";
+      const currentMeta = meta.content === "light" || meta.content === "dark" ? meta.content : null;
+      const rendered = currentMeta || getStoredTheme() || sysScheme;
+      const target = rendered === "dark" ? "light" : "dark";
+
+      if (target === sysScheme) {
+        try {
+          window.localStorage.removeItem(THEME_STORAGE_KEY);
+        } catch {
+          // Stockage local indisponible
+        }
+        applyMeta(null);
+      } else {
+        try {
+          window.localStorage.setItem(THEME_STORAGE_KEY, target);
+        } catch {
+          // Appliquer tout de même le thème à la page courante
+        }
+        applyMeta(target);
+      }
+    });
+  }
+
+  window.addEventListener("storage", (event) => {
+    if (event.key === THEME_STORAGE_KEY || event.key === null) {
+      applyMeta(getStoredTheme());
+    }
+  });
+}
+
 function bootstrap() {
   const htmlEl = document.documentElement;
   const baseUrl = htmlEl.dataset.baseUrl || "";
@@ -307,6 +362,7 @@ function bootstrap() {
     requestPersistentStorage();
   }
 
+  initThemeToggle();
   initGradeFiltering();
   initTabs();
   initDialogsAndZoom();

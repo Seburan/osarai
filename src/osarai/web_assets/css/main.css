@@ -2,28 +2,68 @@
 
 :root {
   color-scheme: light dark;
-  --bg-page: #f8fafc;
-  --bg-surface: #ffffff;
-  --bg-subtle: #f1f5f9;
-  --bg-accent-soft: #eff6ff;
-  --bg-warn-soft: #fffbeb;
-  --bg-success-soft: #f0fdf4;
-  --bg-danger-soft: #fef2f2;
 
-  --text-main: #0f172a;
-  --text-muted: #475569;
-  --text-on-primary: #ffffff;
+  --bg-page-light: #f8fafc;
+  --bg-page-dark: #0b1120;
+  --bg-surface-light: #ffffff;
+  --bg-surface-dark: #131c2e;
+  --bg-subtle-light: #f1f5f9;
+  --bg-subtle-dark: #1e293b;
+  --bg-accent-soft-light: #eff6ff;
+  --bg-accent-soft-dark: #172554;
+  --bg-warn-soft-light: #fffbeb;
+  --bg-warn-soft-dark: #3b2506;
+  --bg-success-soft-light: #f0fdf4;
+  --bg-success-soft-dark: #052e16;
+  --bg-danger-soft-light: #fef2f2;
+  --bg-danger-soft-dark: #450a0a;
 
-  --border-subtle: #cbd5e1;
-  --border-strong: #94a3b8;
+  --text-main-light: #0f172a;
+  --text-main-dark: #f1f5f9;
+  --text-muted-light: #475569;
+  --text-muted-dark: #cbd5e1;
+  --text-on-primary-light: #ffffff;
+  --text-on-primary-dark: #0b1120;
 
-  --color-primary: #1d4ed8;
-  --color-primary-hover: #1e40af;
-  --color-focus: #2563eb;
-  --color-amber: #d97706;
-  --color-amber-border: #991b1b;
-  --color-success: #15803d;
-  --color-danger: #b91c1c;
+  --border-subtle-light: #cbd5e1;
+  --border-subtle-dark: #334155;
+  --border-strong-light: #94a3b8;
+  --border-strong-dark: #64748b;
+
+  --color-primary-light: #1d4ed8;
+  --color-primary-dark: #60a5fa;
+  --color-primary-hover-light: #1e40af;
+  --color-primary-hover-dark: #93c5fd;
+  --color-focus-light: #2563eb;
+  --color-focus-dark: #93c5fd;
+  --color-amber-light: #d97706;
+  --color-amber-dark: #f59e0b;
+  --color-amber-border-light: #991b1b;
+  --color-amber-border-dark: #dc2626;
+  --color-success-light: #15803d;
+  --color-success-dark: #4ade80;
+  --color-danger-light: #b91c1c;
+  --color-danger-dark: #f87171;
+
+  --bg-page: var(--bg-page-light);
+  --bg-surface: var(--bg-surface-light);
+  --bg-subtle: var(--bg-subtle-light);
+  --bg-accent-soft: var(--bg-accent-soft-light);
+  --bg-warn-soft: var(--bg-warn-soft-light);
+  --bg-success-soft: var(--bg-success-soft-light);
+  --bg-danger-soft: var(--bg-danger-soft-light);
+  --text-main: var(--text-main-light);
+  --text-muted: var(--text-muted-light);
+  --text-on-primary: var(--text-on-primary-light);
+  --border-subtle: var(--border-subtle-light);
+  --border-strong: var(--border-strong-light);
+  --color-primary: var(--color-primary-light);
+  --color-primary-hover: var(--color-primary-hover-light);
+  --color-focus: var(--color-focus-light);
+  --color-amber: var(--color-amber-light);
+  --color-amber-border: var(--color-amber-border-light);
+  --color-success: var(--color-success-light);
+  --color-danger: var(--color-danger-light);
 
   --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.07), 0 1px 2px rgba(15, 23, 42, 0.04);
   --shadow-md: 0 10px 24px -6px rgba(15, 23, 42, 0.12), 0 4px 10px -4px rgba(15, 23, 42, 0.06);
@@ -34,36 +74,105 @@
 
   --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
-}
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-page: #0b1120;
-    --bg-surface: #131c2e;
-    --bg-subtle: #1e293b;
-    --bg-accent-soft: #172554;
-    --bg-warn-soft: #3b2506;
-    --bg-success-soft: #052e16;
-    --bg-danger-soft: #450a0a;
-
-    --text-main: #f1f5f9;
-    --text-muted: #cbd5e1;
-    --text-on-primary: #0b1120;
-
-    --border-subtle: #334155;
-    --border-strong: #64748b;
-
-    --color-primary: #60a5fa;
-    --color-primary-hover: #93c5fd;
-    --color-focus: #93c5fd;
-    --color-amber: #f59e0b;
-    --color-amber-border: #dc2626;
-    --color-success: #4ade80;
-    --color-danger: #f87171;
-
+  &:has(> head > meta[name="color-scheme"][content="dark"]) {
+    color-scheme: dark;
+    --bg-page: var(--bg-page-dark);
+    --bg-surface: var(--bg-surface-dark);
+    --bg-subtle: var(--bg-subtle-dark);
+    --bg-accent-soft: var(--bg-accent-soft-dark);
+    --bg-warn-soft: var(--bg-warn-soft-dark);
+    --bg-success-soft: var(--bg-success-soft-dark);
+    --bg-danger-soft: var(--bg-danger-soft-dark);
+    --text-main: var(--text-main-dark);
+    --text-muted: var(--text-muted-dark);
+    --text-on-primary: var(--text-on-primary-dark);
+    --border-subtle: var(--border-subtle-dark);
+    --border-strong: var(--border-strong-dark);
+    --color-primary: var(--color-primary-dark);
+    --color-primary-hover: var(--color-primary-hover-dark);
+    --color-focus: var(--color-focus-dark);
+    --color-amber: var(--color-amber-dark);
+    --color-amber-border: var(--color-amber-border-dark);
+    --color-success: var(--color-success-dark);
+    --color-danger: var(--color-danger-dark);
     --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
     --shadow-md: 0 12px 28px -6px rgba(0, 0, 0, 0.55);
   }
+
+  &:has(> head > meta[name="color-scheme"][content="light"]) {
+    color-scheme: light;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    &:not(:has(> head > meta[name="color-scheme"][content="light"])) {
+      --bg-page: var(--bg-page-dark);
+      --bg-surface: var(--bg-surface-dark);
+      --bg-subtle: var(--bg-subtle-dark);
+      --bg-accent-soft: var(--bg-accent-soft-dark);
+      --bg-warn-soft: var(--bg-warn-soft-dark);
+      --bg-success-soft: var(--bg-success-soft-dark);
+      --bg-danger-soft: var(--bg-danger-soft-dark);
+      --text-main: var(--text-main-dark);
+      --text-muted: var(--text-muted-dark);
+      --text-on-primary: var(--text-on-primary-dark);
+      --border-subtle: var(--border-subtle-dark);
+      --border-strong: var(--border-strong-dark);
+      --color-primary: var(--color-primary-dark);
+      --color-primary-hover: var(--color-primary-hover-dark);
+      --color-focus: var(--color-focus-dark);
+      --color-amber: var(--color-amber-dark);
+      --color-amber-border: var(--color-amber-border-dark);
+      --color-success: var(--color-success-dark);
+      --color-danger: var(--color-danger-dark);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.35);
+      --shadow-md: 0 12px 28px -6px rgba(0, 0, 0, 0.55);
+    }
+  }
+
+  @supports (color: light-dark(white, black)) {
+    --bg-page: light-dark(var(--bg-page-light), var(--bg-page-dark));
+    --bg-surface: light-dark(var(--bg-surface-light), var(--bg-surface-dark));
+    --bg-subtle: light-dark(var(--bg-subtle-light), var(--bg-subtle-dark));
+    --bg-accent-soft: light-dark(var(--bg-accent-soft-light), var(--bg-accent-soft-dark));
+    --bg-warn-soft: light-dark(var(--bg-warn-soft-light), var(--bg-warn-soft-dark));
+    --bg-success-soft: light-dark(var(--bg-success-soft-light), var(--bg-success-soft-dark));
+    --bg-danger-soft: light-dark(var(--bg-danger-soft-light), var(--bg-danger-soft-dark));
+    --text-main: light-dark(var(--text-main-light), var(--text-main-dark));
+    --text-muted: light-dark(var(--text-muted-light), var(--text-muted-dark));
+    --text-on-primary: light-dark(var(--text-on-primary-light), var(--text-on-primary-dark));
+    --border-subtle: light-dark(var(--border-subtle-light), var(--border-subtle-dark));
+    --border-strong: light-dark(var(--border-strong-light), var(--border-strong-dark));
+    --color-primary: light-dark(var(--color-primary-light), var(--color-primary-dark));
+    --color-primary-hover: light-dark(var(--color-primary-hover-light), var(--color-primary-hover-dark));
+    --color-focus: light-dark(var(--color-focus-light), var(--color-focus-dark));
+    --color-amber: light-dark(var(--color-amber-light), var(--color-amber-dark));
+    --color-amber-border: light-dark(var(--color-amber-border-light), var(--color-amber-border-dark));
+    --color-success: light-dark(var(--color-success-light), var(--color-success-dark));
+    --color-danger: light-dark(var(--color-danger-light), var(--color-danger-dark));
+  }
+}
+
+.theme-toggle-to-light {
+  display: none;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .theme-toggle-to-dark {
+    display: none;
+  }
+
+  :root:not(:has(> head > meta[name="color-scheme"][content="light"])) .theme-toggle-to-light {
+    display: inline-flex;
+  }
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-toggle-to-dark {
+  display: none;
+}
+
+:root:has(> head > meta[name="color-scheme"][content="dark"]) .theme-toggle-to-light {
+  display: inline-flex;
 }
 
 *,
@@ -695,6 +804,7 @@ code {
   aspect-ratio: var(--asset-w) / var(--asset-h);
   max-width: min(100%, calc(66vh * (var(--asset-w) / var(--asset-h))));
   margin: 0 auto;
+  color-scheme: only light;
   background-color: #ffffff;
   color: #0f172a;
   border: 1px solid var(--border-subtle);

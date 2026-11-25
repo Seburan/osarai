@@ -85,6 +85,7 @@ La **Phase 1 (MVP)** cible le niveau pilote **5ème** (*Cycle 4*) sur deux disci
 ### Feuille de route Phase 2
 - **Paquets Anki (`.apkg`) pré-compilés via `genanki`** : diffusion automatisée sur GitHub Releases (et méga-paquets sur AnkiWeb) appuyée sans migration sur les identifiants permanents et noms d'images plats définis dès la Phase 1.
 - **Répétition espacée dans le navigateur (*SRS*)** : planificateur *FSRS* / *SM-2* côté client avec file quotidienne de cartes dues et courbe de progression locale.
+- **Page dédiée « Mes données & Statistiques »** : espace centralisé de gestion de la progression locale regroupant l'export, l'import, la réinitialisation (*reset* global ou par matière/thème avec confirmation) et les statistiques détaillées d'avancement (cartes maîtrisées / à revoir, scores aux QCM, suivi par classe), permettant d'alléger les raccourcis d'en-tête du MVP.
 - **Figures géométriques et schémas SVG par code Python** pour les *Mathématiques* et la *Physique-Chimie*, orchestration par lots bornée, et statistiques d'audience agrégées conformes au référentiel d'exemption de la CNIL.
 
 ---

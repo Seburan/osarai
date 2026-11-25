@@ -178,3 +178,36 @@ def test_build_site_full_theme_csp_cloze_tasl_and_search(sample_repo: Path, tmp_
     assert "du dioxygène" in c2_front
     assert '<span class="cloze-blank">[formule]</span>' in c2_front
     assert r'<strong class="cloze-answer">\(\text{CO}_2\)</strong>' in c2_back
+
+    # 5) Bascule de thème clair/sombre accessible sans script en ligne (conformité CSP)
+    assert '<meta name="color-scheme" content="light dark">' in html_text
+    assert "/osarai/assets/js/theme-init.js" in html_text
+    assert (dist_dir / "assets" / "js" / "theme-init.js").is_file()
+    assert 'id="btn-theme-toggle"' in html_text
+    assert "Passer au thème sombre" in html_text
+    assert "Passer au thème clair" in html_text
+
+
+def test_build_site_search_index_does_not_truncate_keywords_on_long_themes(
+    sample_repo: Path, tmp_path: Path
+) -> None:
+    """Vérifie que `œsophage` et `cæcum` restent indexés sur un thème riche en termes."""
+    theme_dir = sample_repo / "content" / "cycle-4" / "svt" / "la-respiration"
+    summary_path = theme_dir / "summary.md"
+    padding = " ".join(
+        f"**notion-{idx:02d}-anatomie-physiologie-cellulaire**" for idx in range(1, 25)
+    )
+    summary_path.write_text(
+        summary_path.read_text(encoding="utf-8")
+        + f"\n{padding}\n"
+        + "Trajet : bouche, **œsophage**, estomac, intestin grêle, **cæcum** et côlon.\n",
+        encoding="utf-8",
+    )
+
+    dist_dir = tmp_path / "dist_long_search"
+    build_site(sample_repo, dist_dir, base_url="")
+
+    search_index = json.loads((dist_dir / "search-index.json").read_text(encoding="utf-8"))
+    hay = search_index[0]["concepts_text_normalized"]
+    for query in ("œsophage", "oesophage", "cæcum", "caecum", "alvéole", "alveole"):
+        assert normalize_search_text(query) in hay

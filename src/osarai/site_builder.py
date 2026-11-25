@@ -55,7 +55,95 @@ CYCLE_LABELS: dict[str, str] = {
 }
 
 SUMMARY_BOLD_TERM_RE = re.compile(r"\*\*([^*]{2,80})\*\*")
-SUMMARY_HEADING_RE = re.compile(r"^#{2,4}\s+(.+)$", re.MULTILINE)
+SUMMARY_SUBHEADING_RE = re.compile(r"^#{3,4}\s+(.+)$", re.MULTILINE)
+SUMMARY_IMAGE_ALT_RE = re.compile(r"!\[([^\]]+)\]\(assets/")
+MARKDOWN_ASSET_URL_RE = re.compile(r"\(assets/[^)]+\)")
+LATEX_COMMAND_RE = re.compile(r"\\[a-zA-Z]+")
+SEARCH_WORD_RE = re.compile(r"[a-z0-9]{2,}")
+SEARCH_MAX_CHARS = 2400
+
+FRENCH_SEARCH_STOPWORDS: frozenset[str] = frozenset(
+    {
+        "au",
+        "aussi",
+        "autre",
+        "autres",
+        "aux",
+        "avec",
+        "avoir",
+        "bien",
+        "car",
+        "ce",
+        "ces",
+        "cet",
+        "cette",
+        "chez",
+        "comme",
+        "dans",
+        "de",
+        "des",
+        "donc",
+        "dont",
+        "du",
+        "elle",
+        "elles",
+        "en",
+        "entre",
+        "est",
+        "et",
+        "ete",
+        "etre",
+        "fait",
+        "font",
+        "il",
+        "ils",
+        "la",
+        "le",
+        "les",
+        "leur",
+        "leurs",
+        "lors",
+        "mais",
+        "meme",
+        "memes",
+        "moins",
+        "ne",
+        "ni",
+        "non",
+        "nous",
+        "on",
+        "ont",
+        "ou",
+        "oui",
+        "par",
+        "pas",
+        "peut",
+        "peuvent",
+        "plus",
+        "pour",
+        "puis",
+        "que",
+        "qui",
+        "quoi",
+        "sa",
+        "sans",
+        "se",
+        "ses",
+        "son",
+        "sont",
+        "sous",
+        "sur",
+        "tous",
+        "tout",
+        "toute",
+        "toutes",
+        "tres",
+        "un",
+        "une",
+        "vers",
+        "vous",
+    }
+)
 
 
 @dataclass(frozen=True)
@@ -312,22 +400,68 @@ def _extract_summary_description(summary_md: str, fallback_title: str) -> str:
     return joined[:180].rstrip() + ("…" if len(joined) > 180 else "")
 
 
+def _extract_markdown_section(summary_md: str, heading: str) -> str:
+    match = re.search(
+        rf"^##\s+{re.escape(heading)}\s*$([\s\S]*?)(?=^##\s+|\Z)",
+        summary_md,
+        re.MULTILINE,
+    )
+    return match.group(1) if match else ""
+
+
 def _build_search_terms(
     meta: ThemeMeta,
     subject_label: str,
     summary_md: str,
+    cards_file: FlashcardsFile | None = None,
 ) -> str:
+    cloze_answers = (
+        [
+            tok.answer
+            for card in cards_file.cards
+            if card.type == "cloze"
+            for tok in parse_cloze_tokens(card.front)
+        ]
+        if cards_file is not None
+        else []
+    )
+    defs_section = _extract_markdown_section(summary_md, "Définitions clés")
+    essentiel_section = _extract_markdown_section(summary_md, "L'essentiel à retenir")
+    cleaned_summary = MARKDOWN_ASSET_URL_RE.sub(" ", summary_md)
+
     parts: list[str] = [
         meta.title,
         meta.theme_slug.replace("-", " "),
         subject_label,
+        meta.subject_code,
+        *meta.reperes_levels,
         *(c.label for c in meta.key_concepts),
         *(c.concept_id.replace("-", " ") for c in meta.key_concepts),
-        *(m.group(1) for m in SUMMARY_HEADING_RE.finditer(summary_md)),
+        *(m.group(1) for m in SUMMARY_SUBHEADING_RE.finditer(summary_md)),
         *(m.group(1) for m in SUMMARY_BOLD_TERM_RE.finditer(summary_md)),
+        *cloze_answers,
+        defs_section,
+        essentiel_section,
+        *(m.group(1) for m in SUMMARY_IMAGE_ALT_RE.finditer(summary_md)),
+        cleaned_summary,
     ]
-    normalized = normalize_search_text(" ".join(parts))
-    return normalized[:500]
+    raw_joined = LATEX_COMMAND_RE.sub(" ", " ".join(parts))
+    normalized = normalize_search_text(raw_joined)
+
+    unique_tokens: list[str] = []
+    seen: set[str] = set()
+    total_len = 0
+    for tok in SEARCH_WORD_RE.findall(normalized):
+        if tok in FRENCH_SEARCH_STOPWORDS or tok in seen:
+            continue
+        added_len = len(tok) if not unique_tokens else len(tok) + 1
+        if total_len + added_len > SEARCH_MAX_CHARS:
+            break
+        seen.add(tok)
+        unique_tokens.append(tok)
+        total_len += added_len
+
+    return " ".join(unique_tokens)
 
 
 def _create_jinja_env() -> Environment:
@@ -543,7 +677,7 @@ def build_site(
                         "title": meta.title,
                         "reperes_levels": list(meta.reperes_levels),
                         "concepts_text_normalized": _build_search_terms(
-                            meta, curr.subject_label, summary_md
+                            meta, curr.subject_label, summary_md, cards_file
                         ),
                     }
                 )
