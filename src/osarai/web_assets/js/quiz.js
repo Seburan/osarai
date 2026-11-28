@@ -199,14 +199,36 @@ export function initQuiz({
       btn.type = "button";
       btn.className = "choice-btn";
       btn.disabled = answered;
-      if (answered) {
-        if (idx === q.answer_index) {
-          btn.classList.add("is-correct");
-        } else if (idx === selectedChoice) {
-          btn.classList.add("is-wrong");
-        }
+
+      const textSpan = document.createElement("span");
+      textSpan.className = "choice-text";
+      // Contenu pré-rendu au build par markdown-it-py (html=False)
+      textSpan.innerHTML = choiceHtml;
+
+      if (answered && idx === q.answer_index) {
+        btn.classList.add("is-correct");
+        const iconSpan = document.createElement("span");
+        iconSpan.className = "choice-verdict";
+        iconSpan.setAttribute("aria-hidden", "true");
+        iconSpan.textContent = "✓";
+        const srSpan = document.createElement("span");
+        srSpan.className = "sr-only";
+        srSpan.textContent = " — Bonne réponse";
+        btn.append(iconSpan, textSpan, srSpan);
+      } else if (answered && idx === selectedChoice) {
+        btn.classList.add("is-wrong");
+        const iconSpan = document.createElement("span");
+        iconSpan.className = "choice-verdict";
+        iconSpan.setAttribute("aria-hidden", "true");
+        iconSpan.textContent = "✗";
+        const srSpan = document.createElement("span");
+        srSpan.className = "sr-only";
+        srSpan.textContent = " — Réponse choisie (incorrecte)";
+        btn.append(iconSpan, textSpan, srSpan);
+      } else {
+        btn.appendChild(textSpan);
       }
-      btn.innerHTML = choiceHtml;
+
       btn.addEventListener("click", () => {
         if (selectedChoice !== null) return;
         selectedChoice = idx;

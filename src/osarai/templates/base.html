@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="text-scale" content="scale">
   <meta name="color-scheme" content="light dark">
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self'; connect-src 'self'; manifest-src 'self'; base-uri 'self'; form-action 'none'">
   <script src="{{ base_url }}/assets/js/theme-init.js"></script>
@@ -13,6 +14,7 @@
   <meta property="og:locale" content="fr_FR">
   <meta property="og:title" content="{% block og_title %}Osarai — Révisions libres du Collège{% endblock %}">
   <meta property="og:description" content="{% block og_description %}Plateforme libre et statique de révisions scolaires pour le collège français conforme au Bulletin Officiel.{% endblock %}">
+  <link rel="icon" type="image/svg+xml" href="{{ base_url }}/assets/icon.svg">
   <link rel="manifest" href="{{ base_url }}/manifest.webmanifest">
   <link rel="stylesheet" href="{{ base_url }}/assets/vendor/katex/katex.min.css">
   <link rel="stylesheet" href="{{ base_url }}/assets/css/main.css">
@@ -25,7 +27,7 @@
 
   <header class="site-header">
     <div class="container header-inner">
-      <a class="brand" href="{{ base_url }}/" aria-label="Osarai — Retour à l'accueil">
+      <a class="brand" href="{{ base_url }}/">
         <span class="brand-mark" aria-hidden="true">お</span>
         <span class="brand-text">
           <strong>Osarai</strong>
@@ -33,24 +35,23 @@
         </span>
       </a>
 
-      <div class="search-wrapper" role="search">
+      <search class="search-wrapper">
         <label class="sr-only" for="global-search-input">Rechercher un thème ou une notion</label>
         <input
           id="global-search-input"
           class="search-input"
           type="search"
-          placeholder="Rechercher un cours, ex. alvéole, œsophage, démographie…"
+          placeholder="Rechercher un cours, ex. alvéole, œsophage…"
           autocomplete="off"
-          aria-expanded="false"
-          aria-controls="global-search-results"
         >
-        <div id="global-search-results" class="search-results" role="listbox" hidden></div>
-      </div>
+        <p id="global-search-status" class="sr-only" role="status" aria-live="polite"></p>
+        <ul id="global-search-results" class="search-results" role="list" aria-label="Résultats de recherche" hidden></ul>
+      </search>
 
       <div class="header-controls">
         <div class="grade-picker">
           <label for="grade-select" class="grade-label">Classe</label>
-          <select id="grade-select" class="grade-select" aria-label="Sélectionner la classe">
+          <select id="grade-select" class="grade-select">
             {% for code in ["6eme", "5eme", "4eme", "3eme"] %}
             <option
               value="{{ code }}"
@@ -61,30 +62,38 @@
           </select>
         </div>
 
-        <button
-          type="button"
-          id="btn-theme-toggle"
-          class="btn btn-subtle theme-toggle"
-          title="Basculer entre le thème clair et le thème sombre"
-        >
-          <span class="theme-toggle-to-dark">
-            <span aria-hidden="true">🌙 Sombre</span>
-            <span class="sr-only">Passer au thème sombre</span>
-          </span>
-          <span class="theme-toggle-to-light">
-            <span aria-hidden="true">☀️ Clair</span>
-            <span class="sr-only">Passer au thème clair</span>
-          </span>
-        </button>
-
-        <div class="backup-actions">
-          <button type="button" id="btn-export-backup" class="btn btn-subtle" title="Exporter ma progression locale (osarai-backup-v1.json)">
-            Sauvegarder
+        <div class="tools-menu-wrap">
+          <button
+            type="button"
+            id="btn-tools-popover"
+            class="btn btn-subtle"
+            popovertarget="header-tools-popover"
+          >
+            Outils
           </button>
-          <button type="button" id="btn-import-backup" class="btn btn-subtle" title="Importer une sauvegarde locale (osarai-backup-v1.json)">
-            Importer
-          </button>
-          <input type="file" id="input-import-backup" accept="application/json,.json" hidden>
+          <div id="header-tools-popover" popover="auto" class="tools-popover">
+            <button
+              type="button"
+              id="btn-theme-toggle"
+              class="btn btn-subtle tools-popover-item theme-toggle"
+            >
+              <span class="theme-toggle-to-dark">
+                <span aria-hidden="true">🌙</span>
+                <span>Passer au thème sombre</span>
+              </span>
+              <span class="theme-toggle-to-light">
+                <span aria-hidden="true">☀️</span>
+                <span>Passer au thème clair</span>
+              </span>
+            </button>
+            <button type="button" id="btn-export-backup" class="btn btn-subtle tools-popover-item">
+              Sauvegarder ma progression
+            </button>
+            <button type="button" id="btn-import-backup" class="btn btn-subtle tools-popover-item">
+              Importer une sauvegarde
+            </button>
+            <input type="file" id="input-import-backup" accept="application/json,.json" hidden>
+          </div>
         </div>
 
         <button
@@ -92,7 +101,6 @@
           id="btn-open-feedback-drawer"
           class="btn btn-outline feedback-trigger"
           aria-haspopup="dialog"
-          aria-controls="feedback-drawer"
         >
           Signalements
           <span id="feedback-count-badge" class="count-pill" hidden>0</span>
@@ -102,7 +110,7 @@
     <div id="global-toast" class="toast-banner" role="status" aria-live="polite" hidden></div>
   </header>
 
-  <main id="main-content" class="site-main container">
+  <main id="main-content" class="site-main container" tabindex="-1">
     {% block content %}{% endblock %}
   </main>
 
@@ -135,7 +143,7 @@
   </footer>
 
   <!-- Tiroir du panier de signalements (osarai-feedback-v1) -->
-  <dialog id="feedback-drawer" class="modal-dialog" aria-labelledby="feedback-drawer-title">
+  <dialog id="feedback-drawer" class="modal-dialog" closedby="any" aria-labelledby="feedback-drawer-title">
     <div class="modal-surface">
       <div class="modal-header">
         <h2 id="feedback-drawer-title">Éléments signalés sur cet appareil</h2>
@@ -169,7 +177,7 @@
   </dialog>
 
   <!-- Fenêtre de saisie d'un signalement unitaire -->
-  <dialog id="flag-item-dialog" class="modal-dialog" aria-labelledby="flag-item-dialog-title">
+  <dialog id="flag-item-dialog" class="modal-dialog" closedby="any" aria-labelledby="flag-item-dialog-title">
     <div class="modal-surface">
       <div class="modal-header">
         <h2 id="flag-item-dialog-title">Signaler une erreur sur cet élément</h2>
@@ -180,7 +188,7 @@
       </p>
       <div class="field-group">
         <label for="flag-reason-select">Motif du signalement</label>
-        <select id="flag-reason-select" class="select-input">
+        <select id="flag-reason-select" class="select-input" autofocus>
           <option value="formulation_ambigue">Question ou réponse ambiguë</option>
           <option value="erreur_factuelle">Erreur scientifique ou historique</option>
           <option value="hors_programme">Notion hors-programme pour ma classe</option>

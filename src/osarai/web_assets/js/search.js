@@ -37,10 +37,12 @@ const GRADE_DISPLAY = {
 export function initSearch({ baseUrl }) {
   const input = document.getElementById("global-search-input");
   const resultsBox = document.getElementById("global-search-results");
+  const statusBox = document.getElementById("global-search-status");
   if (!input || !resultsBox) return;
 
   let indexPromise = null;
   let cachedIndex = null;
+  let statusTimer = null;
 
   async function ensureIndex() {
     if (cachedIndex) return cachedIndex;
@@ -61,9 +63,21 @@ export function initSearch({ baseUrl }) {
     return indexPromise;
   }
 
+  function announceStatus(message) {
+    if (!statusBox) return;
+    window.clearTimeout(statusTimer);
+    if (!message) {
+      statusBox.textContent = "";
+      return;
+    }
+    statusTimer = window.setTimeout(() => {
+      statusBox.textContent = message;
+    }, 200);
+  }
+
   function closeResults() {
     resultsBox.hidden = true;
-    input.setAttribute("aria-expanded", "false");
+    announceStatus("");
   }
 
   function renderHits(queryNorm, entries) {
@@ -84,15 +98,16 @@ export function initSearch({ baseUrl }) {
       .slice(0, 12);
 
     if (matches.length === 0) {
-      const empty = document.createElement("p");
-      empty.className = "search-empty";
-      empty.textContent = "Aucun thème trouvé pour cette recherche.";
-      resultsBox.appendChild(empty);
+      const emptyItem = document.createElement("li");
+      emptyItem.className = "search-empty";
+      emptyItem.textContent = "Aucun thème trouvé pour cette recherche.";
+      resultsBox.appendChild(emptyItem);
+      announceStatus("Aucun thème trouvé pour cette recherche.");
     } else {
       for (const hit of matches) {
+        const item = document.createElement("li");
         const link = document.createElement("a");
         link.className = "search-hit";
-        link.setAttribute("role", "option");
         // Préfixage unique `${baseUrl}${hit.url}` (`hit.url` est stocké sous la forme `/cycle-4/.../`)
         link.href = `${baseUrl}${hit.url}`;
 
@@ -108,12 +123,15 @@ export function initSearch({ baseUrl }) {
         metaSpan.textContent = `${hit.subject_label || hit.subject} · ${grades}`;
 
         link.append(titleSpan, metaSpan);
-        resultsBox.appendChild(link);
+        item.appendChild(link);
+        resultsBox.appendChild(item);
       }
+      announceStatus(
+        matches.length === 1 ? "1 thème trouvé." : `${matches.length} thèmes trouvés.`
+      );
     }
 
     resultsBox.hidden = false;
-    input.setAttribute("aria-expanded", "true");
   }
 
   input.addEventListener("focus", () => {
@@ -133,6 +151,32 @@ export function initSearch({ baseUrl }) {
   input.addEventListener("keydown", (event) => {
     if (event.key === "Escape") {
       closeResults();
+    } else if (event.key === "ArrowDown" && !resultsBox.hidden) {
+      const firstHit = resultsBox.querySelector("a.search-hit");
+      if (firstHit) {
+        event.preventDefault();
+        firstHit.focus();
+      }
+    }
+  });
+
+  resultsBox.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      event.preventDefault();
+      closeResults();
+      input.focus();
+      return;
+    }
+    if (event.key !== "ArrowDown" && event.key !== "ArrowUp") return;
+    const links = Array.from(resultsBox.querySelectorAll("a.search-hit"));
+    const idx = links.indexOf(document.activeElement);
+    if (idx < 0) return;
+    event.preventDefault();
+    if (event.key === "ArrowUp" && idx === 0) {
+      input.focus();
+    } else {
+      const nextIdx = event.key === "ArrowDown" ? (idx + 1) % links.length : idx - 1;
+      links[nextIdx].focus();
     }
   });
 

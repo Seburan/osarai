@@ -10,7 +10,7 @@
   <ol>
     <li><a href="{{ base_url }}/">Accueil</a></li>
     <li><a href="{{ base_url }}/{{ curriculum.cycle }}/{{ curriculum.subject }}/">{{ curriculum.subject_label }}</a></li>
-    <li aria-current="page">{{ meta.title }}</li>
+    <li><a href="{{ base_url }}{{ theme_url }}" aria-current="page">{{ meta.title }}</a></li>
   </ol>
 </nav>
 
@@ -33,7 +33,7 @@
     id="tab-summary"
     class="tab-btn is-active"
     aria-selected="true"
-    aria-controls="panel-summary"
+    data-tab-panel="panel-summary"
     tabindex="0"
   >
     Fiche de Synthèse
@@ -44,7 +44,7 @@
     id="tab-flashcards"
     class="tab-btn"
     aria-selected="false"
-    aria-controls="panel-flashcards"
+    data-tab-panel="panel-flashcards"
     tabindex="-1"
   >
     Cartes mémoire <span class="tab-count">{{ cards_count }}</span>
@@ -55,7 +55,7 @@
     id="tab-quiz"
     class="tab-btn"
     aria-selected="false"
-    aria-controls="panel-quiz"
+    data-tab-panel="panel-quiz"
     tabindex="-1"
   >
     Quiz QCM <span class="tab-count">{{ quiz_count }}</span>
@@ -66,7 +66,7 @@
     id="tab-resources"
     class="tab-btn"
     aria-selected="false"
-    aria-controls="panel-resources"
+    data-tab-panel="panel-resources"
     tabindex="-1"
   >
     Ressources externes <span class="tab-count">{{ resources | length }}</span>
@@ -79,10 +79,13 @@
   class="tab-panel"
   role="tabpanel"
   aria-labelledby="tab-summary"
+  data-searchable-panel="true"
 >
-  <article class="prose-summary">
-    {{ summary_html | safe }}
-  </article>
+  <div class="tab-panel-surface">
+    <article class="prose-summary">
+      {{ summary_html | safe }}
+    </article>
+  </div>
 </section>
 
 <!-- Onglet 2 : Cartes mémoire interactives -->
@@ -93,22 +96,24 @@
   aria-labelledby="tab-flashcards"
   hidden
 >
-  <div class="island-toolbar">
-    <div class="filter-pills" role="group" aria-label="Filtrer la pile de cartes">
-      <button type="button" class="pill-btn is-active" data-card-filter="all">Toutes</button>
-      <button type="button" class="pill-btn" data-card-filter="essentiel">Essentielles</button>
-      <button type="button" class="pill-btn" data-card-filter="a_revoir">
-        À revoir uniquement <span id="review-only-count" class="count-inline">(0)</span>
-      </button>
+  <div class="tab-panel-surface">
+    <div class="island-toolbar">
+      <div class="filter-pills" role="group" aria-label="Filtrer la pile de cartes">
+        <button type="button" class="pill-btn is-active" data-card-filter="all" aria-pressed="true">Toutes</button>
+        <button type="button" class="pill-btn" data-card-filter="essentiel" aria-pressed="false">Essentielles</button>
+        <button type="button" class="pill-btn" data-card-filter="a_revoir" aria-pressed="false">
+          À revoir uniquement <span id="review-only-count" class="count-inline">(0)</span>
+        </button>
+      </div>
+      <label id="cards-all-levels-wrap" class="toggle-inline" hidden>
+        <input type="checkbox" id="cards-all-levels-toggle">
+        <span>Tout le thème (inclure niveaux supérieurs)</span>
+      </label>
     </div>
-    <label id="cards-all-levels-wrap" class="toggle-inline" hidden>
-      <input type="checkbox" id="cards-all-levels-toggle">
-      <span>Tout le thème (inclure niveaux supérieurs)</span>
-    </label>
-  </div>
-  <p id="cards-grade-banner" class="info-banner" hidden></p>
-  <div id="flashcards-stage" class="study-stage" aria-live="polite">
-    <noscript>Activez JavaScript pour utiliser les cartes mémoire interactives (la Fiche de Synthèse reste intégralement lisible ci-dessus).</noscript>
+    <p id="cards-grade-banner" class="info-banner" hidden></p>
+    <div id="flashcards-stage" class="study-stage" aria-live="polite">
+      <noscript>Activez JavaScript pour utiliser les cartes mémoire interactives (la Fiche de Synthèse reste intégralement lisible ci-dessus).</noscript>
+    </div>
   </div>
 </section>
 
@@ -120,16 +125,18 @@
   aria-labelledby="tab-quiz"
   hidden
 >
-  <div class="island-toolbar">
-    <p id="quiz-progress-label" class="progress-text"></p>
-    <label id="quiz-all-levels-wrap" class="toggle-inline" hidden>
-      <input type="checkbox" id="quiz-all-levels-toggle">
-      <span>Tout le thème (inclure niveaux supérieurs)</span>
-    </label>
-  </div>
-  <p id="quiz-grade-banner" class="info-banner" hidden></p>
-  <div id="quiz-stage" class="study-stage" aria-live="polite">
-    <noscript>Activez JavaScript pour répondre au QCM interactif.</noscript>
+  <div class="tab-panel-surface">
+    <div class="island-toolbar">
+      <p id="quiz-progress-label" class="progress-text"></p>
+      <label id="quiz-all-levels-wrap" class="toggle-inline" hidden>
+        <input type="checkbox" id="quiz-all-levels-toggle">
+        <span>Tout le thème (inclure niveaux supérieurs)</span>
+      </label>
+    </div>
+    <p id="quiz-grade-banner" class="info-banner" hidden></p>
+    <div id="quiz-stage" class="study-stage" aria-live="polite">
+      <noscript>Activez JavaScript pour répondre au QCM interactif.</noscript>
+    </div>
   </div>
 </section>
 
@@ -139,34 +146,37 @@
   class="tab-panel"
   role="tabpanel"
   aria-labelledby="tab-resources"
-  hidden
+  data-searchable-panel="true"
+  hidden="until-found"
 >
-  <div class="resources-panel">
-    <h2>Pour aller plus loin (liens externes vérifiés)</h2>
-    <p class="section-note">
-      Ces liens pointent vers des plateformes éducatives externes sélectionnées et contrôlées ; en cliquant dessus, vous quittez Osarai dans un nouvel onglet.
-    </p>
-    {% if resources %}
-    <ul class="resource-list">
-      {% for res in resources %}
-      <li class="resource-item">
-        <div class="resource-main">
-          <span class="resource-type-badge">{{ res.type }}</span>
-          <a href="{{ res.url }}" target="_blank" rel="noopener noreferrer" class="resource-link">
-            {{ res.title }}
-          </a>
-        </div>
-        <div class="resource-meta">
-          <span>Source : <code>{{ res.source_domain }}</code></span>
-          <span>·</span>
-          <span>Vérifié le {{ res.last_verified_at }}</span>
-        </div>
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p class="empty-state">Aucune ressource externe n'est référencée pour ce thème.</p>
-    {% endif %}
+  <div class="tab-panel-surface">
+    <div class="resources-panel">
+      <h2>Pour aller plus loin (liens externes vérifiés)</h2>
+      <p class="section-note">
+        Ces liens pointent vers des plateformes éducatives externes sélectionnées et contrôlées ; en cliquant dessus, vous quittez Osarai dans un nouvel onglet.
+      </p>
+      {% if resources %}
+      <ul class="resource-list">
+        {% for res in resources %}
+        <li class="resource-item">
+          <div class="resource-main">
+            <span class="resource-type-badge">{{ res.type }}</span>
+            <a href="{{ res.url }}" target="_blank" rel="noopener noreferrer" class="resource-link">
+              {{ res.title }}
+            </a>
+          </div>
+          <div class="resource-meta">
+            <span>Source : <code>{{ res.source_domain }}</code></span>
+            <span>·</span>
+            <span>Vérifié le {{ res.last_verified_at }}</span>
+          </div>
+        </li>
+        {% endfor %}
+      </ul>
+      {% else %}
+      <p class="empty-state">Aucune ressource externe n'est référencée pour ce thème.</p>
+      {% endif %}
+    </div>
   </div>
 </section>
 
@@ -228,7 +238,7 @@
 {% endblock %}
 
 {% block extra_dialogs %}
-<dialog id="image-zoom-dialog" class="modal-dialog zoom-dialog" aria-labelledby="image-zoom-title">
+<dialog id="image-zoom-dialog" class="modal-dialog zoom-dialog" closedby="any" aria-labelledby="image-zoom-title">
   <div class="modal-surface zoom-surface">
     <div class="modal-header">
       <h2 id="image-zoom-title">Schéma agrandi</h2>

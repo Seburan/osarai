@@ -66,11 +66,12 @@ def test_build_site_empty_repo_and_root_slash_base_url(sample_repo: Path, tmp_pa
 def test_build_site_full_theme_csp_cloze_tasl_and_search(sample_repo: Path, tmp_path: Path) -> None:
     theme_dir = sample_repo / "content" / "cycle-4" / "svt" / "la-respiration"
 
-    # Enrichir summary.md avec `cœur` et `œsophage` et meta.yaml avec un retired_id pour tout tester
+    # Enrichir summary.md (ligatures + tableau Markdown) et meta.yaml (retired_id)
     summary_path = theme_dir / "summary.md"
     summary_path.write_text(
         summary_path.read_text(encoding="utf-8")
-        + "\nLe **cœur** propulse le sang tandis que l'**œsophage** appartient au tube digestif.\n",
+        + "\nLe **cœur** propulse le sang tandis que l'**œsophage** appartient au tube digestif.\n"
+        + "\n| Gaz | Air inspiré |\n| :--- | :--- |\n| Dioxygène | 21 % |\n",
         encoding="utf-8",
     )
     dump_yaml_roundtrip(
@@ -179,13 +180,24 @@ def test_build_site_full_theme_csp_cloze_tasl_and_search(sample_repo: Path, tmp_
     assert '<span class="cloze-blank">[formule]</span>' in c2_front
     assert r'<strong class="cloze-answer">\(\text{CO}_2\)</strong>' in c2_back
 
-    # 5) Bascule de thème clair/sombre accessible sans script en ligne (conformité CSP)
+    # 5) Bascule de thème clair/sombre, en-tête Outils, icône SVG et conformité Modern Web Guidance
     assert '<meta name="color-scheme" content="light dark">' in html_text
+    assert '<meta name="text-scale" content="scale">' in html_text
     assert "/osarai/assets/js/theme-init.js" in html_text
     assert (dist_dir / "assets" / "js" / "theme-init.js").is_file()
+    assert (dist_dir / "assets" / "icon.svg").is_file()
+    assert 'href="/osarai/assets/icon.svg"' in html_text
+    assert manifest["icons"][0]["src"] == "/osarai/assets/icon.svg"
+    assert '<search class="search-wrapper">' in html_text
+    assert "aria-expanded=" not in html_text
+    assert 'popovertarget="header-tools-popover"' in html_text
     assert 'id="btn-theme-toggle"' in html_text
     assert "Passer au thème sombre" in html_text
     assert "Passer au thème clair" in html_text
+    assert 'closedby="any"' in html_text
+    assert 'hidden="until-found"' in html_text
+    assert '<div class="table-wrapper" tabindex="0" role="region"' in html_text
+    assert '<th scope="col"' in html_text
 
 
 def test_build_site_search_index_does_not_truncate_keywords_on_long_themes(

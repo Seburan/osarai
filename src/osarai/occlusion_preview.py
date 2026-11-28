@@ -10,7 +10,7 @@ from osarai import ExitCode, OsaraiError
 from osarai.schemas import AssetsFile, FlashcardsFile, OcclusionBox, QuizFile
 from osarai.yaml_io import load_yaml
 
-TARGET_FILL_RGBA = (217, 119, 6, 255)
+TARGET_FILL_RGBA = (180, 83, 9, 255)
 TARGET_OUTLINE_RGBA = (153, 27, 27, 255)
 TARGET_TEXT_RGBA = (255, 255, 255, 255)
 

@@ -129,11 +129,31 @@ function initGradeFiltering() {
   applyFilter();
 }
 
+function initHeaderScrollOffset() {
+  const header = document.querySelector(".site-header");
+  if (!header) return;
+  const syncOffset = () => {
+    const h = Math.ceil(header.getBoundingClientRect().height);
+    if (h > 0) {
+      document.documentElement.style.setProperty("--header-offset", `${h + 12}px`);
+    }
+  };
+  syncOffset();
+  if (typeof ResizeObserver === "function") {
+    new ResizeObserver(syncOffset).observe(header);
+  }
+}
+
 function initTabs() {
   const tablist = document.querySelector('[role="tablist"]');
   if (!tablist) return;
   const tabs = Array.from(tablist.querySelectorAll('[role="tab"]'));
   if (!tabs.length) return;
+
+  function getPanelForTab(tab) {
+    const panelId = tab.dataset.tabPanel || tab.getAttribute("aria-controls");
+    return panelId ? document.getElementById(panelId) : null;
+  }
 
   function activateTab(nextTab, moveFocus = false) {
     for (const tab of tabs) {
@@ -141,11 +161,19 @@ function initTabs() {
       tab.classList.toggle("is-active", selected);
       tab.setAttribute("aria-selected", selected ? "true" : "false");
       tab.tabIndex = selected ? 0 : -1;
-      const panelId = tab.getAttribute("aria-controls");
-      const panel = panelId ? document.getElementById(panelId) : null;
+      const panel = getPanelForTab(tab);
       if (panel) {
-        panel.hidden = !selected;
+        if (selected) {
+          panel.removeAttribute("hidden");
+        } else if (panel.dataset.searchablePanel === "true") {
+          panel.setAttribute("hidden", "until-found");
+        } else {
+          panel.hidden = true;
+        }
       }
+    }
+    if (typeof nextTab.scrollIntoView === "function") {
+      nextTab.scrollIntoView({ block: "nearest", inline: "nearest" });
     }
     if (moveFocus) {
       nextTab.focus();
@@ -166,6 +194,11 @@ function initTabs() {
         activateTab(tabs[targetIdx], true);
       }
     });
+
+    const panel = getPanelForTab(tab);
+    if (panel && panel.dataset.searchablePanel === "true") {
+      panel.addEventListener("beforematch", () => activateTab(tab, false));
+    }
   });
 }
 
@@ -195,13 +228,43 @@ function initDialogsAndZoom() {
     }
   });
 
-  // Fermer les <dialog> au clic sur l'arrière-plan (backdrop)
-  for (const dlg of document.querySelectorAll("dialog.modal-dialog")) {
-    dlg.addEventListener("click", (event) => {
-      if (event.target === dlg && typeof dlg.close === "function") {
-        dlg.close();
-      }
-    });
+  // Repli light-dismiss uniquement si <dialog closedby="any"> n'est pas encore supporté nativement
+  if (typeof HTMLDialogElement !== "undefined" && !("closedBy" in HTMLDialogElement.prototype)) {
+    const isOutside = (e, dialog) => {
+      const r = dialog.getBoundingClientRect();
+      return e.clientX < r.left || e.clientX > r.right || e.clientY < r.top || e.clientY > r.bottom;
+    };
+    for (const dialog of document.querySelectorAll('dialog[closedby="any"]')) {
+      let pressedOutside = false;
+      dialog.addEventListener("pointerdown", (e) => {
+        pressedOutside = isOutside(e, dialog);
+      });
+      dialog.addEventListener("pointerup", (e) => {
+        if (pressedOutside && isOutside(e, dialog) && typeof dialog.close === "function") {
+          dialog.close();
+        }
+      });
+    }
+  }
+
+  // Repli léger sans dépendance externe pour les rares navigateurs sans Popover API native
+  if (typeof HTMLElement !== "undefined" && !Object.hasOwn(HTMLElement.prototype, "popover")) {
+    for (const trigger of document.querySelectorAll("[popovertarget]")) {
+      const targetId = trigger.getAttribute("popovertarget");
+      const pop = targetId ? document.getElementById(targetId) : null;
+      if (!pop) continue;
+      trigger.addEventListener("click", () => {
+        pop.classList.toggle(":popover-open");
+      });
+      document.addEventListener("click", (e) => {
+        if (!pop.contains(e.target) && !trigger.contains(e.target)) {
+          pop.classList.remove(":popover-open");
+        }
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") pop.classList.remove(":popover-open");
+      });
+    }
   }
 }
 
@@ -221,6 +284,15 @@ function validateBackupPayload(obj) {
   return true;
 }
 
+function closeToolsPopover() {
+  const toolsPopover = document.getElementById("header-tools-popover");
+  if (!toolsPopover) return;
+  if (typeof toolsPopover.hidePopover === "function" && toolsPopover.matches(":popover-open")) {
+    toolsPopover.hidePopover();
+  }
+  toolsPopover.classList.remove(":popover-open");
+}
+
 function initBackupControls() {
   const exportBtn = document.getElementById("btn-export-backup");
   const importBtn = document.getElementById("btn-import-backup");
@@ -228,6 +300,7 @@ function initBackupControls() {
 
   if (exportBtn) {
     exportBtn.addEventListener("click", () => {
+      closeToolsPopover();
       const progress = {};
       try {
         for (let i = 0; i < window.localStorage.length; i += 1) {
@@ -265,6 +338,7 @@ function initBackupControls() {
 
   if (importBtn && fileInput) {
     importBtn.addEventListener("click", () => {
+      closeToolsPopover();
       fileInput.value = "";
       fileInput.click();
     });
@@ -362,6 +436,7 @@ function bootstrap() {
     requestPersistentStorage();
   }
 
+  initHeaderScrollOffset();
   initThemeToggle();
   initGradeFiltering();
   initTabs();

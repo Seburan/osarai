@@ -121,10 +121,11 @@ uv run osarai validate --against-ref origin/main
    uv run osarai build-site --output .osarai_tmp/gh_pages_sim/osarai --base-url "/osarai"
    uv run python -m http.server -d .osarai_tmp/gh_pages_sim 8000
    ```
-3. **Points à vérifier dans les *DevTools* du navigateur (`F12`)** :
-   - **Onglet *Console* & *Network*** : aucune erreur `Content-Security-Policy` et **zéro requête vers un domaine externe** (polices et CSS KaTeX chargés localement depuis `/assets/vendor/katex/`).
-   - **Modes clair / sombre** : utilisez le bouton `🌙 Sombre` / `☀️ Clair` dans l'en-tête en haut à droite pour vérifier que le conteneur d'illustration `.asset-container` conserve son fond `#ffffff`, que les masques d'occultation (`target` orange `?` et `mask` ardoise) sont 100 % opaques et alignés, et que le bouton *Agrandir le schéma* ouvre la boîte `<dialog>` plein écran.
-   - **Quarantaine & Sauvegarde** : le signalement d'une carte ou d'un QCM l'écarte immédiatement dans `localStorage`, génère un JSON valide pour `uv run osarai validate --feedback <fichier>`, et l'export/import `osarai-backup-v1.json` restaure la progression.
+3. **Points à vérifier dans les *DevTools* du navigateur (`F12`) et conformité `modern-web-guidance`** :
+   - Toute évolution HTML/CSS/JS sous `src/osarai/templates/` ou `src/osarai/web_assets/` doit suivre les référentiels **`modern-web-guidance`** (en amélioration progressive sans polyfill externe, conformément à [`AGENTS.md`](AGENTS.md)).
+   - **Onglet *Console*, *Network* & *Lighthouse*** : aucune erreur console ni `Content-Security-Policy`, **zéro requête vers un domaine externe** (icône SVG, polices et CSS KaTeX chargés localement), absence de débordement horizontal à `320 px` de large, et maintien des scores Lighthouse à `100` (*Accessibility*, *Best Practices*, *SEO*).
+   - **Modes clair / sombre** : ouvrez le panneau **Outils** dans l'en-tête pour basculer entre le thème clair et le thème sombre et vérifier que le conteneur d'illustration `.asset-container` conserve son fond `#ffffff`, que les masques d'occultation (`target` ambre `#b45309` `?` et `mask` ardoise) sont 100 % opaques et alignés, et que le bouton *Agrandir le schéma* ouvre la boîte `<dialog>` plein écran.
+   - **Quarantaine & Sauvegarde** : le signalement d'une carte ou d'un QCM l'écarte immédiatement dans `localStorage`, génère un JSON valide pour `uv run osarai validate --feedback <fichier>`, et l'export/import `osarai-backup-v1.json` (accessible depuis **Outils**) restaure la progression.
 
 ### Dépannage fréquent (*Troubleshooting*)
 - **`CoverageWarning: No data was collected (no-data-collected)` (`Total coverage: 0.00%`) lors de `pytest --cov`** :

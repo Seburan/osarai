@@ -9,7 +9,7 @@
 <nav class="breadcrumb" aria-label="Fil d'Ariane">
   <ol>
     <li><a href="{{ base_url }}/">Accueil</a></li>
-    <li aria-current="page">{{ subject.subject_label }}</li>
+    <li><a href="{{ base_url }}{{ subject.url }}" aria-current="page">{{ subject.subject_label }}</a></li>
   </ol>
 </nav>
 

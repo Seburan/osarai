@@ -519,7 +519,7 @@ def test_occlusion_preview_generates_full_and_mobile_320w(sample_repo: Path) -> 
         # Vérifier l'opacité totale (alpha=255, zéro transparence) et la distinction target/mask
         target_px = img_full.getpixel((int(0.16 * 640), int(0.22 * 480)))
         mask_px = img_full.getpixel((int(0.56 * 640), int(0.62 * 480)))
-        assert target_px == (217, 119, 6)
+        assert target_px == (180, 83, 9)
         assert mask_px == (71, 85, 105)
 
     with Image.open(mobile_png) as img_mob:

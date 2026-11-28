@@ -359,7 +359,9 @@ export function initFlashcards({
     btn.addEventListener("click", () => {
       activeFilter = btn.dataset.cardFilter || "all";
       for (const b of filterButtons) {
-        b.classList.toggle("is-active", b === btn);
+        const selected = b === btn;
+        b.classList.toggle("is-active", selected);
+        b.setAttribute("aria-pressed", selected ? "true" : "false");
       }
       currentIndex = 0;
       isRevealed = false;

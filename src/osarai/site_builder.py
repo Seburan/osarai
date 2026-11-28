@@ -384,6 +384,25 @@ def _enhance_summary_images(
     return img_tag_re.sub(_replace, summary_html)
 
 
+def _enhance_summary_tables(summary_html: str) -> str:
+    """Ajoute `scope="col"` aux en-têtes et encapsule les tableaux pour le scroll mobile."""
+    thead_re = re.compile(r"<thead>[\s\S]*?</thead>")
+    th_re = re.compile(r"<th(?![^>]*\bscope=)(\s+[^>]*?)?>")
+    table_re = re.compile(r"<table>[\s\S]*?</table>")
+
+    def _scope_thead(match: re.Match[str]) -> str:
+        return th_re.sub(lambda m: f'<th scope="col"{m.group(1) or ""}>', match.group(0))
+
+    with_scopes = thead_re.sub(_scope_thead, summary_html)
+    return table_re.sub(
+        lambda m: (
+            '<div class="table-wrapper" tabindex="0" role="region" '
+            f'aria-label="Tableau récapitulatif du cours">{m.group(0)}</div>'
+        ),
+        with_scopes,
+    )
+
+
 def _extract_summary_description(summary_md: str, fallback_title: str) -> str:
     lines: list[str] = []
     for raw_line in summary_md.splitlines():
@@ -499,6 +518,14 @@ def _write_manifest(output_dir: Path, norm_base_url: str) -> None:
         "scope": scoped_root,
         "background_color": "#f8fafc",
         "theme_color": "#1d4ed8",
+        "icons": [
+            {
+                "src": f"{norm_base_url}/assets/icon.svg",
+                "sizes": "any",
+                "type": "image/svg+xml",
+                "purpose": "any",
+            }
+        ],
     }
     (output_dir / "manifest.webmanifest").write_text(
         json.dumps(manifest, ensure_ascii=False, indent=2) + "\n",
@@ -579,7 +606,9 @@ def build_site(
                     shutil.copy2(src_img, dest_theme_assets / asset.filename)
 
                 raw_summary_html = md.render(summary_md)
-                summary_html = _enhance_summary_images(raw_summary_html, assets_by_filename)
+                summary_html = _enhance_summary_tables(
+                    _enhance_summary_images(raw_summary_html, assets_by_filename)
+                )
 
                 expanded_cards: list[dict[str, Any]] = []
                 for card in cards_file.cards:
